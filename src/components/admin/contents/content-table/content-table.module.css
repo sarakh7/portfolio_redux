@@ -1,0 +1,28 @@
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btnText {
+    display: none !important;
+}
+.verticalLine {
+    display: none;
+}
+.horizontalLine {
+    display: block;
+}
+@media (min-width:768px) {
+    .actions {
+        flex-direction: row;
+    }
+    .btnText {
+        display: inline-block !important;
+    }
+    .verticalLine {
+        display: block;
+    }
+    .horizontalLine {
+        display: none;
+    }
+}

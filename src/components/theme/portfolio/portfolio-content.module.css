@@ -1,0 +1,75 @@
+.contentWrapper {
+    position: relative;
+}
+
+.imageWrapper {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+.imageWrapper img {
+    width: 100%;
+    height: auto;
+}
+.subtitle {
+    font-family: var(--font-secondary);
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 15px;
+}
+.title {
+    font-size: 34px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    color: var(--color-body-light);
+    margin-bottom: 20px;
+}
+.description {
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+.btn {
+    position: relative;
+    background-color: var(--background-color-2);
+    box-shadow: var(--shadow-1);
+    display: inline-block;
+    padding: 20px 35px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    font-family: var(--font-scondary);
+    font-size: 16px;
+    border-radius: 10px;
+    z-index: 1;
+    transition: 0.4s;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.linkTitle {
+    display: inline-block;
+    margin-right: 10px;
+}
+.btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    background: var(--background-hover);
+    opacity: 0;
+    z-index: -1;
+    transition: 0.4s;
+}
+.btn:hover {
+    color: var(--color-primary);
+    transform: translateY(-4px);
+}
+.btn:hover::after{
+    opacity: 1;
+}
+.abstract {
+    margin-bottom: 30px;
+}

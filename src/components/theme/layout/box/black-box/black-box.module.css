@@ -1,0 +1,26 @@
+.box {
+    position: relative;
+    background-color: var(--background-color-2);
+    box-shadow: var(--shadow-1);
+    padding: 35px;
+    color: var(--color-body-light);
+    border-radius: 20px;
+    z-index: 1;
+    transition: 0.4s;
+}
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background: var(--background-hover);
+    opacity: 0;
+    z-index: -1;
+    transition: 0.4s;
+}
+
+.box:hover .back{
+    opacity: 1;
+}

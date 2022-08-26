@@ -1,0 +1,127 @@
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+.navbarNav {
+    display: flex;
+    flex-direction: column;
+}
+.brand img {
+    max-width: 100%;
+    height: auto;
+    transition: 0.3s;
+}
+.fixedBrand img{
+    max-width: 90%;
+}
+.navLink {
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: 0.3s;
+    font-weight: 400;
+}
+.brand, .toggle, .navLink {
+    color: var(--color-body-light);
+    font-size: 13px;
+    font-family: var(--font-secondary);
+
+}
+.active {
+    color: #fff !important;
+}
+.navLink:hover {
+    color: var(--color-white) !important;
+}
+.toggleBtn {
+    color: var(--color-primary) !important;
+    font-size: 28px;
+    background: transparent;
+    border: none;
+}
+.toggleBtn:focus {
+    box-shadow: none;   
+}
+.bgOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: black;
+    opacity: 0;
+    z-index: 999;
+    visibility: hidden;
+    transition: 0.5s ease-out;
+}
+.bgOverlay.show {
+    visibility: visible;
+    opacity: 0.7;
+}
+.closeBtn {
+    display: none;
+    position: absolute;
+    right: 25px;
+    background-color: #2b2f34;
+    border: none;
+    font-size: 21px;
+    color: var(--color-primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+@media (min-width: 1199px) {
+    .navbar {
+        flex-wrap: nowrap;
+    }
+    .toggleBtn {
+        display: none;
+    }
+    .navbarNav {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 1199px) {
+
+    .navbarCollapse {
+        display: block ;
+    }
+    .nav {
+        background-color: var(--background-color);
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 370px;
+        height: 100vh;
+        padding: 30px;
+        opacity: 0;
+        z-index: 999;
+        transition: 0.5s ease-out;
+    }
+    .nav.open {
+        left: -30px;
+        opacity: 1;
+        
+    }
+    .closeBtn {
+        display: block;
+    }
+    .navLink {
+        font-weight: 500;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 425px) {
+    .nav {
+        width: 270px;
+    }
+}

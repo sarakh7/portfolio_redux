@@ -1,0 +1,47 @@
+
+.icon {
+    font-size: 36px;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+}
+.title {
+    font-family: var(--font-primary);
+    color: var(--color-body-light);
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+.description {
+    margin-bottom: 25px;
+}
+.link {
+    font-size: 26px;
+    color: var(--color-primary);
+    opacity: 0;
+    transition: 0.4s;
+}
+.link:hover {
+    color: var(--color-primary);
+}
+.inner {
+    padding: 0 10px;
+    transform: translateY(20px);
+    transition: 0.4s;
+}
+
+.box:hover .inner {
+    transform: translateY(0);
+}
+.box:hover .link {
+    opacity: 1;
+}
+
+.animatedWrapper {
+    transform: translateY(30px);
+    opacity: 0;
+    transition: 0.5s;
+}
+.fadeUp {
+    transform: translateY(0);
+    opacity: 1;
+}

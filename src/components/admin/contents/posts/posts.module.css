@@ -1,0 +1,14 @@
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.newBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.title {
+    font-family: var(--font-primary);
+}

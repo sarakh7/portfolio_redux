@@ -1,0 +1,31 @@
+.contactWrapper {
+    padding-bottom: 50px;
+}
+.contactCard h4 {
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--color-light);
+    margin: 30px 0 15px;
+}
+.contactCard span {
+    font-size: 18px;
+}
+.cardBody {
+    margin-top: 25px;
+    color: var(--color-body);
+    font-size: 18px;
+}
+.contactInfo {
+    margin: 30px 0 39px;
+}
+.contactInfo .label {
+    margin-right: 7px;
+}
+.contactInfo .text {
+    color: var(--color-body-light);
+}
+.formWrapper {
+    box-shadow: var(--shadow-1);
+    border-radius: 10px;
+    padding: 10px 40px 50px;
+}

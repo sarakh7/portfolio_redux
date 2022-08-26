@@ -1,0 +1,36 @@
+.notFound {
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+}
+.err {
+    font-family: var(--font-primary);
+    font-size: 65px;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+.title {
+    font-family: var(--font-primary);
+    font-size: 28px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: capitalize;
+}
+.description {
+    font-family: var(--font-primary);
+    color: var(--color-body-light);
+    margin-bottom: 25px;
+}
+.linkBtn {
+    padding: 8px 15px;
+    border-radius: 4px;
+    background-color: #fff;
+    color: var(--color-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: var(--font-secondary);
+}
+.linkBtn:hover {
+    color: var(--color-body);
+}

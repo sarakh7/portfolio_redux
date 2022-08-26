@@ -1,0 +1,48 @@
+.box {
+    position: relative;
+    background-color: var(--background-color);
+    box-shadow: var(--shadow-1);
+    color: var(--color-body-light);
+    border-radius: 10px;
+    z-index: 1;
+    transition: 0.4s;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    background: var(--background-hover);
+    opacity: 0;
+    z-index: -1;
+    transition: 0.4s;
+}
+
+.box:hover::after{
+    opacity: 1;
+}
+.box:hover {
+    transform: translateY(-5px);
+}
+.socialWrapper {
+    display: flex;
+    margin-top: 30px;
+}
+.title {
+    text-transform: uppercase;
+    font-family: var(--font-secondary);
+    font-size: 15px;
+}
+.link {
+    text-decoration: none;
+}

@@ -1,0 +1,45 @@
+.slideContent {
+    padding-top: 120px;
+    position: relative;
+}
+.slideContent::after {
+    content: "";
+    background: url("../../../../assets/images/quote.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 120px;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+.card {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+}
+.quote {
+    width: 100px;
+    height: auto;
+}
+.slideWrapper {
+    padding: 20px;
+}
+
+@media (min-width: 992px) {
+    .slideContentCard::after {
+        content: "";
+        width: 24px;
+        height: 5px;
+        background: #16181c;
+        border: none;
+        right: 100%;
+        top: 63px;
+        display: block;
+        position: absolute;
+        opacity: 0.5;
+        z-index: 1;
+    }
+}

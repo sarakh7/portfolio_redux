@@ -1,0 +1,17 @@
+.header {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    transition: 0.3s;
+}
+.headerFixed {
+    position: fixed;
+    background-color: #212428de;
+    box-shadow: var(--shadow-1);
+    backdrop-filter: blur(15px);
+}
+.headerContainer {
+    padding: 0 30px;
+}
+

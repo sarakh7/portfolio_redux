@@ -1,0 +1,9 @@
+.box {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.5s;
+}
+.fadeUp {
+    opacity: 1;
+    transform: translateY(0);
+}

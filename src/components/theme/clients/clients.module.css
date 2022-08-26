@@ -1,0 +1,16 @@
+.clientWrapper {
+    margin-bottom: 40px;
+}
+.clientItem {
+    text-align: center;
+}
+.clientItem img {
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+.clientItem .clientTitle {
+    margin-top: 15px;
+    color: var(--color-body);
+    text-transform: capitalize;
+    font-size: 18px;
+}

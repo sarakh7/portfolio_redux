@@ -1,0 +1,36 @@
+.progressBarWrapper {
+    width: 100%;
+    height: 13px;
+    background: #212428;
+    box-shadow: inset 8px 8px 16px #00000075, inset -8px -8px 16px #383e4575;
+    border-radius: 10px;
+    padding: 3px 0;
+    margin-bottom: 60px;
+}
+.progressBar {
+    max-width: 100%;
+    height: 7px;
+    background: linear-gradient(145deg, #f02981 0%, #c81901 100%);
+    border-radius: 14px;
+    position: relative;
+    transition: 0.5s;
+}
+.label {
+    font-size: 13px;
+    font-family: var(--font-secondary);
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-body-light);
+    position: absolute;
+    top: -35px;
+}
+.value {
+    font-size: 16px;
+    font-family: var(--font-secondary);
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-body-light);
+    position: absolute;
+    top: -25px;
+    right: 0;
+}

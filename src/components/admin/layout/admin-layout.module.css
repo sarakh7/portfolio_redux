@@ -1,0 +1,54 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  /* direction: rtl; */
+}
+
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  width: 50px;
+  margin: 16px;
+}
+.logo img {
+  max-width: 100%;
+}
+.site_layout .site_layout_background {
+  background: #fff;
+}
+.site_layout_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.right_menu li span:nth-child(2) {
+  margin-right: 10px !important;
+  margin-left: auto !important;
+  text-align: right !important;
+}
+.right_menu .submenu > div {
+  padding-right: 16px !important;
+  padding-left: 34px !important;
+}
+.right_menu .submenu i {
+  left: 16px;
+  right: auto;
+}
+.right_menu .submenu ul li {
+  text-align: right;
+  padding-right: 48px !important;
+  padding-left: 24px !important;
+}
+.exitBtn {
+  margin-right: 24px;
+}

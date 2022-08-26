@@ -1,0 +1,11 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 100px 0;
+}
+.footerLogo {
+    margin-bottom: 30px;;
+}

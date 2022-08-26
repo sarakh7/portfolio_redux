@@ -1,0 +1,22 @@
+.pageHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 20px;
+}
+.newBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.title {
+    font-family: var(--font-primary);
+}
+@media (min-width:768px) {
+    .pageHeader {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

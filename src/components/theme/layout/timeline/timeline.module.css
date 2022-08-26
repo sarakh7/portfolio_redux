@@ -1,0 +1,45 @@
+.timeline {
+    position: relative;
+    padding: 0 10px 0 39px;
+}
+
+.timeline::before {
+    content: "";
+    width: 5px;
+    height: 100%;
+    background: #16181c;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: none;
+
+}
+.subtitle {
+    color: var(--color-primary);
+    text-transform: uppercase;
+    font-family: var(--font-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    display: block;
+}
+.title {
+    color: var(--color-body-light);
+    text-transform: capitalize;
+    font-family: var(--font-secondary);
+    font-size: 34px;
+    font-weight: 700;
+}
+.titleWrapper {
+    margin-bottom: 50px;
+    text-align: left;
+}
+
+@media (min-width: 991px) {
+    .subtitle {
+        font-size: var(--subtitle-font-size);
+    }
+    .title {
+        font-size: 36px;
+    }
+}

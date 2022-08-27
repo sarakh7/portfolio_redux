@@ -11,15 +11,13 @@ import UserDashboard from './components/user-dashboard/UserDashboaed';
 import { ROLES } from './components/Auth/roles'
 import Unauthorized from './components/Auth/Unauthorized';
 import { useEffect } from "react";
-import jwt_decode from "jwt-decode";
 import Logout from './components/Auth/Logout';
 import NotFound from './components/theme/not-found/NotFound';
-import { getUserById } from './services/authService';
 import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { login, userLoaded } from './store/auth/authSlice';
+import { getLogedInUser } from './store/auth/authActions';
 
 
 function App() {
@@ -27,37 +25,19 @@ function App() {
   const dispatch = useDispatch();
   const loadingUser = useSelector(state => state.auth.loadingUser);
 
-  // const [loadingUser, setLoadingUser] = useState(true);
-  // const { setAuth } = useContext(authContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
-
-      const token = localStorage.getItem("accessToken");
-
-      if (token) {
-        const decodedToken = jwt_decode(token);
-        if (decodedToken.exp * 1000 < Date.now()) {
-          navigate('/logout', { replace: true });
-        } else {
-          try {
-            const { data, status } = await getUserById(decodedToken.sub);
-            if (status === 200) {
-              // setAuth({ user: { email: decodedToken.email, id: decodedToken.sub }, roles: data.roles, accessToken: token });
-              dispatch(login({ user: { email: decodedToken.email, id: decodedToken.sub }, roles: data.roles, accessToken: token }))
-            }
-          } catch (err) {
-            console.log(err);
-          }
-        }
+      const logedInResult = await dispatch(getLogedInUser());
+      
+      if (logedInResult === null) {
+        navigate('/logout', { replace: true });
       }
-      // setLoadingUser(false);
-      dispatch(userLoaded());
     }
     getUser();
 
-  }, []);
+  }, [dispatch, navigate]);
 
   return (
     <HelmetProvider>
@@ -80,7 +60,6 @@ function App() {
               <Route path='/logout' element={<Logout />} />
               <Route path='*' element={<NotFound />} />
               <Route path='/' element={<MainProvider><Main /></MainProvider>} />
-              {/* <Route path='/counter' element={<Provider store={store}><Counter /></Provider>} /> */}
             </Routes>
           )
       }

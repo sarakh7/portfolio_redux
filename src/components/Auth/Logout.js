@@ -14,7 +14,8 @@ const Logout = () => {
         localStorage.removeItem("accessToken");
         dispatch(logout());
         navigate(from ? `/${from}` : '/', { replace: true });
-    }, [])
+        
+    }, [dispatch, navigate, from])
 
     return null
 }

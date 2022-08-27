@@ -1,24 +1,23 @@
 
 import { Form, Button, Input, Divider } from 'antd';
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { loginUser } from '../../services/authService';
 import { META } from '../../utils/meta';
 import styles from './authentication.module.css';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { authentication } from '../../store/auth/authActions';
 
 const Login = () => {
 
-    const [errorText, setErrorText]= useState('');
     const dispatch = useDispatch();
+    const errorText = useSelector(state => state.auth.errorText);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname;
 
     const [form] = Form.useForm();
+    
     return (
         <div className={styles.container}>
             <Helmet>
@@ -33,23 +32,11 @@ const Login = () => {
                     name="login"
                     layout="vertical"
                     onFinish={async (value) => {
-                        try {
-                            const { data, status } = await loginUser(value);
-                            if (status === 200 && data?.user?.status === true ) {
-                                const accessToken = data?.accessToken;
-                                const roles = data?.user?.roles;
-                                const loggedInUser = {email: data?.user?.email, id: JSON.stringify(data?.user?.id)};
-                                localStorage.setItem("accessToken", accessToken);
-                                dispatch(login({ user: loggedInUser, roles , accessToken }))
-                                navigate(from || `/dashboard/${data?.user?.id}`, { replace: true });
-                            } else {
-                                setErrorText("The username or password is incorrect");
-                                
-                            }
-
-                        } catch (err) {
-                            setErrorText("The username or password is incorrect");
+                        const result = await dispatch(authentication(value));
+                        if(result?.payload?.user) {
+                            navigate(from || `/dashboard/${result?.payload?.user?.id}`, { replace: true });
                         }
+                       
                         form.resetFields();
                     }}
                     autoComplete="off"

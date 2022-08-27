@@ -2,42 +2,28 @@ import { Button, Modal } from 'antd';
 import { LogoutOutlined, ArrowRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getUserById } from '../../services/authService';
 import { ROLES } from '../Auth/roles'
 import { Helmet } from 'react-helmet-async';
 import { META } from '../../utils/meta';
 import styles from './user-dashboard.module.css';
-import NotFound from '../theme/not-found/NotFound';
 import { useSelector } from 'react-redux';
+import NotFound from '../theme/not-found/NotFound';
 
 const UserDashboard = () => {
 
-    const [user, setUser] = useState({});
-    const [error, setError] = useState(false);
     const [unAuthorized, setUnAuthorized] = useState(false);
 
-    const auth = useSelector(state => state.auth.auth);
+    const { auth, errorText } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
     const { userId } = useParams();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const { data, status } = await getUserById(userId);
-                if (status === 200) {
-                    setUser(data);
-                }
-            } catch (err) {
-                setError(true);
-            }
-        }
-        if (userId === auth?.user?.id) {
-            fetchUser();
-        } else {
+
+        if (parseInt(userId) !== auth?.user?.id) {
             setUnAuthorized(true);
         }
-    }, [])
+    }, [userId, auth.user])
 
     return (
         <>
@@ -53,12 +39,12 @@ const UserDashboard = () => {
                             <title>{`${META.SiteName} - Dashboard`}</title>
                         </Helmet>
                         {
-                            error ? <div>There was an error receiving information</div>
+                            errorText.length > 0 ? <div>{errorText}</div>
                                 : <>
-                                    <h2>{`Hi, ${user.title}`}</h2>
+                                    <h2>{`Hi, ${auth.user.title}`}</h2>
                                     <p>Welcome to the dashboard</p>
                                     {
-                                        auth?.roles.includes(ROLES.Admin)
+                                        auth?.user?.roles.includes(ROLES.Admin)
                                             ? <Button
                                                 onClick={() => navigate('/admin', { replace: true })}
                                                 type='primary'

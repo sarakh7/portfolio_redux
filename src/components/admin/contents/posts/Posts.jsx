@@ -7,40 +7,24 @@ import { adminContext } from '../../../../context/adminContext';
 import ContentTable from '../content-table/ContentTable';
 import ContentHeader from '../content-header/ContentHeader';
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPosts } from '../../../../store/admin/post/postsActions';
+import { removePost } from './../../../../store/admin/post/postsActions';
+import { addPostCanceled, showAddPostForm } from '../../../../store/admin/post/postsSlice';
 
 
 const Posts = () => {
 
     const [currentPostData, setCurrentPostData] = useState([]);
     const [showEditForm, setShowEditForm] = useState(false);
-    const [showCreateForm, setShowCreateForm] = useState(false);
+    // const [showCreateForm, setShowCreateForm] = useState(false);
 
-    const { posts, setPosts } = useContext(adminContext);
+    const { posts, showCreateForm } = useSelector(state => state.posts);
 
-    const fetchData = async () => {
-        try {
-            const { data, status } = await getAllPosts();
-            if (status === 200) {
-                setPosts(data);
-            }
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    }
+    const dispatch = useDispatch();
 
-    const handleDeleteRecord = async (post_Id) => {
-        try {
-            const { status } = await deletePost(post_Id);
-            if(status === 200) {
-                const newContents = posts.filter(post => post.id !== post_Id);
-                setPosts(newContents);
-                toast.success("The record was deleted.");
-            } else {
-                toast.error("Failed to delete record.");
-            }
-        } catch (err) {
-            toast.error("Failed to delete record.");
-        }
+    const handleDeleteRecord = async (postId) => {
+        dispatch(removePost(postId));
     }
 
     const handleEditRecord = (post) => {
@@ -49,26 +33,19 @@ const Posts = () => {
     }
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        dispatch(getPosts());
+    }, [dispatch]);
 
     return (
         <>
             {
-                showEditForm ? <EditPost currentPostData={currentPostData} showEditForm={setShowEditForm} /> : (
-
-                    <>
-                        {
-                            showCreateForm ? (<CreatePost showCreateForm={setShowCreateForm} />) : (
-                                <>
-                                    <ContentHeader title="Posts" icon={<PlusOutlined />} btnTitle="Add New Post" action={setShowCreateForm} />
-                                    <ContentTable data={posts} dataTitle="Posts" handleEditRecord={handleEditRecord} handleDeleteRecord={handleDeleteRecord} />
-                                </>
-                            )
-                        }
-                    </>
-
-                )
+                showEditForm ? <EditPost currentPostData={currentPostData} showEditForm={setShowEditForm} />
+                    : showCreateForm
+                        ? <CreatePost />
+                        : <>
+                            <ContentHeader title="Posts" icon={<PlusOutlined />} btnTitle="Add New Post" action={showAddPostForm} />
+                            <ContentTable data={posts} dataTitle="Posts" handleEditRecord={handleEditRecord} handleDeleteRecord={handleDeleteRecord} />
+                        </>
             }
 
         </>

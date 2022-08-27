@@ -7,60 +7,41 @@ import { adminContext } from '../../../../context/adminContext';
 import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPost, getCats } from '../../../../store/admin/post/postsActions';
+import { addPostCanceled } from '../../../../store/admin/post/postsSlice';
 
 const { Option } = Select;
 
-const CreatePost = ({ showCreateForm }) => {
+const CreatePost = () => {
 
     const [fileId, setfileId] = useState();
-    const [cats, setCats] = useState([]);
-    const { posts, setPosts } = useContext(adminContext);
+
+    const dispatch = useDispatch();
+    const cats = useSelector(state => state.posts.cats);
 
     const [form] = Form.useForm();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data: groupsData, status: groupStatus } = await getAllGroups();
-                if (groupStatus === 200) {
-                    setCats(groupsData.filter(d => d.status === true));
-                }
-
-            } catch (err) {
-                toast.error("There was an error receiving data.");
-            }
-        }
-        fetchData();
-    }, []);
+        dispatch(getCats());
+    }, [dispatch]);
 
     return (
         <>
-            <ContentHeader title="Create New Posts" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showCreateForm} />
+            <ContentHeader title="Create New Posts" icon={<ArrowLeftOutlined />} btnTitle="Back" action={addPostCanceled} />
 
             <Form
                 form={form}
                 name="add-post"
                 layout="vertical"
-                onFinish={async (value) => {
-                    const newValue = {
+                onFinish={(value) => {
+
+                    dispatch(addPost({
                         ...value,
                         image: fileId,
                         date: Date.now()
-                    }
-                    try {
-                        const { data, status } = await createPost(newValue);
-                        if (status === 201) {
-                            const newPosts = [...posts, data];
-                            setPosts(newPosts);
-                            toast.success("Record added successfully.");
-                        } else {
-                            toast.error("An error occurred creating the record.");
-                        }
-                        showCreateForm(false);
+                    }));
 
-                    } catch (err) {
-                        toast.error("An error occurred creating the record.");
-                    }
                 }}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
@@ -132,7 +113,7 @@ const CreatePost = ({ showCreateForm }) => {
                     <Switch />
                 </Form.Item>
                 <Form.Item>
-                    <Button onClick={() => showCreateForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(addPostCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Create Post</Button>
                 </Form.Item>

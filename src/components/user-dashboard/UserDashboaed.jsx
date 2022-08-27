@@ -6,14 +6,16 @@ import { ROLES } from '../Auth/roles'
 import { Helmet } from 'react-helmet-async';
 import { META } from '../../utils/meta';
 import styles from './user-dashboard.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import NotFound from '../theme/not-found/NotFound';
+import { logOutUser } from './../../store/auth/authActions';
 
 const UserDashboard = () => {
 
     const [unAuthorized, setUnAuthorized] = useState(false);
 
     const { auth, errorText } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const { userId } = useParams();
@@ -64,7 +66,7 @@ const UserDashboard = () => {
                                                 title: 'Are you sure you want to exit?',
                                                 icon: <ExclamationCircleOutlined />,
                                                 okType: 'danger',
-                                                onOk() { navigate('/logout', { replace: true }) }
+                                                onOk: () => dispatch(logOutUser())
                                             });
                                         }}
                                         type='danger'

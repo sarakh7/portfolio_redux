@@ -1,5 +1,5 @@
 import { getUserById, loginUser } from "../../services/authService";
-import { login, errorOccurred, userLoaded } from "./authSlice";
+import { login, errorOccurred, userLoaded, logout } from "./authSlice";
 import jwt_decode from "jwt-decode";
 
 export const authentication = loginInfo => async (dispatch) => {
@@ -18,7 +18,7 @@ export const authentication = loginInfo => async (dispatch) => {
     }
 }
 
-export const getLogedInUser = () => async (dispatch) => {
+export const checkLogedInUser = () => async (dispatch) => {
 
     const token = localStorage.getItem("accessToken");
 
@@ -26,13 +26,13 @@ export const getLogedInUser = () => async (dispatch) => {
         const decodedToken = jwt_decode(token);
         if (decodedToken.exp * 1000 < Date.now()) {
             dispatch(userLoaded());
-            return null;
+            logOutUser();
 
         } else {
             try {
                 const { data, status } = await getUserById(decodedToken.sub);
                 if (status === 200) {
-                    return dispatch(login({
+                    dispatch(login({
                         user: data,
                         accessToken: token
                     }));
@@ -44,3 +44,8 @@ export const getLogedInUser = () => async (dispatch) => {
     }
     dispatch(userLoaded());
 }
+
+export const logOutUser = () => (dispatch) => {
+    localStorage.removeItem("accessToken");
+    dispatch(logout());
+} 

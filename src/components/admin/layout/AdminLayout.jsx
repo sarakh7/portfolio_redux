@@ -18,6 +18,8 @@ import { META } from '../../../utils/meta';
 
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './admin-layout.module.css'
+import { useDispatch } from 'react-redux';
+import { logOutUser } from './../../../store/auth/authActions';
 
 ConfigProvider.config({
   theme: {
@@ -34,8 +36,7 @@ const AdminLayout = () => {
   const [activePage, setActivePage] = useState(<Home />);
   const [panelLogo, setPanelLogo] = useState("");
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchLogo = async () => {
@@ -97,7 +98,7 @@ const AdminLayout = () => {
                     title: 'Are you sure you want to exit?',
                     icon: <ExclamationCircleOutlined />,
                     okType: 'danger',
-                    onOk() { navigate(`/logout${location.pathname}`, { replace: true }) }
+                    onOk: () => dispatch(logOutUser())
                   });
                 }}
                 type='danger'

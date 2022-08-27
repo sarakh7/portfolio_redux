@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../store/authSlice';
+import { logout } from '../../store/auth/authSlice';
 
 const Logout = () => {
 

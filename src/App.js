@@ -19,7 +19,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { login, userLoaded } from './store/authSlice';
+import { login, userLoaded } from './store/auth/authSlice';
 
 
 function App() {

@@ -7,7 +7,7 @@ import { loginUser } from '../../services/authService';
 import { META } from '../../utils/meta';
 import styles from './authentication.module.css';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/authSlice';
+import { login } from '../../store/auth/authSlice';
 
 const Login = () => {
 

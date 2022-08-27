@@ -1,4 +1,4 @@
-import { getUserById, loginUser } from "../../services/authService";
+import { createUser, getUserById, loginUser } from "../../services/authService";
 import { login, errorOccurred, userLoaded, logout } from "./authSlice";
 import jwt_decode from "jwt-decode";
 
@@ -16,6 +16,11 @@ export const authentication = loginInfo => async (dispatch) => {
     } catch (err) {
         dispatch(errorOccurred("The username or password is incorrect"));
     }
+}
+
+export const logOutUser = () => (dispatch) => {
+    localStorage.removeItem("accessToken");
+    dispatch(logout());
 }
 
 export const checkLogedInUser = () => async (dispatch) => {
@@ -45,7 +50,18 @@ export const checkLogedInUser = () => async (dispatch) => {
     dispatch(userLoaded());
 }
 
-export const logOutUser = () => (dispatch) => {
-    localStorage.removeItem("accessToken");
-    dispatch(logout());
-} 
+export const registerUser = user => async (dispatch) => {
+    try {
+        const { data, status } = await createUser({ ...user, roles: [1], status: true });
+        if (status === 201 && data?.user?.status === true) {
+            localStorage.setItem("accessToken", data?.accessToken);
+            return dispatch(login({ user: data?.user, accessToken: data?.accessToken }));
+        } else {
+            dispatch(errorOccurred("Your account is deactive!"));
+            return data.user;
+        }
+
+    } catch (err) {
+        dispatch(errorOccurred("This username already exists or an error occurred during registration."));
+    }
+}

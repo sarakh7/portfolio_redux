@@ -49,26 +49,6 @@
       ],
       "status": true,
       "id": 5
-    },
-    {
-      "email": "test@test.com",
-      "password": "$2a$10$aonWJrkYTzGzcCCpg7/BG.11nQiRkiTWheHdqxWccP8CeYI1ZrKD2",
-      "title": "test",
-      "roles": [
-        1
-      ],
-      "status": false,
-      "id": 6
-    },
-    {
-      "email": "test2@test.com",
-      "password": "$2a$10$eOjuwUgHteh8ibo6V4k2te8BgA9PSdtSQ6RYn4GnxxAWjsCVz5mVi",
-      "title": "test 2",
-      "roles": [
-        1
-      ],
-      "status": true,
-      "id": 7
     }
   ],
   "socials": [

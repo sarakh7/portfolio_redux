@@ -31,7 +31,7 @@ export const checkLogedInUser = () => async (dispatch) => {
         const decodedToken = jwt_decode(token);
         if (decodedToken.exp * 1000 < Date.now()) {
             dispatch(userLoaded());
-            logOutUser();
+            dispatch(logOutUser());
 
         } else {
             try {

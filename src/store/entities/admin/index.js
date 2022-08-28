@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import postsSlice from "./post/postsSlice";
+import { catsSlice } from "./adminSlices";
 
-export default combineReducers({
-    posts: postsSlice.reducer
+const adminReducer = combineReducers({
+    posts: postsSlice.reducer,
+    [catsSlice.name]: catsSlice.reducer,
 })
+
+export default adminReducer;

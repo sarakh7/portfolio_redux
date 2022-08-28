@@ -1,22 +1,29 @@
 
-import { useContext } from 'react';
-import { adminContext } from '../../../../../context/adminContext';
 import { createGroup } from '../../../../../services/postService';
 import { Form, Input, Button, Switch } from 'antd';
 import ContentHeader from '../../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Row, Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../../../../store/entities/adminActions';
+import { useSliceActions } from '../../../../../context/SliceProvider';
 
-const CreateCat = ({ showCreateForm }) => {
+const CreateCat = () => {
 
-    const { cats, setCats } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
 
     const [form] = Form.useForm();
 
     return (
         <>
-            <ContentHeader title="Create New Category" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showCreateForm} />
+            <ContentHeader
+                title="Create New Category"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.createFormCanceled}
+            />
 
             <Form
                 form={form}
@@ -24,20 +31,11 @@ const CreateCat = ({ showCreateForm }) => {
                 layout="vertical"
                 initialValues={{ status: true }}
                 onFinish={async (value) => {
-                    try {
-                        const { data, status } = await createGroup(value);
-                        if (status === 201) {
-                            const newCats = [...cats, data];
-                            setCats(newCats);
-                            showCreateForm(prevValue => !prevValue);
-                            toast.success("Record added successfully.");
-                        } else {
-                            toast.error("An error occurred creating the record.");
-                        }
-                        form.resetFields();
-                    } catch (err) {
-                        toast.error("An error occurred creating the record.");
-                    }
+                    dispatch(addItem({
+                        actions,
+                        item: value,
+                        createItemFunc: createGroup
+                    }))
                 }}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
             >
@@ -63,7 +61,7 @@ const CreateCat = ({ showCreateForm }) => {
                 </Row>
 
                 <Form.Item>
-                    <Button onClick={() => showCreateForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Create Category</Button>
                 </Form.Item>

@@ -4,29 +4,29 @@ import { createSlice } from '@reduxjs/toolkit';
 const createAdminSlice = ({ name }) => createSlice({
     name,
     initialState: {
-        itemList: [],
+        items: [],
         showEditForm: false,
         showCreateForm: false,
         currentItem: []
     },
     reducers: {
         itemAdded: (state, action) => {
-            state.posts.push(action.payload);
+            state.items.push(action.payload);
             state.showCreateForm = false;
         },
         itemRemoved: (state, action) => {
-            state.posts = state.posts.filter(post => post.id !== action.payload);
+            state.items = state.items.filter(item => item.id !== action.payload);
         },
         itemUpdated: (state, action) => {
-            const index = state.posts.findIndex(post => post.id === action.payload.id);
-            state.posts[index] = action.payload;
+            const index = state.items.findIndex(item => item.id === action.payload.id);
+            state.items[index] = action.payload;
             state.showEditForm = false;
         },
         itemReceived: (state, action) => {
-            state.posts = action.payload;
+            state.items = action.payload;
         },
-        itemSeledted: (state, action) => {
-            state.currentPost = action.payload;
+        itemSelected: (state, action) => {
+            state.currentItem = action.payload;
         },
         createFormCanceled: (state) => {
             state.showCreateForm = false;

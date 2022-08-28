@@ -25,6 +25,8 @@ import Socials from '../contents/social/Socials';
 import Abouts from '../contents/about/Abouts';
 import Home from '../contents/home/Home';
 import Users from './../contents/users/Users';
+import SliceProvider from '../../../context/SliceProvider';
+import { catsSlice } from '../../../store/entities/adminSlices';
 
 
 const pages = [
@@ -36,7 +38,7 @@ const pages = [
         component: "",
         children: [
             { name: 'Posts', key: 'all-posts', component: <Posts /> },
-            { name: 'Categories', key: 'posts-cats', component: <PostCats /> }
+            { name: 'Categories', key: 'posts-cats', component: <SliceProvider slice={catsSlice}><PostCats /></SliceProvider> }
         ],
     },
     {

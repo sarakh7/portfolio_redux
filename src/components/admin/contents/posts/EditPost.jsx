@@ -6,9 +6,9 @@ import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCats } from '../../../../store/entities/admin/post/postsActions';
-import { editPost } from './../../../../store/entities/admin/post/postsActions';
-import { editPostCanceled } from '../../../../store/entities/admin/post/postsSlice';
+import { getCats } from '../../../../store/entities/post/postsActions';
+import { editPost } from './../../../../store/entities/post/postsActions';
+import { editPostCanceled } from '../../../../store/entities/post/postsSlice';
 
 const { Option } = Select;
 
@@ -17,7 +17,7 @@ const EditPost = () => {
     const [fileId, setfileId] = useState();
 
     const dispatch = useDispatch();
-    const { cats, currentPost } = useSelector(state => state.entities.admin.posts);
+    const { cats, currentPost } = useSelector(state => state.posts);
 
     useEffect(() => {
         dispatch(getCats());

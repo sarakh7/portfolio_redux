@@ -1,44 +1,42 @@
 
-import { useContext } from 'react';
-import { adminContext } from '../../../../../context/adminContext';
 import { updateGroup } from '../../../../../services/postService';
 import { Form, Input, Button, Switch } from 'antd';
 import ContentHeader from '../../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { editItem } from '../../../../../store/entities/adminActions';
+import { useSliceActions, useSliceSelector } from '../../../../../context/SliceProvider';
 
-const EditCat = ({ currentData, showEditForm }) => {
+const EditCat = () => {
 
-    const { cats, setCats } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const { currentItem } = useSliceSelector();
 
     const [form] = Form.useForm();
 
     return (
         <>
-            <ContentHeader title="Create New Category" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
+            <ContentHeader
+                title="Edit New Category"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.editFormCanceled}
+            />
 
             <Form
                 form={form}
                 name="add-group"
                 layout="vertical"
-                initialValues={{ ...currentData }}
+                initialValues={{ ...currentItem }}
                 onFinish={async (value) => {
-                    try {
-                        const { data, status } = await updateGroup(currentData.id, value);
-                        if (status === 200) {
-                            const newData = [...cats];
-                            const dataIndex = newData.findIndex(data => data.id === currentData.id);
-                            newData[dataIndex] = data;
-                            setCats([...newData]);
-                            toast.success("The record was successfully edited.");
-                        } else {
-                            toast.error("Editing failed.");
-                        }
-                        showEditForm(false);
-                    } catch (err) {
-                        toast.error("Editing failed.");
-                    }
+                    dispatch(editItem({
+                        actions,
+                        item: { id: currentItem.id, ...value },
+                        updateFunc: updateGroup
+                    }))
                 }}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
             >
@@ -65,7 +63,7 @@ const EditCat = ({ currentData, showEditForm }) => {
                 </Row>
 
                 <Form.Item>
-                    <Button onClick={() => showEditForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Save Changes</Button>
                 </Form.Item>

@@ -1,5 +1,5 @@
-import { createPost, deletePost, getAllPosts, getAllGroups } from "../../../services/postService";
-import { catReceived, postAdded, postRemoved, postsReceived } from "./postsSlice";
+import { createPost, deletePost, getAllPosts, getAllGroups, updatePost } from "../../../services/postService";
+import { catReceived, postAdded, postRemoved, postsReceived, postUpdated } from "./postsSlice";
 import { toast } from 'react-toastify';
 
 export const addPost = post => async (dispatch) => {
@@ -12,7 +12,6 @@ export const addPost = post => async (dispatch) => {
         } else {
             toast.error("An error occurred creating the record.");
         }
-        // showCreateForm(false);
 
     } catch (err) {
         toast.error("An error occurred creating the record.");
@@ -58,4 +57,19 @@ export const getCats = () => async (dispatch) => {
 
 export const editPost = post => async (dispatch) => {
 
+    try {
+        const { data, status } = await updatePost(post.id, post);
+        
+        if (status === 200) {
+            dispatch(postUpdated(data));
+
+            toast.success("The record was successfully edited.");
+
+        } else {
+            toast.error("Editing failed.");
+        }
+
+    } catch (err) {
+        toast.error("Editing failed.");
+    }
 }

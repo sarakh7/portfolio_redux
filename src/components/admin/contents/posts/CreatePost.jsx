@@ -1,9 +1,7 @@
 import { Button, Form, Input, Select, Switch } from 'antd';
-import { getAllGroups, createPost } from '../../../../services/postService';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ContentHeader from '../content-header/ContentHeader';
-import { adminContext } from '../../../../context/adminContext';
 import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
 import { toast } from 'react-toastify';
@@ -28,7 +26,12 @@ const CreatePost = () => {
 
     return (
         <>
-            <ContentHeader title="Create New Posts" icon={<ArrowLeftOutlined />} btnTitle="Back" action={addPostCanceled} />
+            <ContentHeader
+                title="Create New Posts"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={addPostCanceled}
+            />
 
             <Form
                 form={form}

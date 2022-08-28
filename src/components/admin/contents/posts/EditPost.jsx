@@ -1,90 +1,52 @@
 import { Button, Form, Input, Select, Switch } from 'antd';
-import { getAllGroups, updatePost } from '../../../../services/postService';
-import { useEffect, useState, useContext, useRef } from 'react';
-import { adminContext } from '../../../../context/adminContext';
+import { useEffect, useState, useRef } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-
 import ContentHeader from '../content-header/ContentHeader';
 import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
-import { deleteFile } from '../../../../services/themeServices';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCats } from '../../../../store/admin/post/postsActions';
+import { editPost } from './../../../../store/admin/post/postsActions';
+import { editPostCanceled } from '../../../../store/admin/post/postsSlice';
 
 const { Option } = Select;
 
-const EditPost = ({ currentPostData, showEditForm }) => {
+const EditPost = () => {
 
     const [fileId, setfileId] = useState();
-    const [cats, setCats] = useState([]);
-    const { posts, setPosts } = useContext(adminContext);
-    const prevImageRef = useRef();
+
+    const dispatch = useDispatch();
+    const { cats, currentPost } = useSelector(state => state.posts);
+
+    useEffect(() => {
+        dispatch(getCats());
+
+    }, [dispatch]);
+
+
     const [form] = Form.useForm();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data: groupsData, status: groupStatus } = await getAllGroups();
-                if (groupStatus === 200) {
-                    setCats(groupsData.filter(d => d.status === true));
-                }
-
-            } catch (err) {
-                toast.error("There was an error receiving data.");
-            }
-        }
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        const deletePrevFile = async () => {
-            try {
-                if (prevImageRef.current) {
-                    //if the image changed, delete the previous image
-                    await deleteFile(prevImageRef.current);
-                }
-                prevImageRef.current = fileId;
-            } catch (err) {
-                toast.error("Failed to delete image.");
-            }
-
-        }
-        deletePrevFile();
-    }, [fileId])
 
     return (
         <>
-            <ContentHeader title="Edit Post" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
+            <ContentHeader
+                title="Edit Post"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={editPostCanceled}
+            />
 
             <Form
                 form={form}
                 name="add-post"
                 layout="vertical"
-                initialValues={{ ...currentPostData }}
+                initialValues={{ ...currentPost }}
                 onFinish={async (value) => {
-                    const newValue = {
+                    dispatch(editPost({
                         ...value,
-                        image: fileId ? fileId : currentPostData.image,
-                    }
-                    try {
-                        const { data, status } = await updatePost(currentPostData.id, newValue);
-                        if (status === 200) {
-                            const newPosts = [...posts];
-                            const postIndex = newPosts.findIndex(post => post.id === currentPostData.id);
-                            newPosts[postIndex] = data;
-                            setPosts([...newPosts]);
-                            toast.success("The record was successfully edited.");
-                            //if the image changed, delete the previous image from DB
-                            if (fileId) {
-                                await deleteFile(currentPostData.image);
-                            }
-                        } else {
-                            toast.error("Editing failed.");
-                        }
-                        showEditForm(false);
-
-                    } catch (err) {
-                        toast.error("Editing failed.");
-                    }
+                        id: currentPost.id,
+                        image: fileId ? fileId : currentPost.image,
+                    }))
                 }}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
@@ -132,7 +94,7 @@ const EditPost = ({ currentPostData, showEditForm }) => {
                     label="Image"
                     name="image"
                 >
-                    <UploadFile fileId={currentPostData.image} setFileId={setfileId} />
+                    <UploadFile fileId={currentPost.image} setFileId={setfileId} />
                 </Form.Item>
                 <Form.Item
                     label="Icon"
@@ -157,7 +119,7 @@ const EditPost = ({ currentPostData, showEditForm }) => {
                     <Switch />
                 </Form.Item>
                 <Form.Item>
-                    <Button onClick={() => showEditForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(editPostCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Save Changes</Button>
                 </Form.Item>

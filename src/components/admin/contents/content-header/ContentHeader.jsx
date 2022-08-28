@@ -2,7 +2,6 @@
 import styles from './content-header.module.css';
 import { Button } from 'antd';
 import { useDispatch } from 'react-redux';
-import { addPostCanceled } from '../../../../store/admin/post/postsSlice';
 
 const ContentHeader = ({ title, btnTitle, icon, action }) => {
 
@@ -11,7 +10,15 @@ const ContentHeader = ({ title, btnTitle, icon, action }) => {
         <div className={styles.pageHeader}>
             <div className={styles.title}><h3>{title}</h3></div>
             {
-                btnTitle ? <Button className={styles.newBtn} type="primary" danger onClick={() => dispatch(action())} icon={icon}> {btnTitle}</Button>
+                btnTitle
+                    ? <Button
+                        className={styles.newBtn}
+                        type="primary"
+                        danger
+                        onClick={() => dispatch(action())} icon={icon}
+                    >
+                        {btnTitle}
+                    </Button>
                     : ""
             }
         </div>

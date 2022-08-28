@@ -6,8 +6,8 @@ import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost, getCats } from '../../../../store/admin/post/postsActions';
-import { addPostCanceled } from '../../../../store/admin/post/postsSlice';
+import { addPost, getCats } from '../../../../store/entities/admin/post/postsActions';
+import { addPostCanceled } from '../../../../store/entities/admin/post/postsSlice';
 
 const { Option } = Select;
 
@@ -16,7 +16,7 @@ const CreatePost = () => {
     const [fileId, setfileId] = useState();
 
     const dispatch = useDispatch();
-    const cats = useSelector(state => state.posts.cats);
+    const { cats } = useSelector(state => state.entities.admin.posts);
 
     const [form] = Form.useForm();
 

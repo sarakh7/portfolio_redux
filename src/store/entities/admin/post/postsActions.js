@@ -1,4 +1,4 @@
-import { createPost, deletePost, getAllPosts, getAllGroups, updatePost } from "../../../services/postService";
+import { createPost, deletePost, getAllPosts, getAllGroups, updatePost } from "../../../../services/postService";
 import { catReceived, postAdded, postRemoved, postsReceived, postUpdated } from "./postsSlice";
 import { toast } from 'react-toastify';
 

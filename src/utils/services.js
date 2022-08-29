@@ -2,6 +2,14 @@ import CreateEvent from "../components/admin/contents/events/CreateEvent";
 import EditEvent from "../components/admin/contents/events/EditEvent";
 import CreateCat from "../components/admin/contents/posts/post-cats/CreateCat";
 import EditCat from "../components/admin/contents/posts/post-cats/EditCat";
+import CreateProduct from "../components/admin/contents/products/CreateProduct";
+import EditProduct from "../components/admin/contents/products/EditProduct";
+import CreateProgressBar from "../components/admin/contents/progress-bars/CreateProgressBar";
+import CreateProgressBarList from "../components/admin/contents/progress-bars/CreateProgressBarList";
+import EditProgressBar from "../components/admin/contents/progress-bars/EditProgressBar";
+import EditProgressBarList from "../components/admin/contents/progress-bars/EditProgressBarList";
+import CreateTimeline from "../components/admin/contents/tilmelines/CreateTimeline";
+import EditTimeline from "../components/admin/contents/tilmelines/EditTimeline";
 import { createUser, deleteUser, getAllUsers, updateUser } from "../services/authService";
 import { createEvent, createTimeline, deleteEvent, deleteTimeline, getAllEvents, getAllTimelines, updateEvent, updateTimeline } from "../services/eventServices";
 import { createGroup, createPost, deleteGroup, deletePost, getAllGroups, getAllPosts, updateGroup, updatePost } from "../services/postService";
@@ -45,8 +53,8 @@ export const services = {
         createItem: createTimeline,
         updateItem: updateTimeline,
         deleteItem: deleteTimeline,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateTimeline />,
+        editForm: <EditTimeline />
     },
     progressbars: {
         name: "Progress Bar",
@@ -54,8 +62,8 @@ export const services = {
         createItem: createProgressBar,
         updateItem: updateProgressBar,
         deleteItem: deleteProgressBar,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateProgressBar />,
+        editForm: <EditProgressBar />
     },
     progressbarLists: {
         name: "Progress Bars",
@@ -63,8 +71,8 @@ export const services = {
         createItem: createProgressBarList,
         updateItem: updateProgressBarList,
         deleteItem: deleteProgressBarList,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateProgressBarList />,
+        editForm: <EditProgressBarList />
     },
     products: {
         name: "Product",
@@ -72,8 +80,8 @@ export const services = {
         createItem: createProduct,
         updateItem: updateProduct,
         deleteItem: deleteProduct,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateProduct />,
+        editForm: <EditProduct />
     },
     users: {
         name: "User",

@@ -9,8 +9,9 @@ import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { useSliceActions, useSliceSelector } from '../../../../hooks/sliceHooks';
+import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
+import { services } from '../../../../utils/services';
 
 const EditTimeline = () => {
 
@@ -18,13 +19,14 @@ const EditTimeline = () => {
 
     const dispatch = useDispatch();
     const actions = useSliceActions();
-    const { currentItem, innerItems, loadingInnerItems} = useSliceSelector();
+    const { currentItem, innerItems, loadingInnerItems } = useSliceSelector();
+    const service = useSliceService();
 
     const fetchData = async (eventTitle) => {
 
         let events = [];
         try {
-            const { data, status } = await getAllEvents()
+            const { data, status } = await services.events.getAllItems()
             if (status === 200) {
                 events = data.filter(event => {
                     return event.title.toLowerCase().includes(eventTitle.toLowerCase());
@@ -42,21 +44,14 @@ const EditTimeline = () => {
     }
 
     useEffect(() => {
-        dispatch(getInnerItems(actions, currentItem.events, getAllEvents));
-        
+        dispatch(getInnerItems(actions, currentItem.events, services.events.getAllItems));
+
     }, [dispatch, actions, currentItem]);
 
     const [form] = Form.useForm();
 
     return (
         <>
-            <ContentHeader
-                title="Edit Timeline"
-                icon={<ArrowLeftOutlined />}
-                btnTitle="Back"
-                action={actions.editFormCanceled}
-            />
-
             {loadingInnerItems ? <div>Loading ...</div>
                 : (
                     <Form
@@ -68,7 +63,7 @@ const EditTimeline = () => {
                             id: currentItem.id,
                             ...value,
                             events: value.events.map(event => event.value)
-                        }, updateTimeline))
+                        }, service.updateItem))
                         }
                         onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                         autoComplete="off"

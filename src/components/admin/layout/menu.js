@@ -9,7 +9,6 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import Posts from '../contents/posts/Posts';
-import Timelines from '../contents/tilmelines/Timelines';
 import ProgressBars from '../contents/progress-bars/ProgressBars';
 import ProgressBarLists from '../contents/progress-bars/ProgressBarLists';
 import TabMenues from '../contents/tab-menu/TabMenues';
@@ -59,7 +58,12 @@ const pages = [
                         <ContentLayout />
                     </SliceProvider>
             },
-            { name: 'Timelines', key: 'timelines', component: <SliceProvider slice={timelinesSlice}><Timelines /></SliceProvider> },
+            {
+                name: 'Timelines', key: 'timelines', component:
+                    <SliceProvider slice={timelinesSlice} service={services.timelines}>
+                        <ContentLayout />
+                    </SliceProvider>
+            },
         ],
     },
     {

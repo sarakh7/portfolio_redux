@@ -16,9 +16,7 @@ const Events = () => {
     const { items, showCreateForm, showEditForm } = useSliceSelector();
     const actions = useSliceActions();
 
-
     const handleDeleteRecord = (recordId) => {
-
         dispatch(removeItem(actions, recordId, deleteEvent));
     }
 

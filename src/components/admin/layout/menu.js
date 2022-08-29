@@ -27,10 +27,11 @@ import Home from '../contents/home/Home';
 import Users from './../contents/users/Users';
 import SliceProvider from '../../../context/SliceProvider';
 import { catsSlice, eventsSlice } from '../../../store/entities/adminSlices';
+import { timelinesSlice } from './../../../store/entities/adminSlices';
 
 
 const pages = [
-    { name: "Home", key: "home", icon: <HomeOutlined />, component: <Home />},
+    { name: "Home", key: "home", icon: <HomeOutlined />, component: <Home /> },
     {
         name: "Posts",
         key: "posts",
@@ -48,7 +49,7 @@ const pages = [
         component: "",
         children: [
             { name: 'Events', key: 'all-events', component: <SliceProvider slice={eventsSlice}><Events /></SliceProvider> },
-            { name: 'Timelines', key: 'timelines', component: <Timelines /> },
+            { name: 'Timelines', key: 'timelines', component: <SliceProvider slice={timelinesSlice}><Timelines /></SliceProvider> },
         ],
     },
     {

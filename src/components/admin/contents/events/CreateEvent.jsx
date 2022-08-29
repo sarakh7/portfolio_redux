@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useSliceActions } from '../../../../context/SliceProvider';
 import { addItem } from './../../../../store/entities/adminActions';
 
-const CreateEvent = ({ showCreateForm }) => {
+const CreateEvent = () => {
 
     const dispatch = useDispatch();
     const actions = useSliceActions();

@@ -1,21 +1,24 @@
 
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
 import { createTimeline, getAllEvents } from '../../../../services/eventServices';
 import DebounceSelect from '../../../../utils/DebounceSelect';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { adminContext } from '../../../../context/adminContext';
 import ContentHeader from '../content-header/ContentHeader';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions } from '../../../../context/SliceProvider';
+import { addItem } from '../../../../store/entities/adminActions';
 
-const CreateTimeline = ({ showCreateForm }) => {
+const CreateTimeline = () => {
 
     const [value, setValue] = useState([]);
 
-    const { timelines, setTimelines } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
 
-    const fetchData = async (eventTitle) => {
+    const fetchEvents = async (eventTitle) => {
 
         let events = [];
         try {
@@ -41,29 +44,19 @@ const CreateTimeline = ({ showCreateForm }) => {
 
     return (
         <>
-            <ContentHeader title="Create Timeline" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showCreateForm} />
+            <ContentHeader
+                title="Create Timeline"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.createFormCanceled}
+            />
 
             <Form
                 form={form}
                 name="add-event"
                 layout="vertical"
                 initialValues={{ status: true }}
-                onFinish={async (value) => {
-                    try {
-                        const { data, status } = await createTimeline({ ...value, events: value.events?.map(event => event.value) });
-
-                        if (status === 201) {
-                            const newTimelines = [...timelines, data];
-                            setTimelines(newTimelines);
-                            toast.success("Record added successfully.");
-                        } else {
-                            toast.error("An error occurred creating the record.");
-                        }
-                        showCreateForm(false);
-                    } catch (err) {
-                        toast.error("An error occurred creating the record.");
-                    }
-                }}
+                onFinish={value => dispatch(addItem(actions, { ...value, events: value.events?.map(event => event.value) }, createTimeline))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
             >
@@ -97,7 +90,7 @@ const CreateTimeline = ({ showCreateForm }) => {
                         allowClear
                         value={value}
                         placeholder="Select users"
-                        fetchOptions={fetchData}
+                        fetchOptions={fetchEvents}
                         onChange={(newValue) => {
                             setValue(newValue);
                         }}
@@ -115,7 +108,7 @@ const CreateTimeline = ({ showCreateForm }) => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button onClick={() => showCreateForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Create Timeline</Button>
                 </Form.Item>

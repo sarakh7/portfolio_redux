@@ -60,3 +60,20 @@ export const editItem = (actions, item, updateFunc) => async (dispatch) => {
         toast.error("Editing failed.");
     }
 }
+
+export const getInnerItems = (actions, innerList, getItemsFunc) => async (dispatch) => {
+    try {
+        const { data, status } = await getItemsFunc()
+        if (status === 200) {
+            const innerItems = data.filter(item => innerList?.includes(item.id))
+                .map(item => ({
+                    label: item.title,
+                    value: item.id,
+                }));
+            dispatch(actions.innerItemsReceived(innerItems));
+        }
+
+    } catch (err) {
+        toast.error("There was an error receiving events.");
+    }
+}

@@ -1,24 +1,26 @@
 
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
 import { getAllEvents, updateTimeline } from '../../../../services/eventServices';
 import DebounceSelect from '../../../../utils/DebounceSelect';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { adminContext } from '../../../../context/adminContext';
 import ContentHeader from '../content-header/ContentHeader';
 import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
 
-const EditTimeline = ({ currentData, showEditForm }) => {
+const EditTimeline = () => {
 
     const [value, setValue] = useState([]);
-    const [currentEvents, setCurrentEvents] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
-    const { timelines, setTimelines } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const { currentItem, innerItems, loadingInnerItems} = useSliceSelector();
 
-    const fetchData = async (eventTitle) => {
+    const fetchEvents = async (eventTitle) => {
 
         let events = [];
         try {
@@ -39,58 +41,35 @@ const EditTimeline = ({ currentData, showEditForm }) => {
         }));
     }
 
-    const getEvents = async () => {
-        try {
-            const { data, status } = await getAllEvents()
-            if (status === 200) {
-                const filteredEvents = data.filter(event => currentData.events?.includes(event.id));
-                const newEvents = filteredEvents.map(event => ({
-                    label: event.title,
-                    value: event.id,
-                }));
-                setCurrentEvents(newEvents);
-                setIsLoading(false);
-            }
-
-        } catch (err) {
-            toast.error("There was an error receiving events.");
-        }
-    }
     useEffect(() => {
-        getEvents();
-    }, []);
+        dispatch(getInnerItems(actions, currentItem.events, getAllEvents));
+        
+    }, [dispatch, actions, currentItem]);
 
     const [form] = Form.useForm();
 
     return (
         <>
-            <ContentHeader title="Edit Timeline" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
-            {isLoading ? <div>Loading ...</div>
+            <ContentHeader
+                title="Edit Timeline"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.editFormCanceled}
+            />
+
+            {loadingInnerItems ? <div>Loading ...</div>
                 : (
                     <Form
                         form={form}
                         name="add-event"
                         layout="vertical"
-                        initialValues={{ ...currentData, events: currentEvents }}
-                        onFinish={async (value) => {
-                            const newValues = { ...value, events: value.events.map(event => event.value) };
-                            try {
-                                const { data, status } = await updateTimeline(currentData.id, newValues);
-                                if (status === 200) {
-                                    const newData = [...timelines];
-                                    const dataIndex = newData.findIndex(data => data.id === currentData.id);
-                                    newData[dataIndex] = data;
-                                    setTimelines([...newData]);
-                                    toast.success("The record was successfully edited.");
-                                } else {
-                                    toast.error("Editing failed.");
-                                }
-                                showEditForm(false);
-
-                            } catch (err) {
-                                toast.error("Editing failed.");
-                            }
-                        }}
+                        initialValues={{ ...currentItem, events: innerItems }}
+                        onFinish={value => dispatch(editItem(actions, {
+                            id: currentItem.id,
+                            ...value,
+                            events: value.events.map(event => event.value)
+                        }, updateTimeline))
+                        }
                         onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                         autoComplete="off"
                     >
@@ -124,7 +103,7 @@ const EditTimeline = ({ currentData, showEditForm }) => {
                                 allowClear
                                 value={value}
                                 placeholder="Select users"
-                                fetchOptions={fetchData}
+                                fetchOptions={fetchEvents}
                                 onChange={(newValue) => {
                                     setValue(newValue);
                                 }}
@@ -142,7 +121,7 @@ const EditTimeline = ({ currentData, showEditForm }) => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button onClick={() => showEditForm(false)}>Cancel</Button>
+                            <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
                             {" "}
                             <Button type="primary" htmlType="submit">Save Changes</Button>
                         </Form.Item>

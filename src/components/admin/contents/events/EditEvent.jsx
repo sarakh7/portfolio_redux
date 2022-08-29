@@ -1,8 +1,6 @@
 
 import { Button, Form, Input, Switch } from 'antd';
 import { updateEvent } from '../../../../services/eventServices';
-import { useContext } from 'react';
-import { adminContext } from '../../../../context/adminContext';
 import ContentHeader from '../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
@@ -11,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
 import { editItem } from '../../../../store/entities/adminActions';
 
-const EditEvent = ({ currentData, showEditForm }) => {
+const EditEvent = () => {
 
     const dispatch = useDispatch();
     const actions = useSliceActions();

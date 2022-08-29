@@ -1,13 +1,14 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const createAdminSlice = ({ name }) => createSlice({
+const createAdminSlice = ({ name, initialState, reducers }) => createSlice({
     name,
     initialState: {
         items: [],
         showEditForm: false,
         showCreateForm: false,
-        currentItem: []
+        currentItem: [],
+        ...initialState
     },
     reducers: {
         itemAdded: (state, action) => {
@@ -21,6 +22,7 @@ const createAdminSlice = ({ name }) => createSlice({
             const index = state.items.findIndex(item => item.id === action.payload.id);
             state.items[index] = action.payload;
             state.showEditForm = false;
+            state.currentItem = {};
         },
         itemReceived: (state, action) => {
             state.items = action.payload;
@@ -36,13 +38,37 @@ const createAdminSlice = ({ name }) => createSlice({
         },
         editFormCanceled: (state) => {
             state.showEditForm = false;
+            state.currentItem = {};
         },
         editFormOpened: (state) => {
             state.showEditForm = true;
         },
+        ...reducers
 
     }
 })
 
 export const catsSlice = createAdminSlice({ name: 'cats' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
+export const timelinesSlice = createAdminSlice({
+    name: 'timelines',
+    initialState: {
+        innerItems: [],
+        loadingInnerItems: true
+    },
+    reducers: {
+        innerItemsReceived: (state, action) => {
+            state.innerItems = action.payload;
+            state.loadingInnerItems = false;
+        },
+        editFormOpened: (state) => {
+            state.loadingInnerItems = true;
+            state.showEditForm = true;
+        },
+        editFormCanceled: (state) => {
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems= []
+        },
+    }
+});

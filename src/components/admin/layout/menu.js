@@ -9,7 +9,6 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import Posts from '../contents/posts/Posts';
-import Events from '../contents/events/Events';
 import Timelines from '../contents/tilmelines/Timelines';
 import ProgressBars from '../contents/progress-bars/ProgressBars';
 import ProgressBarLists from '../contents/progress-bars/ProgressBarLists';
@@ -54,7 +53,12 @@ const pages = [
         icon: <ClockCircleOutlined />,
         component: "",
         children: [
-            { name: 'Events', key: 'all-events', component: <SliceProvider slice={eventsSlice}><Events /></SliceProvider> },
+            {
+                name: 'Events', key: 'all-events', component:
+                    <SliceProvider slice={eventsSlice} service={services.events} >
+                        <ContentLayout />
+                    </SliceProvider>
+            },
             { name: 'Timelines', key: 'timelines', component: <SliceProvider slice={timelinesSlice}><Timelines /></SliceProvider> },
         ],
     },

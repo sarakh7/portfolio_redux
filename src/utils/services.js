@@ -1,3 +1,5 @@
+import CreateEvent from "../components/admin/contents/events/CreateEvent";
+import EditEvent from "../components/admin/contents/events/EditEvent";
 import CreateCat from "../components/admin/contents/posts/post-cats/CreateCat";
 import EditCat from "../components/admin/contents/posts/post-cats/EditCat";
 import { createUser, deleteUser, getAllUsers, updateUser } from "../services/authService";
@@ -34,8 +36,8 @@ export const services = {
         createItem: createEvent,
         updateItem: updateEvent,
         deleteItem: deleteEvent,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateEvent />,
+        editForm: <EditEvent />
     },
     timelines: {
         name: "Timeline",

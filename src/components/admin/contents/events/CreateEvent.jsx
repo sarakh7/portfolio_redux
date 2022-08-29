@@ -1,36 +1,26 @@
 
 import { Button, Form, Input, Switch } from 'antd';
-import { createEvent } from '../../../../services/eventServices';
-import ContentHeader from '../content-header/ContentHeader';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { useSliceActions } from '../../../../hooks/sliceHooks';
+import { useSliceActions, useSliceService } from '../../../../hooks/sliceHooks';
 import { addItem } from './../../../../store/entities/adminActions';
 
 const CreateEvent = () => {
 
     const dispatch = useDispatch();
     const actions = useSliceActions();
+    const service = useSliceService();
 
     const [form] = Form.useForm();
 
     return (
-        <>
-            <ContentHeader
-                title="Create Event"
-                icon={<ArrowLeftOutlined />}
-                btnTitle="Back"
-                action={actions.createFormCanceled}
-            />
-
             <Form
                 form={form}
                 name="add-event"
                 layout="vertical"
                 initialValues={{ status: true }}
-                onFinish={value => dispatch(addItem(actions, value, createEvent))}
+                onFinish={value => dispatch(addItem(actions, value, service.createItem))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
             >
@@ -79,10 +69,9 @@ const CreateEvent = () => {
                 <Form.Item>
                     <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
                     {" "}
-                    <Button type="primary" htmlType="submit">Create Event</Button>
+                    <Button type="primary" htmlType="submit">{`Create ${service.name}`}</Button>
                 </Form.Item>
             </Form>
-        </>
     );
 }
 

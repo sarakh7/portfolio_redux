@@ -26,7 +26,7 @@ import Abouts from '../contents/about/Abouts';
 import Home from '../contents/home/Home';
 import Users from './../contents/users/Users';
 import SliceProvider from '../../../context/SliceProvider';
-import { catsSlice, eventsSlice } from '../../../store/entities/adminSlices';
+import { catsSlice, eventsSlice, productsSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice } from './../../../store/entities/adminSlices';
 
 
@@ -67,7 +67,7 @@ const pages = [
         name: 'Products',
         key: 'all-products',
         icon: <ShoppingOutlined />,
-        component: <Products />
+        component: <SliceProvider slice={productsSlice}><Products /></SliceProvider>
     },
 
     { name: 'Tab Menues', key: 'tab-menues', icon: <MenuOutlined />, component: <TabMenues /> },

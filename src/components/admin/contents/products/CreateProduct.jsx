@@ -4,41 +4,34 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { createProduct } from '../../../../services/productService';
 import ContentHeader from '../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useContext } from 'react';
-import { adminContext } from '../../../../context/adminContext';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions } from '../../../../hooks/sliceHooks';
+import { addItem } from '../../../../store/entities/adminActions';
 
-const CreateProduct = ({ showCreateForm }) => {
+const CreateProduct = () => {
 
-    const { products, setProducts } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
 
     const [form] = Form.useForm();
 
     return (
         <>
-            <ContentHeader title="Create Product" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showCreateForm} />
+            <ContentHeader
+                title="Create Product"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.createFormCanceled}
+            />
 
             <Form
                 form={form}
                 name="add-product"
                 layout="vertical"
                 initialValues={{ status: true }}
-                onFinish={async (value) => {
-                    try {
-                        const { data, status } = await createProduct({ ...value, date: Date.now() });
-                        if (status === 201) {
-                            const newProducts = [...products, data];
-                            setProducts(newProducts);
-                            toast.success("Record added successfully.");
-                        } else {
-                            toast.error("An error occurred creating the record.");
-                        }
-                        showCreateForm(false);
-                    } catch (err) {
-                        toast.error("An error occurred creating the record.");
-                    }
-                }}
+                onFinish={value => dispatch(addItem(actions, { ...value, date: Date.now() }, createProduct))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
             >
@@ -107,7 +100,7 @@ const CreateProduct = ({ showCreateForm }) => {
                     <Switch />
                 </Form.Item>
                 <Form.Item>
-                    <Button onClick={() => showCreateForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Create Product</Button>
                 </Form.Item>

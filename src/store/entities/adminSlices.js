@@ -50,8 +50,31 @@ const createAdminSlice = ({ name, initialState, reducers }) => createSlice({
 
 export const catsSlice = createAdminSlice({ name: 'cats' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
+export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
 export const timelinesSlice = createAdminSlice({
     name: 'timelines',
+    initialState: {
+        innerItems: [],
+        loadingInnerItems: true
+    },
+    reducers: {
+        innerItemsReceived: (state, action) => {
+            state.innerItems = action.payload;
+            state.loadingInnerItems = false;
+        },
+        editFormOpened: (state) => {
+            state.loadingInnerItems = true;
+            state.showEditForm = true;
+        },
+        editFormCanceled: (state) => {
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems= []
+        },
+    }
+});
+export const progressbarListsSlice = createAdminSlice({
+    name: 'progressbarLists',
     initialState: {
         innerItems: [],
         loadingInnerItems: true

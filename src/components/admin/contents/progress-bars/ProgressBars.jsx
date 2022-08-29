@@ -1,76 +1,57 @@
 
-import { useEffect, useState, useContext } from 'react';
-import { adminContext } from '../../../../context/adminContext';
+import { useEffect } from 'react';
 import { deleteProgressBar, getAllProgressBars } from '../../../../services/progressBarService';
 import EditProgressBar from './EditProgressBar';
 import CreateProgressBar from './CreateProgressBar';
 import ContentHeader from '../content-header/ContentHeader';
 import ContentTable from '../content-table/ContentTable';
 import { PlusOutlined } from '@ant-design/icons';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { getItems, removeItem } from '../../../../store/entities/adminActions';
 
 const ProgressBars = () => {
 
-    const [showEditForm, setShowEditForm] = useState(false);
-    const [showCreateForm, setShowCreateForm] = useState(false);
-    const [currentData, setCurrentData] = useState([]);
-
-    const { progressBars, setProgressBars } = useContext(adminContext);
-
-    const fetchData = async () => {
-        try {
-            const { data, status } = await getAllProgressBars()
-            if (status === 200) {
-                setProgressBars(data);
-            }
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    }
+    const dispatch = useDispatch();
+    const { items, showCreateForm, showEditForm } = useSliceSelector();
+    const actions = useSliceActions();
 
     const handleDeleteRecord = async (recordId) => {
-        try {
-            const { status } = await deleteProgressBar(recordId);
-            if (status === 200) {
-                const newContents = progressBars.filter(progressBar => progressBar.id !== recordId);
-                setProgressBars(newContents);
-                toast.success("The record was deleted.");
-            } else {
-                toast.error("Failed to delete record.");
-            }
-
-        } catch (err) {
-            toast.error("Failed to delete record.");
-        }
+        dispatch(removeItem(actions, recordId, deleteProgressBar));
     }
 
-    const handleEditRecord = (event) => {
-        setCurrentData(event);
-        setShowEditForm(true);
+    const handleEditRecord = (record) => {
+        dispatch(actions.itemSelected(record));
+        dispatch(actions.editFormOpened());
     }
 
     useEffect(() => {
-        fetchData();
-    }, [])
+        dispatch(actions.createFormCanceled());
+        dispatch(actions.editFormCanceled());
+        dispatch(getItems(actions, getAllProgressBars))
+
+    }, [dispatch, actions]);
 
 
     return (
         <>
             {
-                showEditForm ? <EditProgressBar currentData={currentData} showEditForm={setShowEditForm} /> : (
-
-                    <>
-                        {
-                            showCreateForm ? (<CreateProgressBar showCreateForm={setShowCreateForm} />) : (
-                                <>
-                                    <ContentHeader title="Progress bars" icon={<PlusOutlined />} btnTitle="Add New Progress bar" action={setShowCreateForm} />
-                                    <ContentTable data={progressBars} dataTitle="Progress bars" handleEditRecord={handleEditRecord} handleDeleteRecord={handleDeleteRecord} />
-                                </>
-                            )
-                        }
-                    </>
-
-                )
+                showEditForm ? <EditProgressBar />
+                    : showCreateForm ? <CreateProgressBar />
+                        : <>
+                            <ContentHeader
+                                title="Progress bars"
+                                icon={<PlusOutlined />}
+                                btnTitle="Add New Progress bar"
+                                action={actions.createFormOpened}
+                            />
+                            <ContentTable
+                                data={items}
+                                dataTitle="Progress bars"
+                                handleEditRecord={handleEditRecord}
+                                handleDeleteRecord={handleDeleteRecord}
+                            />
+                        </>
             }
         </>
     );

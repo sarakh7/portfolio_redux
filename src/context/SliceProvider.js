@@ -1,18 +1,12 @@
-import { createContext, useContext } from "react"
-import { useSelector } from 'react-redux';
+import { createContext } from "react"
 
-const SliceContext = createContext({})
+export const SliceContext = createContext({})
 
-const SliceProvider = ({ slice, children }) => (
-  <SliceContext.Provider value={slice}>{children}</SliceContext.Provider>
-)
+const SliceProvider = ({ slice, children }) => {
 
-const useSliceActions = () => useContext(SliceContext).actions
+  const { Provider } = SliceContext;
 
-const useSliceSelector = () => {
-  const {name} = useContext(SliceContext)
-  return useSelector(state => state.entities[name])
+  return <Provider value={slice}>{children}</Provider>
 }
 
 export default SliceProvider
-export { useSliceActions, useSliceSelector }

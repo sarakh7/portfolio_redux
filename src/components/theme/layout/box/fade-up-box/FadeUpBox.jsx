@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useOnScreen } from '../../../../../utils/useOnScreen';
+import { useOnScreen } from '../../../../../hooks/useOnScreen';
 import classNames from 'classnames';
 import styles from './fade-up-box.module.css';
 

@@ -7,7 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import CreateCat from './CreateCat';
 import EditCat from './EditCat';
 import { useDispatch } from 'react-redux';
-import { useSliceActions, useSliceSelector } from '../../../../../context/SliceProvider';
+import { useSliceActions, useSliceSelector } from '../../../../../hooks/sliceHooks';
 import { removeItem, getItems } from '../../../../../store/entities/adminActions';
 
 const PostCats = () => {

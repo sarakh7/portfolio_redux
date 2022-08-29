@@ -7,7 +7,7 @@ import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../../../../store/entities/adminActions';
-import { useSliceActions } from '../../../../../context/SliceProvider';
+import { useSliceActions } from '../../../../../hooks/sliceHooks';
 
 const CreateCat = () => {
 

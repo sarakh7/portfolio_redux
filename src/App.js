@@ -2,7 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Main from './components/theme/Main';
 import AdminLayout from './components/admin/layout/AdminLayout';
-import { MainProvider } from './context/mainContext';
+import MainProvider from './context/MainProvider';
 import { AdminProvider } from './context/adminContext';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';

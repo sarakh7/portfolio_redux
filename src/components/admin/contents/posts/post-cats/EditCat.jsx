@@ -7,7 +7,7 @@ import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { editItem } from '../../../../../store/entities/adminActions';
-import { useSliceActions, useSliceSelector } from '../../../../../context/SliceProvider';
+import { useSliceActions, useSliceSelector } from '../../../../../hooks/sliceHooks';
 
 const EditCat = () => {
 

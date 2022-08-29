@@ -7,7 +7,7 @@ import ContentHeader from '../content-header/ContentHeader';
 import ContentTable from '../content-table/ContentTable';
 import { PlusOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { useSliceActions, useSliceSelector } from '../../../../hooks/sliceHooks';
 import { getItems, removeItem } from '../../../../store/entities/adminActions';
 
 const ProgressBars = () => {

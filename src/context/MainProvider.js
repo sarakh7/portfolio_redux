@@ -1,15 +1,6 @@
 
 import { createContext, useState } from 'react';
-const mainContext = createContext({
-    headerLogo: "",
-    setHeaderLogo: () => {},
-    footerLogo: "",
-    setFooterLogo: () => {},
-    siteTitle: "",
-    setSiteTitle: () => {},
-    copyRight: "",
-    setCopyRight: () => {},
-});
+export const mainContext = createContext();
 
 const MainProvider = ({ children }) => {
 
@@ -41,7 +32,4 @@ const MainProvider = ({ children }) => {
 
 }
 
-export {
-    mainContext,
-    MainProvider
-}
+export default MainProvider

@@ -6,7 +6,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { useSliceActions, useSliceSelector } from '../../../../hooks/sliceHooks';
 import { editItem } from '../../../../store/entities/adminActions';
 
 const EditEvent = () => {

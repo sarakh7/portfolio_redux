@@ -1,6 +1,6 @@
 import styles from './footer.module.css';
 import { useContext } from 'react';
-import { mainContext } from '../../../../context/mainContext';
+import { mainContext } from '../../../../context/MainProvider';
 
 const Footer = () => {
 

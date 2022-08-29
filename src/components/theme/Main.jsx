@@ -15,7 +15,7 @@ import { getAllAbouts, getAllClientsSection, getAllPricings, getAllResumes, getA
 import { getTabMenuContent } from '../../utils/getTabMenuContent';
 import { getAllSocial } from '../../services/socialService';
 import { Spin } from 'antd';
-import { mainContext } from '../../context/mainContext';
+import { mainContext } from '../../context/MainProvider';
 import { Helmet } from 'react-helmet-async';
 import {META} from '../../utils/meta';
 

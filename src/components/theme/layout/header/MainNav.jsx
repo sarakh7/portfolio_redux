@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Link} from 'react-scroll';
 import styles from './main-nav.module.css';
 import { Fragment, useState, useContext } from 'react';
-import { mainContext } from "../../../../context/mainContext";
+import { mainContext } from "../../../../context/MainProvider";
 
 const MainNav = ({ fixed }) => {
 

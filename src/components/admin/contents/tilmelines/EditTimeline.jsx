@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { useSliceActions, useSliceSelector } from '../../../../hooks/sliceHooks';
 import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
 
 const EditTimeline = () => {

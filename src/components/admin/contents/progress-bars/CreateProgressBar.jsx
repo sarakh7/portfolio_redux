@@ -6,7 +6,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { useSliceActions } from '../../../../context/SliceProvider';
+import { useSliceActions } from '../../../../hooks/sliceHooks';
 import { addItem } from '../../../../store/entities/adminActions';
 
 const CreateProgressBar = () => {

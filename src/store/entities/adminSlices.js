@@ -45,3 +45,4 @@ const createAdminSlice = ({ name }) => createSlice({
 })
 
 export const catsSlice = createAdminSlice({ name: 'cats' });
+export const eventsSlice = createAdminSlice({ name: 'events' });

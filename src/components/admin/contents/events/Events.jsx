@@ -1,79 +1,62 @@
 
 import { deleteEvent, getAllEvents } from '../../../../services/eventServices';
-import { useEffect, useState, useContext } from 'react';
-import { adminContext } from '../../../../context/adminContext';
+import { useEffect } from 'react';
 import EditEvent from './EditEvent';
 import { PlusOutlined } from '@ant-design/icons';
 import ContentHeader from '../content-header/ContentHeader';
 import ContentTable from '../content-table/ContentTable';
 import CreateEvent from './CreateEvent';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { getItems, removeItem } from '../../../../store/entities/adminActions';
 
 const Events = () => {
 
-    const [showEditForm, setShowEditForm] = useState(false);
-    const [showCreateForm, setShowCreateForm] = useState(false);
-    const [currentData, setCurrentData] = useState([]);
+    const dispatch = useDispatch();
+    const { items, showCreateForm, showEditForm } = useSliceSelector();
+    const actions = useSliceActions();
 
-    const { events, setEvents } = useContext(adminContext);
 
-    const fetchData = async () => {
-        try {
-            const { data, status } = await getAllEvents()
-            if (status === 200) {
-                setEvents(data);
-            } else {
-                toast.error("There was an error receiving data.");
-            }
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    }
+    const handleDeleteRecord = (recordId) => {
 
-    const handleDeleteRecord = async (recordId) => {
-        try {
-            const { status } = await deleteEvent(recordId);
-            if(status === 200) {
-                const newContents = events.filter(event => event.id !== recordId);
-                setEvents(newContents);
-                toast.success("The record was deleted.");
-            } else {
-                toast.error("Failed to delete record.");
-            }      
-
-        } catch (err) {
-            toast.error("Failed to delete record.");
-        }
+        dispatch(removeItem(actions, recordId, deleteEvent));
     }
 
     const handleEditRecord = (record) => {
-        setCurrentData(record);
-        setShowEditForm(true);
+        dispatch(actions.itemSelected(record));
+        dispatch(actions.editFormOpened());
     }
 
     useEffect(() => {
+        dispatch(actions.createFormCanceled());
+        dispatch(actions.editFormCanceled());
+        dispatch(getItems(actions, getAllEvents))
 
-        fetchData();
-    }, [])
+    }, [dispatch, actions]);
 
 
     return (
         <>
             {
-                showEditForm ? <EditEvent currentData={currentData} showEditForm={setShowEditForm} /> : (
+                showEditForm
+                    ? <EditEvent />
+                    : showCreateForm
+                        ? <CreateEvent />
+                        : <>
+                            <ContentHeader
+                                title="Events"
+                                icon={<PlusOutlined />}
+                                btnTitle="Add New Event"
+                                action={actions.createFormOpened}
+                            />
+                            <ContentTable
+                                data={items}
+                                dataTitle="Events"
+                                handleEditRecord={handleEditRecord}
+                                handleDeleteRecord={handleDeleteRecord}
+                            />
+                        </>
 
-                    <>
-                        {
-                            showCreateForm ? (<CreateEvent showCreateForm={setShowCreateForm} />) : (
-                                <>
-                                    <ContentHeader title="Events" icon={<PlusOutlined />} btnTitle="Add New Event" action={setShowCreateForm} />
-                                    <ContentTable data={events} dataTitle="Events" handleEditRecord={handleEditRecord} handleDeleteRecord={handleDeleteRecord} />
-                                </>
-                            )
-                        }
-                    </>
-
-                )
             }
 
         </>

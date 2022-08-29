@@ -7,39 +7,33 @@ import ContentHeader from '../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector } from '../../../../context/SliceProvider';
+import { editItem } from '../../../../store/entities/adminActions';
 
 const EditEvent = ({ currentData, showEditForm }) => {
 
-    const { events, setEvents } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const { currentItem } = useSliceSelector();
 
     const [form] = Form.useForm();
 
     return (
         <>
-            <ContentHeader title="Edit Event" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
+            <ContentHeader
+                title="Edit Event"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.editFormCanceled}
+            />
 
             <Form
                 form={form}
                 name="add-event"
                 layout="vertical"
-                initialValues={{ ...currentData }}
-                onFinish={async (value) => {
-                    try {
-                        const { data, status } = await updateEvent(currentData.id, value);
-                        if (status === 200) {
-                            const newData = [...events];
-                            const dataIndex = newData.findIndex(data => data.id === currentData.id);
-                            newData[dataIndex] = data;
-                            setEvents([...newData]);
-                            toast.success("The record was successfully edited.");
-                        } else {
-                            toast.error("Editing failed.");
-                        }
-                        showEditForm(false);
-                    } catch (err) {
-                        toast.error("Editing failed.");
-                    }
-                }}
+                initialValues={{ ...currentItem }}
+                onFinish={value => dispatch(editItem(actions, { id: currentItem.id, ...value }, updateEvent))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
             >
@@ -86,7 +80,7 @@ const EditEvent = ({ currentData, showEditForm }) => {
                     <Switch />
                 </Form.Item>
                 <Form.Item>
-                    <Button onClick={() => showEditForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Save Changes</Button>
                 </Form.Item>

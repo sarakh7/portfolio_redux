@@ -31,13 +31,7 @@ const EditCat = () => {
                 name="add-group"
                 layout="vertical"
                 initialValues={{ ...currentItem }}
-                onFinish={async (value) => {
-                    dispatch(editItem({
-                        actions,
-                        item: { id: currentItem.id, ...value },
-                        updateFunc: updateGroup
-                    }))
-                }}
+                onFinish={value => dispatch(editItem(actions, { id: currentItem.id, ...value }, updateGroup))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
             >
 

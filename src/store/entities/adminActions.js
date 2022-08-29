@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export const addItem = ({actions, item, createItemFunc}) => async (dispatch) => {
+export const addItem = (actions, item, createItemFunc) => async (dispatch) => {
 
     try {
         const { data, status } = await createItemFunc(item);
@@ -18,7 +18,7 @@ export const addItem = ({actions, item, createItemFunc}) => async (dispatch) => 
     }
 }
 
-export const getItems = ({actions, getItemFunc}) => async (dispatch) => {
+export const getItems = (actions, getItemFunc) => async (dispatch) => {
     try {
         const { data, status } = await getItemFunc();
         if (status === 200) {
@@ -29,7 +29,7 @@ export const getItems = ({actions, getItemFunc}) => async (dispatch) => {
     }
 }
 
-export const removeItem = ({actions, itemId, removeFunc}) => async (dispatch) => {
+export const removeItem = (actions, itemId, removeFunc) => async (dispatch) => {
     try {
         const { status } = await removeFunc(itemId);
         if (status === 200) {
@@ -43,7 +43,7 @@ export const removeItem = ({actions, itemId, removeFunc}) => async (dispatch) =>
     }
 }
 
-export const editItem = ({actions, item, updateFunc}) => async (dispatch) => {
+export const editItem = (actions, item, updateFunc) => async (dispatch) => {
 
     try {
         const { data, status } = await updateFunc(item.id, item);

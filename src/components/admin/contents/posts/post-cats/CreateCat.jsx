@@ -30,13 +30,7 @@ const CreateCat = () => {
                 name="add-group"
                 layout="vertical"
                 initialValues={{ status: true }}
-                onFinish={async (value) => {
-                    dispatch(addItem({
-                        actions,
-                        item: value,
-                        createItemFunc: createGroup
-                    }))
-                }}
+                onFinish={value => dispatch(addItem(actions, value, createGroup))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
             >
                 <Row>

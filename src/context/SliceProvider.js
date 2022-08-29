@@ -11,7 +11,7 @@ const useSliceActions = () => useContext(SliceContext).actions
 
 const useSliceSelector = () => {
   const {name} = useContext(SliceContext)
-  return useSelector(state => state[name])
+  return useSelector(state => state.entities[name])
 }
 
 export default SliceProvider

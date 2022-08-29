@@ -16,26 +16,19 @@ const PostCats = () => {
     const { items, showCreateForm, showEditForm } = useSliceSelector();
     const actions = useSliceActions();
 
-    const handleDeleteRecord = async (recordId) => {
-        dispatch(removeItem({
-            actions,
-            itemId: recordId,
-            removeFunc: deleteGroup
-        }))
+    const handleDeleteRecord = (recordId) => {
+        dispatch(removeItem(actions, recordId, deleteGroup))
     }
 
-    const handleEditRecord = (recored) => {
-        dispatch(actions.itemSelected(recored));
+    const handleEditRecord = (record) => {
+        dispatch(actions.itemSelected(record));
         dispatch(actions.editFormOpened());
     }
 
     useEffect(() => {
         dispatch(actions.createFormCanceled());
         dispatch(actions.editFormCanceled());
-        dispatch(getItems({
-            actions,
-            getItemFunc: getAllGroups
-        }))
+        dispatch(getItems(actions, getAllGroups))
     }, [dispatch, actions]);
 
     return (

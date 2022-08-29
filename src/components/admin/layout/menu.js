@@ -26,7 +26,7 @@ import Abouts from '../contents/about/Abouts';
 import Home from '../contents/home/Home';
 import Users from './../contents/users/Users';
 import SliceProvider from '../../../context/SliceProvider';
-import { catsSlice } from '../../../store/entities/adminSlices';
+import { catsSlice, eventsSlice } from '../../../store/entities/adminSlices';
 
 
 const pages = [
@@ -47,7 +47,7 @@ const pages = [
         icon: <ClockCircleOutlined />,
         component: "",
         children: [
-            { name: 'Events', key: 'all-events', component: <Events /> },
+            { name: 'Events', key: 'all-events', component: <SliceProvider slice={eventsSlice}><Events /></SliceProvider> },
             { name: 'Timelines', key: 'timelines', component: <Timelines /> },
         ],
     },

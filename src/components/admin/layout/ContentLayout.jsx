@@ -5,8 +5,6 @@ import ContentHeader from '../contents/content-header/ContentHeader';
 import ContentTable from '../contents/content-table/ContentTable';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../hooks/sliceHooks';
 import { getItems, removeItem } from '../../../store/entities/adminActions';
-import EditCat from '../contents/posts/post-cats/EditCat';
-import CreateCat from '../contents/posts/post-cats/CreateCat';
 import FormLayout from './FormLayout';
 
 const ContentLayout = () => {

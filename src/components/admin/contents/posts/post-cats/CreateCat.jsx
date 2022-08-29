@@ -1,36 +1,26 @@
 
-import { createGroup } from '../../../../../services/postService';
 import { Form, Input, Button, Switch } from 'antd';
-import ContentHeader from '../../content-header/ContentHeader';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../../../../store/entities/adminActions';
-import { useSliceActions } from '../../../../../hooks/sliceHooks';
+import { useSliceActions, useSliceService } from '../../../../../hooks/sliceHooks';
 
 const CreateCat = () => {
 
     const dispatch = useDispatch();
     const actions = useSliceActions();
+    const service = useSliceService();
 
     const [form] = Form.useForm();
 
     return (
-        <>
-            <ContentHeader
-                title="Create New Category"
-                icon={<ArrowLeftOutlined />}
-                btnTitle="Back"
-                action={actions.createFormCanceled}
-            />
-
             <Form
                 form={form}
                 name="add-group"
                 layout="vertical"
                 initialValues={{ status: true }}
-                onFinish={value => dispatch(addItem(actions, value, createGroup))}
+                onFinish={value => dispatch(addItem(actions, value, service.createItem))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
             >
                 <Row>
@@ -57,10 +47,9 @@ const CreateCat = () => {
                 <Form.Item>
                     <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
                     {" "}
-                    <Button type="primary" htmlType="submit">Create Category</Button>
+                    <Button type="primary" htmlType="submit">{`Create ${service.name}`}</Button>
                 </Form.Item>
             </Form>
-        </>
     );
 }
 

@@ -12,9 +12,9 @@ const FormLayout = ({ typeName, children }) => {
         <>
             <ContentHeader
                 title={`${typeName} ${service.name}`}
-                icon={<ArrowLeftOutlined />}
-                btnTitle="Back"
-                action={actions.createFormCanceled}
+                // icon={<ArrowLeftOutlined />}
+                // btnTitle="Back"
+                // action={actions.createFormCanceled}
             />
             
             {children}

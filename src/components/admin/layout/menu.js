@@ -8,7 +8,6 @@ import {
     ShoppingOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import PostCats from '../contents/posts/post-cats/PostCats';
 import Posts from '../contents/posts/Posts';
 import Events from '../contents/events/Events';
 import Timelines from '../contents/tilmelines/Timelines';
@@ -41,7 +40,12 @@ const pages = [
         component: "",
         children: [
             { name: 'Posts', key: 'all-posts', component: <Posts /> },
-            { name: 'Categories', key: 'posts-cats', component: <SliceProvider slice={catsSlice}><PostCats /></SliceProvider> }
+            {
+                name: 'Categories', key: 'posts-cats', component:
+                    <SliceProvider slice={catsSlice} service={services.cats}>
+                        <ContentLayout />
+                    </SliceProvider>
+            }
         ],
     },
     {
@@ -74,8 +78,6 @@ const pages = [
 
     { name: 'Tab Menues', key: 'tab-menues', icon: <MenuOutlined />, component: <TabMenues /> },
     { name: 'Users', key: 'users', icon: <UserOutlined />, component: <Users /> },
-    { name: 'Test', key: 'test', icon: <UserOutlined />, component: <SliceProvider slice={catsSlice} service={services.cats}><ContentLayout /></SliceProvider> },
-    { name: 'Test2', key: 'test2', icon: <UserOutlined />, component: <SliceProvider slice={eventsSlice} service={services.events}><ContentLayout /></SliceProvider> },
 
     {
         name: "Tteme Settings",

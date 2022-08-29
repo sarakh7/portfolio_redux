@@ -1,5 +1,5 @@
-import TestEditForm from "../components/admin/layout/TestEditForm";
-import TestForm from "../components/admin/layout/TestForm";
+import CreateCat from "../components/admin/contents/posts/post-cats/CreateCat";
+import EditCat from "../components/admin/contents/posts/post-cats/EditCat";
 import { createUser, deleteUser, getAllUsers, updateUser } from "../services/authService";
 import { createEvent, createTimeline, deleteEvent, deleteTimeline, getAllEvents, getAllTimelines, updateEvent, updateTimeline } from "../services/eventServices";
 import { createGroup, createPost, deleteGroup, deletePost, getAllGroups, getAllPosts, updateGroup, updatePost } from "../services/postService";
@@ -25,8 +25,8 @@ export const services = {
         createItem: createGroup,
         updateItem: updateGroup,
         deleteItem: deleteGroup,
-        createForm: <TestForm />,
-        editForm: <TestEditForm />
+        createForm: <CreateCat />,
+        editForm: <EditCat />
     },
     events: {
         name: "Event",

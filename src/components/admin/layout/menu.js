@@ -27,7 +27,7 @@ import Home from '../contents/home/Home';
 import Users from './../contents/users/Users';
 import SliceProvider from '../../../context/SliceProvider';
 import { catsSlice, eventsSlice } from '../../../store/entities/adminSlices';
-import { timelinesSlice, progressbarsSlice } from './../../../store/entities/adminSlices';
+import { timelinesSlice, progressbarsSlice, progressbarListsSlice } from './../../../store/entities/adminSlices';
 
 
 const pages = [
@@ -59,7 +59,7 @@ const pages = [
         component: "",
         children: [
             { name: 'PrgoressBars', key: 'all-progress-bars', component: <SliceProvider slice={progressbarsSlice}><ProgressBars /></SliceProvider> },
-            { name: 'ProgressBar Lists', key: 'progress-bar-lists', component: <ProgressBarLists /> },
+            { name: 'ProgressBar Lists', key: 'progress-bar-lists', component: <SliceProvider slice={progressbarListsSlice}><ProgressBarLists /></SliceProvider> },
         ],
     },
 

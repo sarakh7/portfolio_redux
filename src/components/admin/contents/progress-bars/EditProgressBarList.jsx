@@ -1,21 +1,23 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
 import { updateProgressBarList, getAllProgressBars } from '../../../../services/progressBarService';
 import DebounceSelect from '../../../../utils/DebounceSelect';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { adminContext } from '../../../../context/adminContext';
 import ContentHeader from '../content-header/ContentHeader';
 import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector } from '../../../../hooks/sliceHooks';
+import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
 
 const EditProgressBarList = ({ currentData, showEditForm }) => {
 
     const [value, setValue] = useState([]);
-    const [currentProgressBars, setCurrentProgressBars] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
-    const { progressBarLists, setProgressBarLists } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const { currentItem, innerItems, loadingInnerItems } = useSliceSelector();
 
     const fetchData = async (progressBarTitle) => {
 
@@ -38,27 +40,10 @@ const EditProgressBarList = ({ currentData, showEditForm }) => {
         }));
     }
 
-
-    const getProgressBars = async () => {
-        try {
-            const { data, status } = await getAllProgressBars()
-            if (status === 200) {
-                const filteredProgressBars = data.filter(progressBar => currentData.progressbars?.includes(progressBar.id));
-                const newProgressBars = filteredProgressBars.map(progressBar => ({
-                    label: progressBar.title,
-                    value: progressBar.id,
-                }));
-                setCurrentProgressBars(newProgressBars);
-                setIsLoading(false);
-            } 
-
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    }
     useEffect(() => {
-        getProgressBars();
-    }, []);
+        dispatch(getInnerItems(actions, currentItem.progressbars, getAllProgressBars));
+
+    }, [dispatch, actions, currentItem]);
 
 
     const [form] = Form.useForm();
@@ -66,35 +51,26 @@ const EditProgressBarList = ({ currentData, showEditForm }) => {
     return (
 
         <>
-            <ContentHeader title="Edit Progress bar" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
+            <ContentHeader
+                title="Edit Progress bar"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.editFormCanceled}
+            />
 
-            {isLoading ? <div>Loading ...</div>
+            {loadingInnerItems ? <div>Loading ...</div>
                 : (
                     <Form
                         form={form}
                         name="add-event"
                         layout="vertical"
-                        initialValues={{ ...currentData, progressbars: currentProgressBars }}
-                        onFinish={async (value) => {
-                            const newValues = { ...value, progressbars: value.progressbars.map(preogressbar => preogressbar.value) };
-
-                            try {
-
-                                const { data, status } = await updateProgressBarList(currentData.id, newValues);
-                                if (status === 200) {
-                                    const newData = [...progressBarLists];
-                                    const dataIndex = newData.findIndex(data => data.id === currentData.id);
-                                    newData[dataIndex] = data;
-                                    setProgressBarLists([...newData]);
-                                    toast.success("The record was successfully edited.");
-                                } else {
-                                    toast.error("Editing failed.");
-                                }
-                                showEditForm(false);
-                            } catch (err) {
-                                toast.error("Editing failed.");
-                            }
-                        }}
+                        initialValues={{ ...currentItem, progressbars: innerItems }}
+                        onFinish={value => dispatch(editItem(actions, {
+                            id: currentItem.id,
+                            ...value,
+                            progressbars: value.progressbars.map(preogressbar => preogressbar.value)
+                        }, updateProgressBarList))
+                        }
                         onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                         autoComplete="off"
                     >
@@ -146,7 +122,7 @@ const EditProgressBarList = ({ currentData, showEditForm }) => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button onClick={() => showEditForm(false)}>Cancel</Button>
+                            <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
                             {" "}
                             <Button type="primary" htmlType="submit">Save Changes</Button>
                         </Form.Item>

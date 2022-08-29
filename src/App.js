@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
      dispatch(checkLogedInUser());
 
-  }, []);
+  }, [dispatch]);
 
   return (
     <HelmetProvider>

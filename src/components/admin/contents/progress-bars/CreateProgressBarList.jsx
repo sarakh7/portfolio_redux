@@ -1,18 +1,21 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
 import { createProgressBarList, getAllProgressBars } from '../../../../services/progressBarService';
 import DebounceSelect from '../../../../utils/DebounceSelect';
-import { adminContext } from '../../../../context/adminContext';
 import ContentHeader from '../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions } from '../../../../hooks/sliceHooks';
+import { addItem } from '../../../../store/entities/adminActions';
 
-const CreateProgressBarList = ({ showCreateForm }) => {
+const CreateProgressBarList = () => {
 
     const [value, setValue] = useState([]);
 
-    const { progressBarLists, setProgressBarLists } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
 
     const fetchData = async (progressBarTitle) => {
 
@@ -41,28 +44,19 @@ const CreateProgressBarList = ({ showCreateForm }) => {
     return (
 
         <>
-            <ContentHeader title="Create Progress bar List" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showCreateForm} />
+            <ContentHeader
+                title="Create Progress bar List"
+                icon={<ArrowLeftOutlined />}
+                btnTitle="Back"
+                action={actions.createFormCanceled}
+            />
 
             <Form
                 form={form}
                 name="add-event"
                 layout="vertical"
                 initialValues={{ status: true }}
-                onFinish={async (value) => {
-                    try {
-                        const { data, status } = await createProgressBarList({ ...value, progressbars: value.progressbars?.map(progressbar => progressbar.value) });
-                        if (status === 201) {
-                            const newProgressBarList = [...progressBarLists, data];
-                            setProgressBarLists(newProgressBarList);
-                            toast.success("Record added successfully.");
-                        } else {
-                            toast.error("An error occurred creating the record.");
-                        }
-                        showCreateForm(false);
-                    } catch (err) {
-                        toast.error("An error occurred creating the record.");
-                    }
-                }}
+                onFinish={value => dispatch(addItem(actions, { ...value, progressbars: value.progressbars?.map(progressbar => progressbar.value) }, createProgressBarList))}
                 onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                 autoComplete="off"
             >
@@ -114,7 +108,7 @@ const CreateProgressBarList = ({ showCreateForm }) => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button onClick={() => showCreateForm(false)}>Cancel</Button>
+                    <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
                     {" "}
                     <Button type="primary" htmlType="submit">Create ProgressBar List</Button>
                 </Form.Item>

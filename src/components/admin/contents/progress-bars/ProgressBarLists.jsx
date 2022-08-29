@@ -1,77 +1,58 @@
 
-import { useEffect, useState, useContext } from 'react';
-import { adminContext } from '../../../../context/adminContext';
+import { useEffect } from 'react';
 import { deleteProgressBarList, getAllProgressBarLists } from '../../../../services/progressBarService';
 import EditProgressBarList from './EditProgressBarList';
 import CreateProgressBarList from './CreateProgressBarList';
 import ContentHeader from '../content-header/ContentHeader';
 import ContentTable from '../content-table/ContentTable';
 import { PlusOutlined } from '@ant-design/icons';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector } from '../../../../hooks/sliceHooks';
+import { getItems, removeItem } from '../../../../store/entities/adminActions';
 
 const ProgressBarLists = () => {
 
-    const [showEditForm, setShowEditForm] = useState(false);
-    const [showCreateForm, setShowCreateForm] = useState(false);
-    const [currentData, setCurrentData] = useState([]);
+    const dispatch = useDispatch();
+    const { items, showCreateForm, showEditForm } = useSliceSelector();
+    const actions = useSliceActions();
 
-    const { progressBarLists, setProgressBarLists } = useContext(adminContext);
-
-    const fetchData = async () => {
-        try {
-            const { data, status } = await getAllProgressBarLists()
-            if (status === 200) {
-                setProgressBarLists(data);
-            }
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
+    const handleDeleteRecord = (recordId) => {
+        dispatch(removeItem(actions, recordId, deleteProgressBarList));
     }
 
-    const handleDeleteRecord = async (recordId) => {
-        try {
-            const { status } = await deleteProgressBarList(recordId);
-            if (status === 200) {
-                const newContents = progressBarLists.filter(progressBar => progressBar.id !== recordId);
-                setProgressBarLists(newContents);
-                toast.success("The record was deleted.");
-            } else {
-                toast.error("Failed to delete record.");
-            }
-
-        } catch (err) {
-            toast.error("Failed to delete record.");
-        }
-    }
-
-    const handleEditRecord = (event) => {
-        setCurrentData(event);
-        setShowEditForm(true);
+    const handleEditRecord = (record) => {
+        dispatch(actions.itemSelected(record));
+        dispatch(actions.editFormOpened());
     }
 
     useEffect(() => {
-        fetchData();
-    }, [])
+        dispatch(actions.createFormCanceled());
+        dispatch(actions.editFormCanceled());
+        dispatch(getItems(actions, getAllProgressBarLists))
+
+    }, [dispatch, actions]);
 
     return (
         <>
-         {
-                showEditForm ? <EditProgressBarList currentData={currentData} showEditForm={setShowEditForm} /> : (
-
-                    <>
-                        {
-                            showCreateForm ? (<CreateProgressBarList showCreateForm={setShowCreateForm} />) : (
-                                <>
-                                    <ContentHeader title="Progress bar List" icon={<PlusOutlined />} btnTitle="Add New Progress bar List" action={setShowCreateForm} />
-                                    <ContentTable data={progressBarLists} dataTitle="Progress bar List" handleEditRecord={handleEditRecord} handleDeleteRecord={handleDeleteRecord} />
-                                </>
-                            )
-                        }
-                    </>
-
-                )
+            {
+                showEditForm ? <EditProgressBarList />
+                    : showCreateForm ? <CreateProgressBarList />
+                        : <>
+                            <ContentHeader
+                                title="Progress bar List"
+                                icon={<PlusOutlined />}
+                                btnTitle="Add New Progress bar List"
+                                action={actions.createFormOpened}
+                            />
+                            <ContentTable
+                                data={items}
+                                dataTitle="Progress bar List"
+                                handleEditRecord={handleEditRecord}
+                                handleDeleteRecord={handleDeleteRecord}
+                            />
+                        </>
             }
-            
+
         </>
     );
 }

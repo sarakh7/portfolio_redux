@@ -20,7 +20,7 @@ const EditTimeline = () => {
     const actions = useSliceActions();
     const { currentItem, innerItems, loadingInnerItems} = useSliceSelector();
 
-    const fetchEvents = async (eventTitle) => {
+    const fetchData = async (eventTitle) => {
 
         let events = [];
         try {
@@ -103,7 +103,7 @@ const EditTimeline = () => {
                                 allowClear
                                 value={value}
                                 placeholder="Select users"
-                                fetchOptions={fetchEvents}
+                                fetchOptions={fetchData}
                                 onChange={(newValue) => {
                                     setValue(newValue);
                                 }}

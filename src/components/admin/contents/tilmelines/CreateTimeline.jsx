@@ -18,7 +18,7 @@ const CreateTimeline = () => {
     const dispatch = useDispatch();
     const actions = useSliceActions();
 
-    const fetchEvents = async (eventTitle) => {
+    const fetchData = async (eventTitle) => {
 
         let events = [];
         try {
@@ -90,7 +90,7 @@ const CreateTimeline = () => {
                         allowClear
                         value={value}
                         placeholder="Select users"
-                        fetchOptions={fetchEvents}
+                        fetchOptions={fetchData}
                         onChange={(newValue) => {
                             setValue(newValue);
                         }}

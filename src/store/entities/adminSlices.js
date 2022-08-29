@@ -47,8 +47,7 @@ const createAdminSlice = ({ name, initialState, reducers }) => createSlice({
 
     }
 })
-
-export const catsSlice = createAdminSlice({ name: 'cats' });
+export const catsSlice = createAdminSlice({name: 'cats'});
 export const productsSlice = createAdminSlice({ name: 'productsSlice' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
@@ -70,7 +69,7 @@ export const timelinesSlice = createAdminSlice({
         editFormCanceled: (state) => {
             state.showEditForm = false;
             state.currentItem = {};
-            state.innerItems= []
+            state.innerItems = []
         },
     }
 });
@@ -92,7 +91,7 @@ export const progressbarListsSlice = createAdminSlice({
         editFormCanceled: (state) => {
             state.showEditForm = false;
             state.currentItem = {};
-            state.innerItems= []
+            state.innerItems = []
         },
     }
 });

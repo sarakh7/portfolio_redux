@@ -4,8 +4,6 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { updateProduct } from '../../../../services/productService';
 import ContentHeader from '../content-header/ContentHeader';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useContext } from 'react';
-import { adminContext } from '../../../../context/adminContext';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';

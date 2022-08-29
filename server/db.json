@@ -278,6 +278,11 @@
       "title": "slider",
       "status": false,
       "id": 4
+    },
+    {
+      "id": 5,
+      "title": "test cat 14010607",
+      "status": false
     }
   ],
   "events": [

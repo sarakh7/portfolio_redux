@@ -28,6 +28,8 @@ import Users from './../contents/users/Users';
 import SliceProvider from '../../../context/SliceProvider';
 import { catsSlice, eventsSlice, productsSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice } from './../../../store/entities/adminSlices';
+import ContentLayout from './ContentLayout';
+import { services } from './../../../utils/services';
 
 
 const pages = [
@@ -72,6 +74,8 @@ const pages = [
 
     { name: 'Tab Menues', key: 'tab-menues', icon: <MenuOutlined />, component: <TabMenues /> },
     { name: 'Users', key: 'users', icon: <UserOutlined />, component: <Users /> },
+    { name: 'Test', key: 'test', icon: <UserOutlined />, component: <SliceProvider slice={catsSlice} service={services.cats}><ContentLayout /></SliceProvider> },
+    { name: 'Test2', key: 'test2', icon: <UserOutlined />, component: <SliceProvider slice={eventsSlice} service={services.events}><ContentLayout /></SliceProvider> },
 
     {
         name: "Tteme Settings",

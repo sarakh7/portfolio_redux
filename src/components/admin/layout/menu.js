@@ -13,10 +13,9 @@ import TabMenues from '../contents/tab-menu/TabMenues';
 import Resumes from '../contents/resume/Resumes';
 import Pricings from '../contents/pricing/Pricings';
 import ClientsSections from '../contents/clients/ClientsSections';
-import Socials from '../contents/social/Socials';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, usersSlice } from '../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, socialsSlice, usersSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
@@ -105,7 +104,7 @@ const pages = [
             { name: 'Clients', key: 'clients', component: <SliceProvider slice={clientsSlice} service={services.clients}><ContentLayout /></SliceProvider> },
             { name: 'Clients Section', key: 'all-clients-section', component: <ClientsSections /> },
             { name: 'Pricings', key: 'pricings', component: <Pricings /> },
-            { name: 'Social Icons', key: 'all-socials', component: <Socials /> },
+            { name: 'Social Icons', key: 'all-socials', component: <SliceProvider slice={socialsSlice} service={services.socials}><ContentLayout /></SliceProvider> },
         ],
     },
 

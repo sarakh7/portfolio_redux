@@ -1,25 +1,37 @@
 
 import { Select, Spin } from 'antd';
 import debounce from 'lodash/debounce';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
 
-const DebounceSelect = ({ fetchOptions, debounceTimeout = 800, ...props }) => {
+const DebounceSelect = ({ service, debounceTimeout = 800, ...props }) => {
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState([]);
-    const fetchRef = useRef(0);
+
+    const fetchOptions = useCallback(async (itemTitle) => {
+
+        try {
+            const { data, status } = await service.getAllItems();
+            if (status === 200) {
+                return data.filter(item => item.title.toLowerCase().includes(itemTitle.toLowerCase()))
+                    .map(item => ({
+                        label: item.title,
+                        value: item.id,
+                    }));
+            }
+
+        } catch (err) {
+            toast.error("There was an error receiving data.");
+        }
+
+    }, [service])
 
     const debounceFetcher = useMemo(() => {
         const loadOptions = (value) => {
-            fetchRef.current += 1;
-            const fetchId = fetchRef.current;
+
             setOptions([]);
             setFetching(true);
             fetchOptions(value).then((newOptions) => {
-
-                if (fetchId !== fetchRef.current) {
-                    // for fetch callback order
-                    return;
-                }
 
                 setOptions(newOptions);
                 setFetching(false);

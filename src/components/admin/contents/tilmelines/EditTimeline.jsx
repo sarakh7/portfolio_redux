@@ -1,10 +1,7 @@
 
 import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
-import { getAllEvents, updateTimeline } from '../../../../services/eventServices';
 import DebounceSelect from '../../../../utils/DebounceSelect';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import ContentHeader from '../content-header/ContentHeader';
 import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -22,26 +19,6 @@ const EditTimeline = () => {
     const { currentItem, innerItems, loadingInnerItems } = useSliceSelector();
     const service = useSliceService();
 
-    const fetchData = async (eventTitle) => {
-
-        let events = [];
-        try {
-            const { data, status } = await services.events.getAllItems()
-            if (status === 200) {
-                events = data.filter(event => {
-                    return event.title.toLowerCase().includes(eventTitle.toLowerCase());
-                });
-            }
-
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-
-        return events.map(event => ({
-            label: event.title,
-            value: event.id,
-        }));
-    }
 
     useEffect(() => {
         dispatch(getInnerItems(actions, currentItem.events, services.events.getAllItems));
@@ -98,7 +75,7 @@ const EditTimeline = () => {
                                 allowClear
                                 value={value}
                                 placeholder="Select users"
-                                fetchOptions={fetchData}
+                                service={services.events}
                                 onChange={(newValue) => {
                                     setValue(newValue);
                                 }}

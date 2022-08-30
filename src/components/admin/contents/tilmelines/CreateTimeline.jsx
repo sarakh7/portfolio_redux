@@ -2,8 +2,6 @@
 import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
 import DebounceSelect from '../../../../utils/DebounceSelect';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import ContentHeader from '../content-header/ContentHeader';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -18,27 +16,6 @@ const CreateTimeline = () => {
     const dispatch = useDispatch();
     const actions = useSliceActions();
     const service = useSliceService();
-
-    const fetchData = async (eventTitle) => {
-
-        let events = [];
-        try {
-            const { data, status } = await services.events.getAllItems();
-            if (status === 200) {
-                events = data.filter(event => {
-                    return event.title.toLowerCase().includes(eventTitle.toLowerCase());
-                });
-            }
-
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-
-        return events.map(event => ({
-            label: event.title,
-            value: event.id,
-        }));
-    }
 
 
     const [form] = Form.useForm();
@@ -83,7 +60,7 @@ const CreateTimeline = () => {
                     allowClear
                     value={value}
                     placeholder="Select users"
-                    fetchOptions={fetchData}
+                    service={services.events}
                     onChange={(newValue) => {
                         setValue(newValue);
                     }}

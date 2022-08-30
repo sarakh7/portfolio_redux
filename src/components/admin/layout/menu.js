@@ -72,7 +72,12 @@ const pages = [
         icon: <AlignLeftOutlined />,
         component: "",
         children: [
-            { name: 'PrgoressBars', key: 'all-progress-bars', component: <SliceProvider slice={progressbarsSlice}><ProgressBars /></SliceProvider> },
+            {
+                name: 'PrgoressBars', key: 'all-progress-bars', component:
+                    <SliceProvider slice={progressbarsSlice} service={services.progressbars}>
+                        <ContentLayout />
+                    </SliceProvider>
+            },
             { name: 'ProgressBar Lists', key: 'progress-bar-lists', component: <SliceProvider slice={progressbarListsSlice}><ProgressBarLists /></SliceProvider> },
         ],
     },

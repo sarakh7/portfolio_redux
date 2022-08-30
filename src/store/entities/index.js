@@ -5,7 +5,8 @@ import {
     timelinesSlice,
     progressbarsSlice,
     progressbarListsSlice,
-    productsSlice
+    productsSlice,
+    usersSlice
 } from './adminSlices';
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
     [progressbarsSlice.name]: progressbarsSlice.reducer,
     [progressbarListsSlice.name]: progressbarListsSlice.reducer,
     [productsSlice.name]: productsSlice.reducer,
+    [usersSlice.name]: usersSlice.reducer,
 })

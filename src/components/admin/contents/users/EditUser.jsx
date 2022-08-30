@@ -1,20 +1,22 @@
 
 import { Button, Form, Select, Input, Switch, Tag } from 'antd';
-import { useContext, useEffect, useState } from 'react';
-import { adminContext } from '../../../../context/adminContext';
-import ContentHeader from '../content-header/ContentHeader';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { updateUser } from '../../../../services/authService';
+import { useEffect, useState } from 'react';
 import { ROLES } from '../../../Auth/roles'
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
+import { editItem } from '../../../../store/entities/adminActions';
 
-const EditUser = ({ currentData, showEditForm }) => {
+const EditUser = () => {
 
     const [roles, setRoles] = useState([]);
     const [currentRoles, setCurrentRoles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { users, setUsers } = useContext(adminContext);
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const { currentItem } = useSliceSelector();
+    const service = useSliceService();
 
     const [form] = Form.useForm();
 
@@ -28,7 +30,7 @@ const EditUser = ({ currentData, showEditForm }) => {
             });
         }
         for (const key in ROLES) {
-            if (currentData.roles.includes(ROLES[key])) {
+            if (currentItem.roles.includes(ROLES[key])) {
                 currentOptions.push(ROLES[key]);
             }
         }
@@ -36,41 +38,46 @@ const EditUser = ({ currentData, showEditForm }) => {
         setRoles(newOptions);
         setIsLoading(false);
 
-    }, []);
+    }, [currentItem]);
 
     return (
         <>
-            <ContentHeader title='Edit User' icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
-
             {isLoading ? <div>Loading ...</div>
                 :
                 <Form
                     form={form}
                     name="edit-user"
                     layout="vertical"
-                    initialValues={{ title: currentData.title, roles: currentRoles, status: currentData.status }}
-                    onFinish={async (value) => {
-                        const newValues = { ...currentData, password: value.password, title: value.title, roles: value.roles, status: value.status };
-                        try {
-                            const { data, status } = await updateUser(currentData.id, newValues);
-                            if (status === 200) {
-                                const newData = [...users];
-                                const dataIndex = newData.findIndex(data => data.id === currentData.id);
-                                newData[dataIndex] = data;
-                                setUsers([...newData]);
-                                toast.success("The record was successfully edited.");
-                            } else {
-                                toast.error("Editing failed.");
-                            }
-                            showEditForm(false);
-                        } catch (err) {
-                            toast.error("Editing failed.");
-                        }
-                    }}
+                    initialValues={{ title: currentItem.title, roles: currentRoles, status: currentItem.status }}
+                    onFinish={value => dispatch(editItem(actions, {
+                        ...currentItem,
+                        password: value.password,
+                        title: value.title,
+                        roles: value.roles,
+                        status: value.status
+                    }, service.updateItem))}
+                    //         {
+                    //                 const newValues = { ...currentItem, password: value.password, title: value.title, roles: value.roles, status: value.status };
+                    //                 try {
+                    //                     const { data, status } = await updateUser(currentItem.id, newValues);
+                    //                     if(status === 200) {
+                    //                     const newData= [...users];
+                    //                     const dataIndex = newData.findIndex(data => data.id === currentItem.id);
+                    // newData[dataIndex] = data;
+                    // setUsers([...newData]);
+                    // toast.success("The record was successfully edited.");
+                    //                 } else {
+                    //     toast.error("Editing failed.");
+                    //                 }
+                    // showEditForm(false);
+                    //             } catch (err) {
+                    //     toast.error("Editing failed.");
+                    //             }
+                    //         }}
                     onFinishFailed={err => toast.error("Please complete all fields correctly.")}
                     autoComplete="off"
                 >
-                    <Tag className='mb-4 p-2'>Email: {currentData.email}</Tag>
+                    <Tag className='mb-4 p-2'>Email: {currentItem.email}</Tag>
                     <Form.Item
                         label="Name"
                         name="title"
@@ -110,7 +117,7 @@ const EditUser = ({ currentData, showEditForm }) => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button onClick={() => showEditForm(false)}>Cancel</Button>
+                        <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
                         {" "}
                         <Button type="primary" htmlType="submit">Save Changes</Button>
                     </Form.Item>

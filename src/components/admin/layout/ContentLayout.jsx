@@ -28,19 +28,19 @@ const ContentLayout = () => {
         dispatch(actions.editFormCanceled());
         dispatch(getItems(actions, service.getAllItems))
 
-    }, [dispatch, actions]);
+    }, [dispatch, actions, service]);
 
     return (
         <>
             {
-                showEditForm ? <FormLayout typeName="Edit">{service.editForm}</FormLayout>
+                showEditForm && service.editForm ? <FormLayout typeName="Edit">{service.editForm}</FormLayout>
                     : showCreateForm ? <FormLayout typeName="Create">{service.createForm}</FormLayout>
                         :
                         <>
                             <ContentHeader
                                 title={`${service.name} List`}
                                 icon={<PlusOutlined />}
-                                btnTitle={`Add New ${service.name}`}
+                                btnTitle={service.createForm && `Add New ${service.name}`}
                                 action={actions.createFormOpened}
                             />
                             <ContentTable

@@ -10,6 +10,7 @@ import EditProgressBar from "../components/admin/contents/progress-bars/EditProg
 import EditProgressBarList from "../components/admin/contents/progress-bars/EditProgressBarList";
 import CreateTimeline from "../components/admin/contents/tilmelines/CreateTimeline";
 import EditTimeline from "../components/admin/contents/tilmelines/EditTimeline";
+import EditUser from "../components/admin/contents/users/EditUser";
 import { createUser, deleteUser, getAllUsers, updateUser } from "../services/authService";
 import { createEvent, createTimeline, deleteEvent, deleteTimeline, getAllEvents, getAllTimelines, updateEvent, updateTimeline } from "../services/eventServices";
 import { createGroup, createPost, deleteGroup, deletePost, getAllGroups, getAllPosts, updateGroup, updatePost } from "../services/postService";
@@ -90,7 +91,7 @@ export const services = {
         updateItem: updateUser,
         deleteItem: deleteUser,
         createForm: '',
-        editForm: ''
+        editForm: <EditUser />
     },
     abouts: {
         name: "About Section",

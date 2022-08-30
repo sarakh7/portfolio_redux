@@ -31,16 +31,6 @@
       "status": false
     },
     {
-      "email": "user3@portfolio.com",
-      "password": "$2a$10$JlvyR5szhaGg3wR/a.62Qehd4FVN43hKlDFNQpUMHiaZ64LVt0R8O",
-      "title": "user3",
-      "roles": [
-        1
-      ],
-      "status": true,
-      "id": 4
-    },
-    {
       "email": "user4@portfolio.com",
       "password": "$2a$10$e3fA3OIsA7TTjnipe2ErTeNmeZ1/8M4fkVy.U725bVwRZNv355Nom",
       "title": "User4",

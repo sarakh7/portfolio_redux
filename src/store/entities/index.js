@@ -8,7 +8,8 @@ import {
     productsSlice,
     usersSlice,
     aboutsSlice,
-    testimonialsSlice
+    testimonialsSlice,
+    clientsSlice
 } from './adminSlices';
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
     [usersSlice.name]: usersSlice.reducer,
     [aboutsSlice.name]: aboutsSlice.reducer,
     [testimonialsSlice.name]: testimonialsSlice.reducer,
+    [clientsSlice.name]: clientsSlice.reducer,
 })

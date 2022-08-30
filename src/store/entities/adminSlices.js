@@ -52,6 +52,7 @@ export const productsSlice = createAdminSlice({ name: 'products' });
 export const usersSlice = createAdminSlice({ name: 'users' });
 export const aboutsSlice = createAdminSlice({ name: 'abouts' });
 export const testimonialsSlice = createAdminSlice({ name: 'testimonials' });
+export const clientsSlice = createAdminSlice({ name: 'clients' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
 export const timelinesSlice = createAdminSlice({

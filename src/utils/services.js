@@ -1,4 +1,6 @@
 import CreateAbout from "../components/admin/contents/about/CreateAbout";
+import CreateClient from "../components/admin/contents/clients/CreateClient";
+import EditClient from "../components/admin/contents/clients/EditClient";
 import CreateEvent from "../components/admin/contents/events/CreateEvent";
 import EditEvent from "../components/admin/contents/events/EditEvent";
 import CreateCat from "../components/admin/contents/posts/post-cats/CreateCat";
@@ -130,8 +132,8 @@ export const services = {
         createItem: createClient,
         updateItem: updateClient,
         deleteItem: deleteClient,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateClient />,
+        editForm: <EditClient />
     },
     clientSections: {
         name: "Client Section",

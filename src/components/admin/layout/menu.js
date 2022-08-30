@@ -15,7 +15,6 @@ import Testimonials from '../contents/testimonial/Testimonials';
 import Clients from '../contents/clients/Clients';
 import Pricings from '../contents/pricing/Pricings';
 import ClientsSections from '../contents/clients/ClientsSections';
-import Products from '../contents/products/Products';
 import Socials from '../contents/social/Socials';
 import Abouts from '../contents/about/Abouts';
 import Home from '../contents/home/Home';
@@ -89,7 +88,7 @@ const pages = [
         name: 'Products',
         key: 'all-products',
         icon: <ShoppingOutlined />,
-        component: <SliceProvider slice={productsSlice}><Products /></SliceProvider>
+        component: <SliceProvider slice={productsSlice} service={services.products}><ContentLayout /></SliceProvider>
     },
 
     { name: 'Tab Menues', key: 'tab-menues', icon: <MenuOutlined />, component: <TabMenues /> },

@@ -9,8 +9,6 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import Posts from '../contents/posts/Posts';
-import ProgressBars from '../contents/progress-bars/ProgressBars';
-import ProgressBarLists from '../contents/progress-bars/ProgressBarLists';
 import TabMenues from '../contents/tab-menu/TabMenues';
 import Resumes from '../contents/resume/Resumes';
 import Testimonials from '../contents/testimonial/Testimonials';
@@ -78,7 +76,12 @@ const pages = [
                         <ContentLayout />
                     </SliceProvider>
             },
-            { name: 'ProgressBar Lists', key: 'progress-bar-lists', component: <SliceProvider slice={progressbarListsSlice}><ProgressBarLists /></SliceProvider> },
+            {
+                name: 'ProgressBar Lists', key: 'progress-bar-lists', component:
+                    <SliceProvider slice={progressbarListsSlice} service={services.progressbarLists}>
+                        <ContentLayout />
+                    </SliceProvider>
+            },
         ],
     },
 

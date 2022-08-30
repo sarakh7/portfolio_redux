@@ -1,3 +1,4 @@
+import CreateAbout from "../components/admin/contents/about/CreateAbout";
 import CreateEvent from "../components/admin/contents/events/CreateEvent";
 import EditEvent from "../components/admin/contents/events/EditEvent";
 import CreateCat from "../components/admin/contents/posts/post-cats/CreateCat";
@@ -19,6 +20,7 @@ import { createProgressBar, getAllProgressBars, updateProgressBar, deleteProgres
 import { createSocial, deleteSocial, getAllSocial, updateSocial } from "../services/socialService";
 import { createTab, createTabMenu, deleteTab, deleteTabMenu, getAllTabMenues, getAllTabs, updateTabMenu } from "../services/tabMenuService";
 import { createAbout, createClient, createClientsSection, createPricing, createResume, createTestimonial, deleteAbout, deleteClient, deleteClientsSection, deletePricing, deleteResume, deleteTestimonial, getAllAbouts, getAllClients, getAllClientsSection, getAllPricings, getAllResumes, getAllTestimonials, updateAbout, updateClient, updateClientsSection, updatePricing, updateResume, updateTestimonial } from "../services/themeServices";
+import EditAbout from './../components/admin/contents/about/EditAbout';
 
 export const services = {
     posts: {
@@ -94,13 +96,13 @@ export const services = {
         editForm: <EditUser />
     },
     abouts: {
-        name: "About Section",
+        name: "Settings",
         getAllItems: getAllAbouts,
         createItem: createAbout,
         updateItem: updateAbout,
         deleteItem: deleteAbout,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateAbout />,
+        editForm: <EditAbout />
     },
     resumes: {
         name: "Resume",

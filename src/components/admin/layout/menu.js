@@ -16,10 +16,9 @@ import Clients from '../contents/clients/Clients';
 import Pricings from '../contents/pricing/Pricings';
 import ClientsSections from '../contents/clients/ClientsSections';
 import Socials from '../contents/social/Socials';
-import Abouts from '../contents/about/Abouts';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { catsSlice, eventsSlice, productsSlice, usersSlice } from '../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, eventsSlice, productsSlice, usersSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
@@ -102,7 +101,7 @@ const pages = [
         icon: <SettingOutlined />,
         component: "",
         children: [
-            { name: 'General Settings', key: 'general', component: <Abouts /> },
+            { name: 'General Settings', key: 'general', component: <SliceProvider slice={aboutsSlice} service={services.abouts}><ContentLayout /></SliceProvider> },
             { name: 'Resumes', key: 'resumes', component: <Resumes /> },
             { name: 'Testimonials', key: 'testimonials', component: <Testimonials /> },
             { name: 'Clients', key: 'clients', component: <Clients /> },

@@ -50,6 +50,7 @@ const createAdminSlice = ({ name, initialState, reducers }) => createSlice({
 export const catsSlice = createAdminSlice({name: 'cats'});
 export const productsSlice = createAdminSlice({ name: 'products' });
 export const usersSlice = createAdminSlice({ name: 'users' });
+export const aboutsSlice = createAdminSlice({ name: 'abouts' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
 export const timelinesSlice = createAdminSlice({

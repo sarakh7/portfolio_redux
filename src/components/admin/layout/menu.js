@@ -11,7 +11,6 @@ import {
 import Posts from '../contents/posts/Posts';
 import TabMenues from '../contents/tab-menu/TabMenues';
 import Resumes from '../contents/resume/Resumes';
-import Testimonials from '../contents/testimonial/Testimonials';
 import Clients from '../contents/clients/Clients';
 import Pricings from '../contents/pricing/Pricings';
 import ClientsSections from '../contents/clients/ClientsSections';
@@ -19,7 +18,7 @@ import Socials from '../contents/social/Socials';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
 import { aboutsSlice, catsSlice, eventsSlice, productsSlice, usersSlice } from '../../../store/entities/adminSlices';
-import { timelinesSlice, progressbarsSlice, progressbarListsSlice } from './../../../store/entities/adminSlices';
+import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
 
@@ -103,7 +102,7 @@ const pages = [
         children: [
             { name: 'General Settings', key: 'general', component: <SliceProvider slice={aboutsSlice} service={services.abouts}><ContentLayout /></SliceProvider> },
             { name: 'Resumes', key: 'resumes', component: <Resumes /> },
-            { name: 'Testimonials', key: 'testimonials', component: <Testimonials /> },
+            { name: 'Testimonials', key: 'testimonials', component: <SliceProvider slice={testimonialsSlice} service={services.testimonials}><ContentLayout /></SliceProvider> },
             { name: 'Clients', key: 'clients', component: <Clients /> },
             { name: 'Clients Section', key: 'all-clients-section', component: <ClientsSections /> },
             { name: 'Pricings', key: 'pricings', component: <Pricings /> },

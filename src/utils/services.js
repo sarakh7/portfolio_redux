@@ -9,6 +9,7 @@ import CreateProgressBar from "../components/admin/contents/progress-bars/Create
 import CreateProgressBarList from "../components/admin/contents/progress-bars/CreateProgressBarList";
 import EditProgressBar from "../components/admin/contents/progress-bars/EditProgressBar";
 import EditProgressBarList from "../components/admin/contents/progress-bars/EditProgressBarList";
+import EditTestimonial from "../components/admin/contents/testimonial/EditTestimonial";
 import CreateTimeline from "../components/admin/contents/tilmelines/CreateTimeline";
 import EditTimeline from "../components/admin/contents/tilmelines/EditTimeline";
 import EditUser from "../components/admin/contents/users/EditUser";
@@ -21,6 +22,7 @@ import { createSocial, deleteSocial, getAllSocial, updateSocial } from "../servi
 import { createTab, createTabMenu, deleteTab, deleteTabMenu, getAllTabMenues, getAllTabs, updateTabMenu } from "../services/tabMenuService";
 import { createAbout, createClient, createClientsSection, createPricing, createResume, createTestimonial, deleteAbout, deleteClient, deleteClientsSection, deletePricing, deleteResume, deleteTestimonial, getAllAbouts, getAllClients, getAllClientsSection, getAllPricings, getAllResumes, getAllTestimonials, updateAbout, updateClient, updateClientsSection, updatePricing, updateResume, updateTestimonial } from "../services/themeServices";
 import EditAbout from './../components/admin/contents/about/EditAbout';
+import CreateTestimonial from './../components/admin/contents/testimonial/CreateTestimonial';
 
 export const services = {
     posts: {
@@ -113,14 +115,14 @@ export const services = {
         createForm: '',
         editForm: ''
     },
-    Testimonials: {
+    testimonials: {
         name: "Testimonial",
         getAllItems: getAllTestimonials,
         createItem: createTestimonial,
         updateItem: updateTestimonial,
         deleteItem: deleteTestimonial,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateTestimonial />,
+        editForm: <EditTestimonial />
     },
     clients: {
         name: "Client",

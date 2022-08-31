@@ -154,7 +154,7 @@ export const services = {
         createForm: <CreateClientsSection />,
         editForm: <EditClientsSection />
     },
-    pricing: {
+    pricings: {
         name: "Pricing",
         getAllItems: getAllPricings,
         createItem: createPricing,

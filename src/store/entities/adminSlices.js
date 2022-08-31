@@ -56,6 +56,7 @@ export const clientsSlice = createAdminSlice({ name: 'clients' });
 export const socialsSlice = createAdminSlice({ name: 'socials' });
 export const resumesSlice = createAdminSlice({name: 'resumes'});
 export const clientSectionsSlice = createAdminSlice({name: 'clientSections'});
+export const pricingsSlice = createAdminSlice({name: 'pricings'});
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
 

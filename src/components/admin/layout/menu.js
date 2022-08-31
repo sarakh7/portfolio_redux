@@ -10,10 +10,9 @@ import {
 } from '@ant-design/icons';
 import Posts from '../contents/posts/Posts';
 import Pricings from '../contents/pricing/Pricings';
-import ClientsSections from '../contents/clients/ClientsSections';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, clientSectionsSlice, clientsSlice, eventsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
@@ -103,7 +102,7 @@ const pages = [
             { name: 'Resumes', key: 'resumes', component: <SliceProvider slice={resumesSlice} service={services.resumes}><ContentLayout /></SliceProvider> },
             { name: 'Testimonials', key: 'testimonials', component: <SliceProvider slice={testimonialsSlice} service={services.testimonials}><ContentLayout /></SliceProvider> },
             { name: 'Clients', key: 'clients', component: <SliceProvider slice={clientsSlice} service={services.clients}><ContentLayout /></SliceProvider> },
-            { name: 'Clients Section', key: 'all-clients-section', component: <ClientsSections /> },
+            { name: 'Clients Section', key: 'all-clients-section', component: <SliceProvider slice={clientSectionsSlice} service={services.clientSections}><ContentLayout /></SliceProvider> },
             { name: 'Pricings', key: 'pricings', component: <Pricings /> },
             { name: 'Social Icons', key: 'all-socials', component: <SliceProvider slice={socialsSlice} service={services.socials}><ContentLayout /></SliceProvider> },
         ],

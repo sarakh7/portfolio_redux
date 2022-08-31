@@ -54,9 +54,56 @@ export const aboutsSlice = createAdminSlice({ name: 'abouts' });
 export const testimonialsSlice = createAdminSlice({ name: 'testimonials' });
 export const clientsSlice = createAdminSlice({ name: 'clients' });
 export const socialsSlice = createAdminSlice({ name: 'socials' });
+export const resumesSlice = createAdminSlice({name: 'resumes'});
+export const clientSectionsSlice = createAdminSlice({name: 'clientSections'});
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
-export const resumesSlice = createAdminSlice({name: 'resumes'});
+
+export const timelinesSlice = createAdminSlice({
+    name: 'timelines',
+    initialState: {
+        innerItems: [],
+        loadingInnerItems: true
+    },
+    reducers: {
+        innerItemsReceived: (state, action) => {
+            state.innerItems = action.payload;
+            state.loadingInnerItems = false;
+        },
+        editFormOpened: (state) => {
+            state.loadingInnerItems = true;
+            state.showEditForm = true;
+        },
+        editFormCanceled: (state) => {
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems = []
+        },
+    }
+});
+
+export const progressbarListsSlice = createAdminSlice({
+    name: 'progressbarLists',
+    initialState: {
+        innerItems: [],
+        loadingInnerItems: true
+    },
+    reducers: {
+        innerItemsReceived: (state, action) => {
+            state.innerItems = action.payload;
+            state.loadingInnerItems = false;
+        },
+        editFormOpened: (state) => {
+            state.loadingInnerItems = true;
+            state.showEditForm = true;
+        },
+        editFormCanceled: (state) => {
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems = []
+        },
+    }
+});
 
 export const tabMenuesSlice = createAdminSlice({
     name: 'tabMenues',
@@ -94,50 +141,6 @@ export const tabMenuesSlice = createAdminSlice({
             state.showEditForm = false;
             state.currentItem = {};
             state.innerItems = [];
-        },
-    }
-});
-export const timelinesSlice = createAdminSlice({
-    name: 'timelines',
-    initialState: {
-        innerItems: [],
-        loadingInnerItems: true
-    },
-    reducers: {
-        innerItemsReceived: (state, action) => {
-            state.innerItems = action.payload;
-            state.loadingInnerItems = false;
-        },
-        editFormOpened: (state) => {
-            state.loadingInnerItems = true;
-            state.showEditForm = true;
-        },
-        editFormCanceled: (state) => {
-            state.showEditForm = false;
-            state.currentItem = {};
-            state.innerItems = []
-        },
-    }
-});
-export const progressbarListsSlice = createAdminSlice({
-    name: 'progressbarLists',
-    initialState: {
-        innerItems: [],
-        loadingInnerItems: true
-    },
-    reducers: {
-        innerItemsReceived: (state, action) => {
-            state.innerItems = action.payload;
-            state.loadingInnerItems = false;
-        },
-        editFormOpened: (state) => {
-            state.loadingInnerItems = true;
-            state.showEditForm = true;
-        },
-        editFormCanceled: (state) => {
-            state.showEditForm = false;
-            state.currentItem = {};
-            state.innerItems = []
         },
     }
 });

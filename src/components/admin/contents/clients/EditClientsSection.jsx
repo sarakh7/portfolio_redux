@@ -1,136 +1,85 @@
-import { Form, Divider, Input, Button, Switch } from 'antd';
+import { Form, Input, Button, Switch } from 'antd';
 import SearchInput from '../../../../utils/SearchInput';
-import { useState, useContext, useEffect } from 'react';
-import { getAllTabMenues } from '../../../../services/tabMenuService';
-import { updateClientsSection } from '../../../../services/themeServices';
-import { adminContext } from '../../../../context/adminContext';
-import ContentHeader from '../content-header/ContentHeader';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useAppServices } from '../../../../hooks/useAppServices';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
+import { editItem } from '../../../../store/entities/adminActions';
 
-let timeout;
-
-const EditClientsSection = ({ currentData, showEditForm }) => {
+const EditClientsSection = () => {
 
     const [tabMenu, setTabMenu] = useState([]);
 
-    const { clientsSections, setClientsSections } = useContext(adminContext)
+    const services = useAppServices();
+
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const { currentItem } = useSliceSelector();
+    const service = useSliceService();
 
     const [form] = Form.useForm();
 
-    const fetchData = (value, callback) => {
-
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = null;
-        }
-
-        const fetch = async () => {
-            try {
-                const { data } = await getAllTabMenues();
-                if (data) {
-                    const filteredData = data.filter(content => {
-                        return content.title.toLowerCase().includes(value.toLowerCase());
-                    });
-
-                    const newData = filteredData.map(content => ({
-                        text: content.title,
-                        value: content.id,
-                    }))
-
-                    callback(newData);
-                }
-
-            } catch (err) {
-                toast.error("There was an error receiving data.");
-            }
-        }
-        timeout = setTimeout(fetch, 300);
-
-    }
-
-
     useEffect(() => {
-        setTabMenu(currentData.tab_menu);
-    }, []);
+        setTabMenu(currentItem.tab_menu);
+    }, [currentItem]);
 
     return (
+        <Form
+            form={form}
+            name="add-client-section"
+            layout="vertical"
+            initialValues={{ title: currentItem.title, status: currentItem.status }}
+            onFinish={value => dispatch(editItem(actions, {
+                id: currentItem.id,
+                ...value,
+                tab_menu: tabMenu
+            }, service.updateItem))}
+            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            autoComplete="off"
+        >
 
-        <>
-            <ContentHeader title="Edit Client Section" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showEditForm} />
+            <Row>
+                <Col sm={6}>
+                    <Form.Item
+                        label="Title"
+                        name="title"
+                        rules={[{ required: true, message: 'Title is required!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Col>
+                <Col sm={6}>
+                    <Form.Item
+                        label={`Select a Tab Menu`}
+                        name="tab_menu"
+                    >
+                        <SearchInput
+                            placeholder="search a title"
+                            service={services.tabMenues}
+                            onSelect={value => setTabMenu(value)}
+                        />
+                    </Form.Item>
 
-            <Form
-                form={form}
-                name="add-client-section"
-                layout="vertical"
-                initialValues={{ title: currentData.title, status: currentData.status }}
-                onFinish={async (value) => {
-                    const newValues = { ...value, tab_menu: tabMenu };
-                    try {
-                        const { data, status } = await updateClientsSection(currentData.id, newValues);
-                        if (status === 200) {
-                            const newData = [...clientsSections];
-                            const dataIndex = newData.findIndex(data => data.id === currentData.id);
-                            newData[dataIndex] = data;
-                            setClientsSections([...newData]);
-                            toast.success("The record was successfully edited.");
-                        } else {
-                            toast.error("Editing failed.");
-                        }
+                </Col>
+            </Row>
 
-                        showEditForm(false);
-
-                    } catch (err) {
-                        toast.error("Editing failed.");
-                    }
-                }}
-                onFinishFailed={err => toast.error("Please complete all fields correctly.")}
-                autoComplete="off"
+            <Form.Item
+                label="Publish"
+                name="status"
+                valuePropName="checked"
             >
+                <Switch />
+            </Form.Item>
 
-                <Row>
-                    <Col sm={6}>
-                        <Form.Item
-                            label="Title"
-                            name="title"
-                            rules={[{ required: true, message: 'Title is required!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                    <Col sm={6}>
-                        <Form.Item
-                            label={`Select a Tab Menu`}
-                            name="tab_menu"
-                        >
-                            <SearchInput
-                                placeholder="search a title"
-                                fetchData={fetchData}
-                                onSelect={value => setTabMenu(value)}
-                            />
-                        </Form.Item>
+            <Form.Item>
+                <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
+                {" "}
+                <Button type="primary" htmlType="submit">Save Changes</Button>
+            </Form.Item>
 
-                    </Col>
-                </Row>
-
-                <Form.Item
-                    label="Publish"
-                    name="status"
-                    valuePropName="checked"
-                >
-                    <Switch />
-                </Form.Item>
-
-                <Form.Item>
-                    <Button onClick={() => showEditForm(false)}>Cancel</Button>
-                    {" "}
-                    <Button type="primary" htmlType="submit">Save Changes</Button>
-                </Form.Item>
-
-            </Form>
-
-        </>
+        </Form>
     );
 }
 

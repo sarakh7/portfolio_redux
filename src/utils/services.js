@@ -29,6 +29,12 @@ import CreateTestimonial from './../components/admin/contents/testimonial/Create
 import EditSocial from './../components/admin/contents/social/EditSocial';
 import CreateTabMenu from "../components/admin/contents/tab-menu/CreateTabMenu";
 import EditTabMenu from "../components/admin/contents/tab-menu/EditTabMenu";
+import EditResume from './../components/admin/contents/resume/EditResume';
+import CreateClientsSection from './../components/admin/contents/clients/CreateClientsSection';
+import EditClientsSection from './../components/admin/contents/clients/EditClientsSection';
+import CreatePricing from './../components/admin/contents/pricing/CreatePricing';
+import EditPricing from './../components/admin/contents/pricing/EditPricing';
+import CreateResume from "../components/admin/contents/resume/CreateResume";
 
 export const services = {
     posts: {
@@ -118,8 +124,8 @@ export const services = {
         createItem: createResume,
         updateItem: updateResume,
         deleteItem: deleteResume,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateResume />,
+        editForm: <EditResume />
     },
     testimonials: {
         name: "Testimonial",
@@ -145,8 +151,8 @@ export const services = {
         createItem: createClientsSection,
         updateItem: updateClientsSection,
         deleteItem: deleteClientsSection,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateClientsSection />,
+        editForm: <EditClientsSection />
     },
     pricing: {
         name: "Pricing",
@@ -154,8 +160,8 @@ export const services = {
         createItem: createPricing,
         updateItem: updatePricing,
         deleteItem: deletePricing,
-        createForm: '',
-        editForm: ''
+        createForm: <CreatePricing />,
+        editForm: <EditPricing />
     },
     socials: {
         name: "Social Mediae",

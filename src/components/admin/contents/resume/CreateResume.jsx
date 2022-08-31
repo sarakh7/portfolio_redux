@@ -1,125 +1,77 @@
 
 import { Form, Input, Button, Switch } from 'antd';
 import SearchInput from '../../../../utils/SearchInput';
-import { useState, useContext } from 'react';
-import { getAllTabMenues } from '../../../../services/tabMenuService';
-import { createResume } from '../../../../services/themeServices';
-import { adminContext } from '../../../../context/adminContext';
-import ContentHeader from '../content-header/ContentHeader';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useAppServices } from '../../../../hooks/useAppServices';
+import { useDispatch } from 'react-redux';
+import { useSliceActions, useSliceService } from '../../../../hooks/sliceHooks';
+import { addItem } from '../../../../store/entities/adminActions';
 
-let timeout;
+const CreateResume = () => {
 
-const CreateResume = ({ showCreateForm }) => {
+    const services = useAppServices();
+
+    const dispatch = useDispatch();
+    const actions = useSliceActions();
+    const service = useSliceService();
 
     const [tabMenu, setTabMenu] = useState([]);
 
-    const { resumes, setResumes } = useContext(adminContext)
-
     const [form] = Form.useForm();
 
-    const fetchData = (value, callback) => {
-
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = null;
-        }
-
-        const fetch = async () => {
-            try {
-                const { data } = await getAllTabMenues();
-                if (data) {
-                    const filteredData = data.filter(content => {
-                        return content.title.toLowerCase().includes(value.toLowerCase());
-                    });
-
-                    const newData = filteredData.map(content => ({
-                        text: content.title,
-                        value: content.id,
-                    }))
-
-                    callback(newData);
-                }
-
-            } catch (err) {
-                toast.error("There was an error receiving data.");
-            }
-        }
-        timeout = setTimeout(fetch, 300);
-
-    }
-
     return (
-        <>
-            <ContentHeader title="Create Resume" icon={<ArrowLeftOutlined />} btnTitle="Back" action={showCreateForm} />
+        <Form
+            form={form}
+            name="add-resume"
+            layout="vertical"
+            initialValues={{ status: true }}
+            onFinish={value => dispatch(addItem(actions, { ...value, tab_menu: tabMenu }, service.createItem))}
+            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            autoComplete="off"
+        >
 
-            <Form
-                form={form}
-                name="add-event"
-                layout="vertical"
-                initialValues={{ status: true }}
-                onFinish={async (value) => {
-                    try {
-                        const { data, status } = await createResume({ ...value, tab_menu: tabMenu });
-                        if (status === 201) {
-                            setResumes([...resumes, data]);
-                            toast.success("Record added successfully.");
-                        } else {
-                            toast.error("An error occurred creating the record.");
-                        }
-                        showCreateForm(false);
+            <Row>
+                <Col sm={6}>
+                    <Form.Item
+                        label="Title"
+                        name="title"
+                        rules={[{ required: true, message: 'Title is required!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Col>
+                <Col sm={6}>
+                    <Form.Item
+                        label={`Select a Tab Menu`}
+                        name="tab_menu"
+                    >
+                        <SearchInput
+                            placeholder="search a title"
+                            service={services.tabMenues}
+                            onSelect={value => setTabMenu(value)}
+                        />
+                    </Form.Item>
+                </Col>
+            </Row>
 
-                    } catch (err) {
-                        toast.error("An error occurred creating the record.");
-                    }
-                }}
-                onFinishFailed={err => toast.error("Please complete all fields correctly.")}
-                autoComplete="off"
+
+            <Form.Item
+                label="Publish"
+                name="status"
+                valuePropName="checked"
             >
+                <Switch />
+            </Form.Item>
 
-                <Row>
-                    <Col sm={6}>
-                        <Form.Item
-                            label="Title"
-                            name="title"
-                            rules={[{ required: true, message: 'Title is required!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                    <Col sm={6}>
-                        <Form.Item
-                            label={`Select a Tab Menu`}
-                            name="tab_menu"
-                        >
-                            <SearchInput
-                                placeholder="search a title"
-                                fetchData={fetchData}
-                                onSelect={value => setTabMenu(value)}
-                            />
-                        </Form.Item>
-                    </Col>
-                </Row>
+            <Form.Item>
+                <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
+                {" "}
+                <Button type="primary" htmlType="submit">{`Create ${service.name}`}</Button>
+            </Form.Item>
 
-
-                <Form.Item
-                    label="Publish"
-                    name="status"
-                    valuePropName="checked"
-                >
-                    <Switch />
-                </Form.Item>
-
-                <Form.Item>
-                    <Button onClick={() => showCreateForm(false)}>Cancel</Button>
-                    {" "}
-                    <Button type="primary" htmlType="submit">Create Resume</Button>
-                </Form.Item>
-
-            </Form>
-        </>
+        </Form>
     );
 }
 

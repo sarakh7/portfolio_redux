@@ -25,7 +25,7 @@ const CreateTimeline = () => {
     return (
         <Form
             form={form}
-            name="add-event"
+            name="add-timeline"
             layout="vertical"
             initialValues={{ status: true }}
             onFinish={value => dispatch(addItem(actions, { ...value, events: value.events?.map(event => event.value) }, service.createItem))}

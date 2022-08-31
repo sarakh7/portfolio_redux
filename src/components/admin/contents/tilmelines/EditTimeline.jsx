@@ -35,7 +35,7 @@ const EditTimeline = () => {
                 : (
                     <Form
                         form={form}
-                        name="add-event"
+                        name="edit-timeline"
                         layout="vertical"
                         initialValues={{
                             ...currentItem,

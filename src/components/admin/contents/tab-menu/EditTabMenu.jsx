@@ -110,7 +110,7 @@ const EditTabMenu = () => {
     return (
         <Form
             form={form}
-            name="add-event"
+            name="edit-tab-menu"
             layout="vertical"
             initialValues={{ ...currentItem, type: Object.values(contentTypes)[0].value }}
             onFinish={value =>

@@ -47,7 +47,7 @@ const createAdminSlice = ({ name, initialState, reducers }) => createSlice({
 
     }
 })
-export const catsSlice = createAdminSlice({name: 'cats'});
+export const catsSlice = createAdminSlice({ name: 'cats' });
 export const productsSlice = createAdminSlice({ name: 'products' });
 export const usersSlice = createAdminSlice({ name: 'users' });
 export const aboutsSlice = createAdminSlice({ name: 'abouts' });
@@ -56,7 +56,9 @@ export const clientsSlice = createAdminSlice({ name: 'clients' });
 export const socialsSlice = createAdminSlice({ name: 'socials' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
-export const tabMenuesSlice = createAdminSlice({ 
+export const resumesSlice = createAdminSlice({name: 'resumes'});
+
+export const tabMenuesSlice = createAdminSlice({
     name: 'tabMenues',
     initialState: {
         innerItems: []
@@ -94,7 +96,7 @@ export const tabMenuesSlice = createAdminSlice({
             state.innerItems = [];
         },
     }
- });
+});
 export const timelinesSlice = createAdminSlice({
     name: 'timelines',
     initialState: {

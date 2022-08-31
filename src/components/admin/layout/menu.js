@@ -9,12 +9,11 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import Posts from '../contents/posts/Posts';
-import Resumes from '../contents/resume/Resumes';
 import Pricings from '../contents/pricing/Pricings';
 import ClientsSections from '../contents/clients/ClientsSections';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
@@ -101,7 +100,7 @@ const pages = [
         component: "",
         children: [
             { name: 'General Settings', key: 'general', component: <SliceProvider slice={aboutsSlice} service={services.abouts}><ContentLayout /></SliceProvider> },
-            { name: 'Resumes', key: 'resumes', component: <Resumes /> },
+            { name: 'Resumes', key: 'resumes', component: <SliceProvider slice={resumesSlice} service={services.resumes}><ContentLayout /></SliceProvider> },
             { name: 'Testimonials', key: 'testimonials', component: <SliceProvider slice={testimonialsSlice} service={services.testimonials}><ContentLayout /></SliceProvider> },
             { name: 'Clients', key: 'clients', component: <SliceProvider slice={clientsSlice} service={services.clients}><ContentLayout /></SliceProvider> },
             { name: 'Clients Section', key: 'all-clients-section', component: <ClientsSections /> },

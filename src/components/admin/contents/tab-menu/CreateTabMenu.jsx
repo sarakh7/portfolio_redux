@@ -107,7 +107,7 @@ const CreateTabMenu = () => {
     return (
         <Form
             form={form}
-            name="add-event"
+            name="add-tab-menu"
             layout="vertical"
             initialValues={{ type: Object.values(contentTypes)[0].value, status: true }}
             onFinish={value => dispatch(addItem(actions, { title: value.title, tabs: tabs.map(tab => tab.id), status: value.status, date: Date.now() }, service.createItem))}

@@ -66,10 +66,7 @@ export const getInnerItems = (actions, innerList, getItemsFunc) => async (dispat
         const { data, status } = await getItemsFunc()
         if (status === 200) {
             const innerItems = data.filter(item => innerList?.includes(item.id))
-                // .map(item => ({
-                //     label: item.title,
-                //     value: item.id,
-                // }));
+
             dispatch(actions.innerItemsReceived(innerItems));
         }
 
@@ -109,5 +106,19 @@ export const removeInnerItem = (actions, itemId, removeFunc) => async (dispatch)
         }
     } catch (err) {
         toast.error("Failed to delete record.");
+    }
+}
+
+export const getAllInnerItems = (actions, getItemsFunc) => async (dispatch) => {
+    try {
+        const { data, status } = await getItemsFunc()
+        if (status === 200) {
+
+            dispatch(actions.innerItemsReceived(data.filter(item => item.status === true)));
+        }
+
+    } catch (err) {
+        toast.error("There was an error receiving events.");
+        console.log(err)
     }
 }

@@ -35,6 +35,8 @@ import EditClientsSection from './../components/admin/contents/clients/EditClien
 import CreatePricing from './../components/admin/contents/pricing/CreatePricing';
 import EditPricing from './../components/admin/contents/pricing/EditPricing';
 import CreateResume from "../components/admin/contents/resume/CreateResume";
+import CreatePost from "../components/admin/contents/posts/CreatePost";
+import EditPost from "../components/admin/contents/posts/EditPost";
 
 export const services = {
     posts: {
@@ -43,8 +45,8 @@ export const services = {
         createItem: createPost,
         updateItem: updatePost,
         deleteItem: deletePost,
-        createForm: '',
-        editForm: ''
+        createForm: <CreatePost />,
+        editForm: <EditPost />
     },
     cats: {
         name: "Post Category",

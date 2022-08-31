@@ -8,10 +8,9 @@ import {
     ShoppingOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import Posts from '../contents/posts/Posts';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { aboutsSlice, catsSlice, clientSectionsSlice, clientsSlice, eventsSlice, pricingsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, clientSectionsSlice, clientsSlice, eventsSlice, postsSlice, pricingsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
@@ -25,7 +24,12 @@ const pages = [
         icon: <FormOutlined />,
         component: "",
         children: [
-            { name: 'Posts', key: 'all-posts', component: <Posts /> },
+            {
+                name: 'Posts', key: 'all-posts', component:
+                    <SliceProvider slice={postsSlice} service={services.posts}>
+                        <ContentLayout />
+                    </SliceProvider>
+            },
             {
                 name: 'Categories', key: 'posts-cats', component:
                     <SliceProvider slice={catsSlice} service={services.cats}>

@@ -40,7 +40,7 @@ const UploadFile = ({ fileId, setFileId }) => {
 
     getBase64(info.file.originFileObj, async (url) => {
 
-      console.log(info.file.originFileObj)
+      // console.log(info.file.originFileObj)
       try {
         const { data: createdFile, status } = await createFile({
           name: info.file.originFileObj.name,

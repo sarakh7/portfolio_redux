@@ -60,6 +60,26 @@ export const pricingsSlice = createAdminSlice({name: 'pricings'});
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
 
+export const postsSlice = createAdminSlice({ 
+    name: 'posts',
+    initialState: {
+        innerItems: [],
+    },
+    reducers: {
+        innerItemsReceived: (state, action) => {
+            state.innerItems = action.payload;
+        },
+        editFormOpened: (state) => {
+            state.showEditForm = true;
+        },
+        editFormCanceled: (state) => {
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems = []
+        },
+    }
+ });
+
 export const timelinesSlice = createAdminSlice({
     name: 'timelines',
     initialState: {

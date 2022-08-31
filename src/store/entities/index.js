@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import {
+    postsSlice,
     catsSlice,
     eventsSlice,
     timelinesSlice,
@@ -14,10 +15,11 @@ import {
     tabMenuesSlice,
     resumesSlice,
     clientSectionsSlice,
-    pricingsSlice
+    pricingsSlice,
 } from './adminSlices';
 
 export default combineReducers({
+    [postsSlice.name]: postsSlice.reducer,
     [catsSlice.name]: catsSlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
     [timelinesSlice.name]: timelinesSlice.reducer,

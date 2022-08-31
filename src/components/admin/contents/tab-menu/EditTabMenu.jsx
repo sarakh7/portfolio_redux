@@ -10,12 +10,12 @@ import { useEffect } from 'react';
 import { useAppContentTypes } from '../../../../hooks/useAppContentTypes';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
-import { addInnerItem, addItem, removeInnerItem } from '../../../../store/entities/adminActions';
+import { addInnerItem, editItem, getInnerItems, removeInnerItem } from '../../../../store/entities/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
 
 const { Option } = Select;
 
-const CreateTabMenu = () => {
+const EditTabMenu = () => {
 
     const contentTypes = useAppContentTypes();
     const services = useAppServices();
@@ -23,7 +23,7 @@ const CreateTabMenu = () => {
     const dispatch = useDispatch();
     const actions = useSliceActions();
     const service = useSliceService();
-    const { innerItems: tabs } = useSliceSelector();
+    const { innerItems: tabs, currentItem } = useSliceSelector();
 
     const [typeOptions, setTypeOptions] = useState();
     const [client, setClient] = useState([]);
@@ -40,6 +40,9 @@ const CreateTabMenu = () => {
     const [form] = Form.useForm();
 
     useEffect(() => {
+
+        dispatch(getInnerItems(actions, currentItem.tabs, services.tabs.getAllItems));
+
         const options = [];
         for (const key in contentTypes) {
             options.push({
@@ -50,7 +53,7 @@ const CreateTabMenu = () => {
         }
         setTypeOptions(options);
 
-    }, [])
+    }, [dispatch, actions, currentItem, services])
 
     const handleChangeType = (value) => {
         setContentType(typeOptions.find(type => type.value === value));
@@ -109,8 +112,9 @@ const CreateTabMenu = () => {
             form={form}
             name="add-event"
             layout="vertical"
-            initialValues={{ type: Object.values(contentTypes)[0].value, status: true }}
-            onFinish={value => dispatch(addItem(actions, { title: value.title, tabs: tabs.map(tab => tab.id), status: value.status, date: Date.now() }, service.createItem))}
+            initialValues={{ ...currentItem, type: Object.values(contentTypes)[0].value }}
+            onFinish={value =>
+                dispatch(editItem(actions, { id: currentItem.id, title: value.title, status: value.status, tabs: tabs.map(tab => tab.id) }, service.updateItem))}
             onFinishFailed={err => toast.error("Please complete all fields correctly.")}
             autoComplete="off"
         >
@@ -251,13 +255,13 @@ const CreateTabMenu = () => {
             </Form.Item>
 
             <Form.Item>
-                <Button onClick={() => dispatch(actions.createFormCanceled())}>Cancel</Button>
+                <Button onClick={() => dispatch(actions.editFormCanceled())}>Cancel</Button>
                 {" "}
-                <Button type="primary" htmlType="submit">{`Create ${service.name}`}</Button>
+                <Button type="primary" htmlType="submit">Save Changes</Button>
             </Form.Item>
         </Form>
 
     );
 }
 
-export default CreateTabMenu;
+export default EditTabMenu;

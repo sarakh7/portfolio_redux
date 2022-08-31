@@ -66,14 +66,48 @@ export const getInnerItems = (actions, innerList, getItemsFunc) => async (dispat
         const { data, status } = await getItemsFunc()
         if (status === 200) {
             const innerItems = data.filter(item => innerList?.includes(item.id))
-                .map(item => ({
-                    label: item.title,
-                    value: item.id,
-                }));
+                // .map(item => ({
+                //     label: item.title,
+                //     value: item.id,
+                // }));
             dispatch(actions.innerItemsReceived(innerItems));
         }
 
     } catch (err) {
         toast.error("There was an error receiving events.");
+        console.log(err)
+    }
+}
+
+export const addInnerItem = (actions, item, createItemFunc) => async (dispatch) => {
+
+    try {
+        const { data, status } = await createItemFunc(item);
+
+        if (status === 201) {
+            toast.success("Record added successfully.");
+            return dispatch(actions.innerItemAdded(data));
+        } else {
+            toast.error("An error occurred creating the record.");
+        }
+
+    } catch (err) {
+        toast.error("An error occurred creating the record.");
+        console.log(err)
+    }
+}
+
+export const removeInnerItem = (actions, itemId, removeFunc) => async (dispatch) => {
+
+    try {
+        const { status } = await removeFunc(itemId);
+        if (status === 200) {
+            dispatch(actions.innerItemRemoved(itemId));
+            toast.success("The record was deleted.");
+        } else {
+            toast.error("Failed to delete record.");
+        }
+    } catch (err) {
+        toast.error("Failed to delete record.");
     }
 }

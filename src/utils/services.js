@@ -27,6 +27,8 @@ import { createAbout, createClient, createClientsSection, createPricing, createR
 import EditAbout from './../components/admin/contents/about/EditAbout';
 import CreateTestimonial from './../components/admin/contents/testimonial/CreateTestimonial';
 import EditSocial from './../components/admin/contents/social/EditSocial';
+import CreateTabMenu from "../components/admin/contents/tab-menu/CreateTabMenu";
+import EditTabMenu from "../components/admin/contents/tab-menu/EditTabMenu";
 
 export const services = {
     posts: {
@@ -173,12 +175,12 @@ export const services = {
         editForm: ''
     },
     tabMenues: {
-        name: "Tab Menue",
+        name: "Tab Menu",
         getAllItems: getAllTabMenues,
         createItem: createTabMenu,
         updateItem: updateTabMenu,
         deleteItem: deleteTabMenu,
-        createForm: '',
-        editForm: ''
+        createForm: <CreateTabMenu />,
+        editForm: <EditTabMenu />
     },
 }

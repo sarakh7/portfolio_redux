@@ -56,6 +56,45 @@ export const clientsSlice = createAdminSlice({ name: 'clients' });
 export const socialsSlice = createAdminSlice({ name: 'socials' });
 export const eventsSlice = createAdminSlice({ name: 'events' });
 export const progressbarsSlice = createAdminSlice({ name: 'progressbars' });
+export const tabMenuesSlice = createAdminSlice({ 
+    name: 'tabMenues',
+    initialState: {
+        innerItems: []
+    },
+    reducers: {
+        itemAdded: (state, action) => {
+            state.items.push(action.payload);
+            state.showCreateForm = false;
+            state.innerItems = [];
+        },
+        innerItemAdded: (state, action) => {
+            state.innerItems.push(action.payload);
+        },
+        innerItemRemoved: (state, action) => {
+            state.innerItems = state.innerItems.filter(item => item.id !== action.payload);
+        },
+        innerItemsReceived: (state, action) => {
+            state.innerItems = action.payload;
+            state.loadingInnerItems = false;
+        },
+        createFormCanceled: (state) => {
+            state.showCreateForm = false;
+            state.innerItems = [];
+        },
+        editFormCanceled: (state) => {
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems = [];
+        },
+        itemUpdated: (state, action) => {
+            const index = state.items.findIndex(item => item.id === action.payload.id);
+            state.items[index] = action.payload;
+            state.showEditForm = false;
+            state.currentItem = {};
+            state.innerItems = [];
+        },
+    }
+ });
 export const timelinesSlice = createAdminSlice({
     name: 'timelines',
     initialState: {

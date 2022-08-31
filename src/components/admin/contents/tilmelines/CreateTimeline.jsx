@@ -7,9 +7,11 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceService } from '../../../../hooks/sliceHooks';
 import { addItem } from '../../../../store/entities/adminActions';
-import { services } from '../../../../utils/services';
+import { useAppServices } from '../../../../hooks/useAppServices';
 
 const CreateTimeline = () => {
+
+    const services = useAppServices();
 
     const [value, setValue] = useState([]);
 

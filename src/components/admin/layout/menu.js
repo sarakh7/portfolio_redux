@@ -9,13 +9,12 @@ import {
     UserOutlined
 } from '@ant-design/icons';
 import Posts from '../contents/posts/Posts';
-import TabMenues from '../contents/tab-menu/TabMenues';
 import Resumes from '../contents/resume/Resumes';
 import Pricings from '../contents/pricing/Pricings';
 import ClientsSections from '../contents/clients/ClientsSections';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, socialsSlice, usersSlice } from '../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, clientsSlice, eventsSlice, productsSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
 import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
@@ -86,7 +85,10 @@ const pages = [
         component: <SliceProvider slice={productsSlice} service={services.products}><ContentLayout /></SliceProvider>
     },
 
-    { name: 'Tab Menues', key: 'tab-menues', icon: <MenuOutlined />, component: <TabMenues /> },
+    {
+        name: 'Tab Menues', key: 'tab-menues', icon: <MenuOutlined />,
+        component: <SliceProvider slice={tabMenuesSlice} service={services.tabMenues}><ContentLayout /></SliceProvider>
+    },
     {
         name: 'Users', key: 'users', icon: <UserOutlined />,
         component: <SliceProvider slice={usersSlice} service={services.users}><ContentLayout /></SliceProvider>

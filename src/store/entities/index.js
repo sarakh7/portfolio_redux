@@ -10,7 +10,8 @@ import {
     aboutsSlice,
     testimonialsSlice,
     clientsSlice,
-    socialsSlice
+    socialsSlice,
+    tabMenuesSlice
 } from './adminSlices';
 
 export default combineReducers({
@@ -25,4 +26,5 @@ export default combineReducers({
     [testimonialsSlice.name]: testimonialsSlice.reducer,
     [clientsSlice.name]: clientsSlice.reducer,
     [socialsSlice.name]: socialsSlice.reducer,
+    [tabMenuesSlice.name]: tabMenuesSlice.reducer,
 })

@@ -7,11 +7,13 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
-import { services } from '../../../../utils/services';
+import { useAppServices } from '../../../../hooks/useAppServices';
 
 const EditProgressBarList = () => {
 
     const [value, setValue] = useState([]);
+
+    const services = useAppServices();
 
     const dispatch = useDispatch();
     const actions = useSliceActions();
@@ -35,7 +37,13 @@ const EditProgressBarList = () => {
                         form={form}
                         name="add-event"
                         layout="vertical"
-                        initialValues={{ ...currentItem, progressbars: innerItems }}
+                        initialValues={{
+                            ...currentItem,
+                            progressbars: innerItems.map(item => ({
+                                label: item.title,
+                                value: item.id,
+                            }))
+                        }}
                         onFinish={value => dispatch(editItem(actions, {
                             id: currentItem.id,
                             ...value,

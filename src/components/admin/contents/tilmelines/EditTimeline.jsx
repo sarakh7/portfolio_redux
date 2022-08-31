@@ -8,11 +8,13 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
-import { services } from '../../../../utils/services';
+import { useAppServices } from '../../../../hooks/useAppServices';
 
 const EditTimeline = () => {
 
     const [value, setValue] = useState([]);
+
+    const services = useAppServices();
 
     const dispatch = useDispatch();
     const actions = useSliceActions();
@@ -23,7 +25,7 @@ const EditTimeline = () => {
     useEffect(() => {
         dispatch(getInnerItems(actions, currentItem.events, services.events.getAllItems));
 
-    }, [dispatch, actions, currentItem]);
+    }, [dispatch, actions, currentItem, services]);
 
     const [form] = Form.useForm();
 
@@ -35,7 +37,13 @@ const EditTimeline = () => {
                         form={form}
                         name="add-event"
                         layout="vertical"
-                        initialValues={{ ...currentItem, events: innerItems }}
+                        initialValues={{
+                            ...currentItem,
+                            events: innerItems.map(item => ({
+                                label: item.title,
+                                value: item.id,
+                            }))
+                        }}
                         onFinish={value => dispatch(editItem(actions, {
                             id: currentItem.id,
                             ...value,

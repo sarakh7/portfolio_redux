@@ -1,9 +1,9 @@
-import { getAllEvents, getAllTimelines } from "../services/eventServices";
-import { getAllPosts } from "../services/postService";
-import { getAllProducts } from "../services/productService";
-import { getAllProgressBarLists, getAllProgressBars } from "../services/progressBarService";
-import { getAllTabMenues, getAllTabs } from "../services/tabMenuService";
-import { getAllClients } from "../services/themeServices";
+import { getAllEvents, getAllTimelines } from "../../../services/eventServices";
+import { getAllPosts } from "../../../services/postService";
+import { getAllProducts } from "../../../services/productService";
+import { getAllProgressBarLists, getAllProgressBars } from "../../../services/progressBarService";
+import { getAllTabMenues, getAllTabs } from "../../../services/tabMenuService";
+import { getAllClients } from "../../../services/themeServices";
 
 
 const getAllTabContents = async (contentType) => {

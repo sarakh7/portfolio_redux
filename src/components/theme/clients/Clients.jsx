@@ -1,8 +1,11 @@
+import { useAppContentTypes } from '../../../hooks/useAppContentTypes';
 import { Tab, Tabs } from '../layout/tab-menu/TabMenu';
 import styles from './clients.module.css';
 import ClientsContent from './ClientsContent';
 
 const Clients = ({ tabs }) => {
+
+    const contentTypes = useAppContentTypes();
 
     return (
         <div className={styles.clientWrapper}>
@@ -15,7 +18,7 @@ const Clients = ({ tabs }) => {
                     direction="vertical"
                 >
                     {tabs.map((tab, index) => {
-                        if (tab.contentType === 5) {
+                        if (tab.contentType === contentTypes.client.value) {
                             return (
                                 <Tab
                                     key={`clients-tab-${index}`}

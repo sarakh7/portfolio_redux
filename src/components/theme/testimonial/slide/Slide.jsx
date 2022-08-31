@@ -13,6 +13,10 @@ const Slide = ({ content }) => {
     const [slideImage, setSlideImage] = useState();
 
     const fetchImage = async () => {
+
+        //This is a temporary way to get a base64 image
+        // In the real server, the file address is passed as the value of the image, and there is no need to receive the image in this way
+
         if (content.image) {
             try {
                 const { data, status } = await getFileById(content.image);

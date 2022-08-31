@@ -1,89 +1,45 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Tag, Divider } from 'antd';
 import classNames from 'classnames';
-import { useState } from 'react';
 import { useEffect } from 'react';
-import { getAllPosts } from "../../../../services/postService";
-import { getAllProducts } from "../../../../services/productService";
-
 import styles from './admin-home-content.module.css';
-import { getAllEvents, getAllTimelines } from "../../../../services/eventServices";
-import { getAllProgressBars } from "../../../../services/progressBarService";
-import { getAllTabMenues } from "../../../../services/tabMenuService";
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAppServices } from './../../../../hooks/useAppServices';
+import { getItemNum } from "../../../../store/entities/homeActions";
+import {
+    eventNumReceived,
+    menuNumReceived,
+    postNumReceived,
+    productNumReceived,
+    progressNumReceived,
+    timelineNumReceived
+} from "../../../../store/entities/homeSlice";
+
 
 const Home = () => {
 
-    const [postNum, setPostNum] = useState(0);
-    const [productNum, setProductNum] = useState(0);
-    const [eventNum, setEventNum] = useState(0);
-    const [timelineNum, setTimelineNum] = useState(0);
-    const [progressNum, setProgressNum] = useState(0);
-    const [menuNum, setMenuNum] = useState(0);
+    const dispatch = useDispatch();
 
-    const getPostNum = async () => {
-        try {
-            const { data } = await getAllPosts();
-            setPostNum(data.length);
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    };
+    const services = useAppServices();
 
-    const getProductNum = async () => {
-        try {
-            const { data } = await getAllProducts();
-            setProductNum(data.length);
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    };
-        
-    const getEventNum = async () => {
-        try {
-            const { data } = await getAllEvents();
-            setEventNum(data.length);
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    };
-
-    const getTimelineNum = async () => {
-        try {
-            const { data } = await getAllTimelines();
-            setTimelineNum(data.length);
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    };
-
-    const getProgressNum = async () => {
-        try {
-            const { data } = await getAllProgressBars();
-            setProgressNum(data.length);
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    };
-
-    const getMenuNum = async () => {
-        try {
-            const { data } = await getAllTabMenues();
-            setMenuNum(data.length);
-        } catch (err) {
-            toast.error("There was an error receiving data.");
-        }
-    };
+    const {
+        postNum,
+        productNum,
+        eventNum,
+        timelineNum,
+        progressNum,
+        menuNum
+    } = useSelector(state => state.entities.home);
 
 
     useEffect(() => {
-        getPostNum();
-        getProductNum();
-        getEventNum();
-        getTimelineNum();
-        getProgressNum();
-        getMenuNum();
-    }, []);
+        dispatch(getItemNum(postNumReceived, services.posts.getAllItems));
+        dispatch(getItemNum(productNumReceived, services.products.getAllItems));
+        dispatch(getItemNum(eventNumReceived, services.events.getAllItems));
+        dispatch(getItemNum(timelineNumReceived, services.timelines.getAllItems));
+        dispatch(getItemNum(progressNumReceived, services.progressbars.getAllItems));
+        dispatch(getItemNum(menuNumReceived, services.tabMenues.getAllItems));
+    }, [dispatch, services, getItemNum]);
 
     return (
         <Container>

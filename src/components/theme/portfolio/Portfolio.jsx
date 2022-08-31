@@ -7,17 +7,21 @@ import FadeUpBox from "../layout/box/fade-up-box/FadeUpBox";
 import styles from './portfolio.module.css';
 import { getFileById } from "../../../services/themeServices";
 
-const Portfolio = ({works}) => {
+const Portfolio = ({ works }) => {
 
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({});
 
     const handleWorkClick = async (work) => {
+        
+        //This is a temporary way to get a base64 image
+        // In the real server, the file address is passed as the value of the image, and there is no need to receive the image in this way
+
         if (work.image) {
             try {
                 const { data, status } = await getFileById(work.image);
-                if(status === 200) {
-                    setModalContent({...work, image: data.content});
+                if (status === 200) {
+                    setModalContent({ ...work, image: data.content });
                     setShowModal(true);
                 }
             } catch (err) {

@@ -15,7 +15,6 @@ const Home = ({ socials, profileInfo }) => {
 		setAnimatedTitle(profileInfo.jobs[count]);
 		setCount(count + 1);
 		setShowTitle(true);
-		// setBanner(require(`../../../assets/images/${profileInfo.main_banner}`));
 		setBanner(profileInfo.mainBanner);
 	}, []);
 

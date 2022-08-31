@@ -18,8 +18,9 @@ import { META } from '../../../utils/meta';
 
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './admin-layout.module.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser } from './../../../store/auth/authActions';
+import { getPanelLogo } from '../../../store/ui/uiActions';
 
 ConfigProvider.config({
   theme: {
@@ -34,30 +35,15 @@ const AdminLayout = () => {
 
   const [collapsed, setCollapsed] = useState(false);
   const [activePage, setActivePage] = useState(<Home />);
-  const [panelLogo, setPanelLogo] = useState("");
 
   const dispatch = useDispatch();
 
+  const {panelLogo} = useSelector(state => state.ui);
+
   useEffect(() => {
-    const fetchLogo = async () => {
-      try {
-        const { data, status } = await getAllAbouts();
-        if (status === 200) {
-          const filteredAbouts = data.filter(item => item.status === true);
-          if (filteredAbouts) {
-            const settings = filteredAbouts[filteredAbouts.length - 1];
-            const { data: panelLogoFile } = await getFileById(settings.panel_logo);
-            setPanelLogo(panelLogoFile.content);
-          }
-        }
-      } catch (err) {
-        console.log(err)
-      }
-    }
+    dispatch(getPanelLogo());
 
-    fetchLogo();
-
-  }, [])
+  }, [dispatch, getPanelLogo])
 
   const toggle = () => {
     setCollapsed(!collapsed)

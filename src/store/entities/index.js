@@ -17,8 +17,10 @@ import {
     clientSectionsSlice,
     pricingsSlice,
 } from './adminSlices';
+import homeSlice from "./homeSlice";
 
 export default combineReducers({
+    home: homeSlice.reducer,
     [postsSlice.name]: postsSlice.reducer,
     [catsSlice.name]: catsSlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,

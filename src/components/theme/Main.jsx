@@ -12,7 +12,7 @@ import Slider from './testimonial/slider/Slider';
 import { useState, useEffect, useContext } from 'react';
 import { getAllPosts } from '../../services/postService';
 import { getAllAbouts, getAllClientsSection, getAllPricings, getAllResumes, getAllTestimonials, getFileById } from '../../services/themeServices';
-import { getTabMenuContent } from '../../utils/getTabMenuContent';
+import { getTabMenuContent } from './helpers/getTabMenuContent';
 import { getAllSocial } from '../../services/socialService';
 import { Spin } from 'antd';
 import { mainContext } from '../../context/MainProvider';

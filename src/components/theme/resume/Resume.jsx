@@ -1,15 +1,18 @@
 import { Tabs, Tab } from '../layout/tab-menu/TabMenu';
 import Timelines from "./Timelines";
 import Skills from "./Skills";
+import { useAppContentTypes } from './../../../hooks/useAppContentTypes';
 
 const Resume = ({ tabs }) => {
+
+    const contentTypes = useAppContentTypes();
 
     return (
         <>
             <Tabs key="resume" name="resume" defaultValue="tab-0">
                 {
                     tabs.map((tab, index) => {
-                        if (tab.contentType === 1) {
+                        if (tab.contentType === contentTypes.timeline.value) {
                             return (
                                 <Tab
                                     key={`resume-tab-${index}`}
@@ -32,7 +35,7 @@ const Resume = ({ tabs }) => {
                                     />
                                 </Tab>
                             )
-                        } else if (tab.contentType === 2) {
+                        } else if (tab.contentType === contentTypes.progressbar.value) {
                             return (
                                 <Tab
                                     key={`resume-tab-${index}`}

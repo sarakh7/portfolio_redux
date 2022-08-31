@@ -4,8 +4,12 @@ import Title from '../layout/typography/Title';
 import { Tabs, Tab } from '../layout/tab-menu/TabMenu';
 import ContentCard from '../layout/cards/content-card/ContentCard';
 import styles from './pricing.module.css';
+import { useAppContentTypes } from '../../../hooks/useAppContentTypes';
 
 const Pricing = ({ tabs }) => {
+
+    const contentTypes = useAppContentTypes();
+
     return (
         <Row>
             <Col lg={5}>
@@ -15,7 +19,7 @@ const Pricing = ({ tabs }) => {
                 <div className={styles.contentWrapper}>
                     <Tabs key="pricing" name="pricing" defaultValue="tab-0" className={styles.tabMenu}>
                         {tabs.map((tab, index) => {
-                            if (tab.contentType === 3) {
+                            if (tab.contentType === contentTypes.product.value) {
                                 return (
                                     <Tab
                                         key={`pricing-tab-${index}`}

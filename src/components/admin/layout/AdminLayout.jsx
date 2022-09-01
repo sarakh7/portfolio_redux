@@ -41,7 +41,7 @@ const AdminLayout = () => {
   useEffect(() => {
     dispatch(getPanelLogo());
 
-  }, [dispatch, getPanelLogo])
+  }, [dispatch])
 
   const toggle = () => {
     setCollapsed(!collapsed)

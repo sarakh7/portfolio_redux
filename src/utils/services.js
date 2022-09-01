@@ -1,21 +1,3 @@
-import CreateAbout from "../components/admin/contents/about/CreateAbout";
-import CreateClient from "../components/admin/contents/clients/CreateClient";
-import EditClient from "../components/admin/contents/clients/EditClient";
-import CreateEvent from "../components/admin/contents/events/CreateEvent";
-import EditEvent from "../components/admin/contents/events/EditEvent";
-import CreateCat from "../components/admin/contents/posts/post-cats/CreateCat";
-import EditCat from "../components/admin/contents/posts/post-cats/EditCat";
-import CreateProduct from "../components/admin/contents/products/CreateProduct";
-import EditProduct from "../components/admin/contents/products/EditProduct";
-import CreateProgressBar from "../components/admin/contents/progress-bars/CreateProgressBar";
-import CreateProgressBarList from "../components/admin/contents/progress-bars/CreateProgressBarList";
-import EditProgressBar from "../components/admin/contents/progress-bars/EditProgressBar";
-import EditProgressBarList from "../components/admin/contents/progress-bars/EditProgressBarList";
-import CreateSocial from "../components/admin/contents/social/CreateSocial";
-import EditTestimonial from "../components/admin/contents/testimonial/EditTestimonial";
-import CreateTimeline from "../components/admin/contents/tilmelines/CreateTimeline";
-import EditTimeline from "../components/admin/contents/tilmelines/EditTimeline";
-import EditUser from "../components/admin/contents/users/EditUser";
 import { createUser, deleteUser, getAllUsers, updateUser } from "../services/authService";
 import { createEvent, createTimeline, deleteEvent, deleteTimeline, getAllEvents, getAllTimelines, updateEvent, updateTimeline } from "../services/eventServices";
 import { createGroup, createPost, deleteGroup, deletePost, getAllGroups, getAllPosts, updateGroup, updatePost } from "../services/postService";
@@ -24,19 +6,40 @@ import { createProgressBar, getAllProgressBars, updateProgressBar, deleteProgres
 import { createSocial, deleteSocial, getAllSocial, updateSocial } from "../services/socialService";
 import { createTab, createTabMenu, deleteTab, deleteTabMenu, getAllTabMenues, getAllTabs, updateTabMenu } from "../services/tabMenuService";
 import { createAbout, createClient, createClientsSection, createFile, createPricing, createResume, createTestimonial, deleteAbout, deleteClient, deleteClientsSection, deleteFile, deletePricing, deleteResume, deleteTestimonial, getAllAbouts, getAllClients, getAllClientsSection, getAllFiles, getAllPricings, getAllResumes, getAllTestimonials, getFileById, updateAbout, updateClient, updateClientsSection, updatePricing, updateResume, updateTestimonial } from "../services/themeServices";
-import EditAbout from './../components/admin/contents/about/EditAbout';
-import CreateTestimonial from './../components/admin/contents/testimonial/CreateTestimonial';
-import EditSocial from './../components/admin/contents/social/EditSocial';
-import CreateTabMenu from "../components/admin/contents/tab-menu/CreateTabMenu";
-import EditTabMenu from "../components/admin/contents/tab-menu/EditTabMenu";
-import EditResume from './../components/admin/contents/resume/EditResume';
-import CreateClientsSection from './../components/admin/contents/clients/CreateClientsSection';
-import EditClientsSection from './../components/admin/contents/clients/EditClientsSection';
-import CreatePricing from './../components/admin/contents/pricing/CreatePricing';
-import EditPricing from './../components/admin/contents/pricing/EditPricing';
-import CreateResume from "../components/admin/contents/resume/CreateResume";
-import CreatePost from "../components/admin/contents/posts/CreatePost";
-import EditPost from "../components/admin/contents/posts/EditPost";
+
+import {
+    CreateAbout,
+    CreateClient,
+    EditClient,
+    CreateEvent,
+    EditEvent,
+    CreateCat,
+    EditCat,
+    CreateProduct,
+    EditProduct,
+    CreateProgressBar,
+    CreateProgressBarList,
+    EditProgressBar,
+    EditProgressBarList,
+    CreateSocial,
+    EditTestimonial,
+    CreateTimeline,
+    EditTimeline,
+    EditUser,
+    EditAbout,
+    CreateTestimonial,
+    EditSocial,
+    CreateTabMenu,
+    EditTabMenu,
+    EditResume,
+    CreateClientsSection,
+    EditClientsSection,
+    CreatePricing,
+    EditPricing,
+    CreateResume,
+    CreatePost,
+    EditPost
+} from '../components/admin/contents'
 
 export const services = {
     posts: {

@@ -22,7 +22,7 @@ const Notification = () => {
             toast.warning(notification.message);
             dispatch(notificationShown());
         }
-    }, [showNotification, notification])
+    }, [dispatch, showNotification, notification])
     
     return (
         <ToastContainer theme="colored" />

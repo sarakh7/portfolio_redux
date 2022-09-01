@@ -2,10 +2,10 @@
 import { Button, Form, Select, Input, Switch, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { ROLES } from '../../../Auth/roles'
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem } from '../../../../store/entities/admin/adminActions';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const EditUser = () => {
 
@@ -56,25 +56,8 @@ const EditUser = () => {
                         roles: value.roles,
                         status: value.status
                     }, service.updateItem))}
-                    //         {
-                    //                 const newValues = { ...currentItem, password: value.password, title: value.title, roles: value.roles, status: value.status };
-                    //                 try {
-                    //                     const { data, status } = await updateUser(currentItem.id, newValues);
-                    //                     if(status === 200) {
-                    //                     const newData= [...users];
-                    //                     const dataIndex = newData.findIndex(data => data.id === currentItem.id);
-                    // newData[dataIndex] = data;
-                    // setUsers([...newData]);
-                    // toast.success("The record was successfully edited.");
-                    //                 } else {
-                    //     toast.error("Editing failed.");
-                    //                 }
-                    // showEditForm(false);
-                    //             } catch (err) {
-                    //     toast.error("Editing failed.");
-                    //             }
-                    //         }}
-                    onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+
+                    onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
                     autoComplete="off"
                 >
                     <Tag className='mb-4 p-2'>Email: {currentItem.email}</Tag>

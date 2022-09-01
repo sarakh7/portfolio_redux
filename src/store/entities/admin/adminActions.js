@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { notificationSent } from '../../ui/uiSlice';
 
 export const addItem = (actions, item, createItemFunc) => async (dispatch) => {
 
@@ -7,14 +7,13 @@ export const addItem = (actions, item, createItemFunc) => async (dispatch) => {
 
         if (status === 201) {
             dispatch(actions.itemAdded(data));
-            toast.success("Record added successfully.");
+            dispatch(notificationSent({type: "success", message: "Record added successfully."}));
         } else {
-            toast.error("An error occurred creating the record.");
+            dispatch(notificationSent({type: "error", message: "An error occurred creating the record."}));
         }
 
     } catch (err) {
-        toast.error("An error occurred creating the record.");
-        console.log(err)
+        dispatch(notificationSent({type: "error", message: "An error occurred creating the record."}));
     }
 }
 
@@ -25,7 +24,7 @@ export const getItems = (actions, getItemFunc) => async (dispatch) => {
             dispatch(actions.itemReceived(data));
         }
     } catch (err) {
-        toast.error("There was an error receiving data.");
+        dispatch(notificationSent({type: "error", message: "There was an error receiving data."}));
     }
 }
 
@@ -34,12 +33,12 @@ export const removeItem = (actions, itemId, removeFunc) => async (dispatch) => {
         const { status } = await removeFunc(itemId);
         if (status === 200) {
             dispatch(actions.itemRemoved(itemId));
-            toast.success("The record was deleted.");
+            dispatch(notificationSent({type: "success", message: "The record was deleted."}));
         } else {
-            toast.error("Failed to delete record.");
+            dispatch(notificationSent({type: "error", message: "Failed to delete record."}));
         }
     } catch (err) {
-        toast.error("Failed to delete record.");
+        dispatch(notificationSent({type: "error", message: "Failed to delete record."}));
     }
 }
 
@@ -50,14 +49,14 @@ export const editItem = (actions, item, updateFunc) => async (dispatch) => {
 
         if (status === 200) {
             dispatch(actions.itemUpdated(data));
-            toast.success("The record was successfully edited.");
+            dispatch(notificationSent({type: "success", message: "The record was successfully edited."}));
 
         } else {
-            toast.error("Editing failed.");
+            dispatch(notificationSent({type: "error", message: "Editing failed."}));
         }
 
     } catch (err) {
-        toast.error("Editing failed.");
+        dispatch(notificationSent({type: "error", message: "Editing failed."}));
     }
 }
 
@@ -71,8 +70,7 @@ export const getInnerItems = (actions, innerList, getItemsFunc) => async (dispat
         }
 
     } catch (err) {
-        toast.error("There was an error receiving events.");
-        console.log(err)
+        dispatch(notificationSent({type: "error", message: "There was an error receiving data"}));
     }
 }
 
@@ -82,15 +80,14 @@ export const addInnerItem = (actions, item, createItemFunc) => async (dispatch) 
         const { data, status } = await createItemFunc(item);
 
         if (status === 201) {
-            toast.success("Record added successfully.");
+            dispatch(notificationSent({type: "success", message: "Record added successfully."}));
             return dispatch(actions.innerItemAdded(data));
         } else {
-            toast.error("An error occurred creating the record.");
+            dispatch(notificationSent({type: "error", message: "An error occurred creating the record."}));
         }
 
     } catch (err) {
-        toast.error("An error occurred creating the record.");
-        console.log(err)
+        dispatch(notificationSent({type: "error", message: "An error occurred creating the record."}));
     }
 }
 
@@ -100,12 +97,12 @@ export const removeInnerItem = (actions, itemId, removeFunc) => async (dispatch)
         const { status } = await removeFunc(itemId);
         if (status === 200) {
             dispatch(actions.innerItemRemoved(itemId));
-            toast.success("The record was deleted.");
+            dispatch(notificationSent({type: "success", message: "The record was deleted."}));
         } else {
-            toast.error("Failed to delete record.");
+            dispatch(notificationSent({type: "success", message: "Failed to delete record."}));
         }
     } catch (err) {
-        toast.error("Failed to delete record.");
+        dispatch(notificationSent({type: "error", message: "Failed to delete record."}));
     }
 }
 
@@ -118,7 +115,6 @@ export const getAllInnerItems = (actions, getItemsFunc) => async (dispatch) => {
         }
 
     } catch (err) {
-        toast.error("There was an error receiving events.");
-        console.log(err)
+        dispatch(notificationSent({type: "error", message: "There was an error receiving events."}));
     }
 }

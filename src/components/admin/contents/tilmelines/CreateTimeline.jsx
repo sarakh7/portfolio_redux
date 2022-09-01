@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Form, Input, Button, Switch } from 'antd';
 import DebounceSelect from '../../../../utils/DebounceSelect';
 import { Row, Col } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceService } from '../../../../hooks/sliceHooks';
 import { addItem } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const CreateTimeline = () => {
 
@@ -29,7 +29,7 @@ const CreateTimeline = () => {
             layout="vertical"
             initialValues={{ status: true }}
             onFinish={value => dispatch(addItem(actions, { ...value, events: value.events?.map(event => event.value) }, service.createItem))}
-            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             autoComplete="off"
         >
 

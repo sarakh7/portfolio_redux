@@ -9,10 +9,7 @@ import {
 import pages from './menu';
 import { ConfigProvider } from 'antd';
 import Home from '../contents/home/Home';
-import { getAllAbouts, getFileById } from '../../../services/themeServices';
 import classNames from 'classnames';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
 import { META } from '../../../utils/meta';
 
@@ -21,6 +18,7 @@ import styles from './admin-layout.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser } from './../../../store/auth/authActions';
 import { getPanelLogo } from '../../../store/ui/uiActions';
+import Notification from './Notification';
 
 ConfigProvider.config({
   theme: {
@@ -54,7 +52,9 @@ const AdminLayout = () => {
       <Helmet>
         <title>{`${META.SiteName} - Admin`}</title>
       </Helmet>
-      <ToastContainer theme="colored" />
+
+      <Notification />
+
       <Layout className={styles.layout}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className={styles.logo}><img src={panelLogo} alt="logo" /></div>

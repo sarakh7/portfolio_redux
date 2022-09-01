@@ -2,10 +2,10 @@
 import { Button, Form, Input, Switch } from 'antd';
 import { useState } from 'react';
 import UploadFile from '../../../../utils/upload/UploadFile';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem } from '../../../../store/entities/admin/adminActions';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const EditClient = () => {
 
@@ -30,7 +30,7 @@ const EditClient = () => {
                 image: fileId ? fileId : currentItem.image,
             }, service.updateItem))}
 
-            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             autoComplete="off"
         >
 

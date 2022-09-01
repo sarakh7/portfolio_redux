@@ -5,13 +5,13 @@ import SearchInput from '../../../../utils/SearchInput';
 import { Card } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 import DebounceSelect from '../../../../utils/DebounceSelect';
-import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useAppContentTypes } from '../../../../hooks/useAppContentTypes';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { addInnerItem, editItem, getInnerItems, removeInnerItem } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const { Option } = Select;
 
@@ -90,7 +90,7 @@ const EditTabMenu = () => {
 
         if (tabContent.title === '') {
             setError("Tab Title is required");
-            toast.error("Please Enter the tab title!");
+            dispatch(notificationSent({type: "error", message: "Please Enter the tab title!"}));
         } else {
             const result = await dispatch(addInnerItem(actions, {
                 title: tabContent.title,
@@ -115,7 +115,7 @@ const EditTabMenu = () => {
             initialValues={{ ...currentItem, type: Object.values(contentTypes)[0].value }}
             onFinish={value =>
                 dispatch(editItem(actions, { id: currentItem.id, title: value.title, status: value.status, tabs: tabs.map(tab => tab.id) }, service.updateItem))}
-            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             autoComplete="off"
         >
 

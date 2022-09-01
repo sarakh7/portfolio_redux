@@ -1,10 +1,10 @@
 
 import { Form, Input, Button, Switch } from 'antd';
 import { Row, Col } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../../../../store/entities/admin/adminActions';
 import { useSliceActions, useSliceService } from '../../../../../hooks/sliceHooks';
+import { notificationSent } from '../../../../../store/ui/uiSlice';
 
 const CreateCat = () => {
 
@@ -21,7 +21,7 @@ const CreateCat = () => {
                 layout="vertical"
                 initialValues={{ status: true }}
                 onFinish={value => dispatch(addItem(actions, value, service.createItem))}
-                onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+                onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             >
                 <Row>
                     <Col sm={6}>

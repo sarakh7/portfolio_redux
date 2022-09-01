@@ -259,7 +259,6 @@
       "title": "test post",
       "subtitle": "test",
       "image": 61,
-      "imageContent": "",
       "cat": 1,
       "status": false,
       "id": 17
@@ -956,6 +955,16 @@
       ],
       "date": 1661932464247,
       "id": 38
+    },
+    {
+      "title": "dsdsaaddas",
+      "type": 1,
+      "content": [
+        0,
+        0
+      ],
+      "date": 1662033663191,
+      "id": 39
     }
   ],
   "resumes": [

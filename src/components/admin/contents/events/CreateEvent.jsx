@@ -1,10 +1,10 @@
 
 import { Button, Form, Input, Switch } from 'antd';
 import { Row, Col } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceService } from '../../../../hooks/sliceHooks';
 import { addItem } from './../../../../store/entities/admin/adminActions';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const CreateEvent = () => {
 
@@ -21,7 +21,7 @@ const CreateEvent = () => {
                 layout="vertical"
                 initialValues={{ status: true }}
                 onFinish={value => dispatch(addItem(actions, value, service.createItem))}
-                onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+                onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
                 autoComplete="off"
             >
 

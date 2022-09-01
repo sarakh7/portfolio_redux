@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import Main from './components/theme/Main';
 import AdminLayout from './components/admin/layout/AdminLayout';
 import MainProvider from './context/MainProvider';
-import { AdminProvider } from './context/adminContext';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import RequireAuth from './components/Auth/RequireAuth';
@@ -37,7 +36,7 @@ function App() {
           : (
             <Routes>
               <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-                <Route path='/admin' element={<AdminProvider><AdminLayout /></AdminProvider>} />
+                <Route path='/admin' element={<AdminLayout />} />
               </Route>
               <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
                 <Route path='/dashboard/:userId' element={<UserDashboard />} />

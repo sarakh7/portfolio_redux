@@ -1,12 +1,12 @@
 import { Button, Form, Input, Select, Switch } from 'antd';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useAppServices } from '../../../../hooks/useAppServices';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem, getAllInnerItems } from '../../../../store/entities/admin/adminActions';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const { Option } = Select;
 
@@ -41,7 +41,7 @@ const EditPost = () => {
                     image: fileId ? fileId : currentItem.image,
                 }, service.updateItem))
             }}
-            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             autoComplete="off"
         >
 

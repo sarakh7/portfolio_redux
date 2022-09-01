@@ -2,11 +2,11 @@ import { Button, Form, Input, Select, Switch } from 'antd';
 import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import UploadFile from '../../../../utils/upload/UploadFile';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { addItem, getAllInnerItems } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const { Option } = Select;
 
@@ -41,7 +41,7 @@ const CreatePost = () => {
                 }, service.createItem));
 
             }}
-            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             autoComplete="off"
         >
             <Form.Item

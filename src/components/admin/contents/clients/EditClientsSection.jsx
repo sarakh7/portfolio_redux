@@ -2,11 +2,11 @@ import { Form, Input, Button, Switch } from 'antd';
 import SearchInput from '../../../../utils/SearchInput';
 import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useAppServices } from '../../../../hooks/useAppServices';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem } from '../../../../store/entities/admin/adminActions';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const EditClientsSection = () => {
 
@@ -36,7 +36,7 @@ const EditClientsSection = () => {
                 ...value,
                 tab_menu: tabMenu
             }, service.updateItem))}
-            onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+            onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
             autoComplete="off"
         >
 

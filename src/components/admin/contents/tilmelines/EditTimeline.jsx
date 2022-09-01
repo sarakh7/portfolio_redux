@@ -4,11 +4,11 @@ import { Form, Input, Button, Switch } from 'antd';
 import DebounceSelect from '../../../../utils/DebounceSelect';
 import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
 import { editItem, getInnerItems } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
+import { notificationSent } from '../../../../store/ui/uiSlice';
 
 const EditTimeline = () => {
 
@@ -50,7 +50,7 @@ const EditTimeline = () => {
                             events: value.events.map(event => event.value)
                         }, service.updateItem))
                         }
-                        onFinishFailed={err => toast.error("Please complete all fields correctly.")}
+                        onFinishFailed={err => dispatch(notificationSent({type: "error", message: "Please complete all fields correctly."}))}
                         autoComplete="off"
                     >
 

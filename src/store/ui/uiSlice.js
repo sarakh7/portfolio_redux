@@ -4,6 +4,11 @@ const uiSlice = createSlice({
     name: "ui",
     initialState: {
         panelLogo: '',
+        notifications: {
+            type: '',
+            message: ''
+        },
+        showNotification: false
     },
     reducers: {
         logoReceived: (state, action) => {

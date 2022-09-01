@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import styles from './admin-home-content.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAppServices } from './../../../../hooks/useAppServices';
-import { getItemNum } from "../../../../store/entities/homeActions";
+import { getItemNum } from "../../../../store/entities/panelHomeActions";
 import {
     eventNumReceived,
     menuNumReceived,
@@ -13,7 +13,7 @@ import {
     productNumReceived,
     progressNumReceived,
     timelineNumReceived
-} from "../../../../store/entities/homeSlice";
+} from "../../../../store/entities/panelHomeSlice";
 
 
 const Home = () => {
@@ -29,7 +29,7 @@ const Home = () => {
         timelineNum,
         progressNum,
         menuNum
-    } = useSelector(state => state.entities.home);
+    } = useSelector(state => state.entities.panelHome);
 
 
     useEffect(() => {

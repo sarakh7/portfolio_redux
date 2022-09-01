@@ -1,8 +1,8 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const homeSlice = createSlice({
-    name: "home",
+const panelHomeSlice = createSlice({
+    name: "panelHome",
     initialState: {
         postNum: 0,
         productNum: 0,
@@ -40,6 +40,6 @@ export const {
     timelineNumReceived,
     progressNumReceived,
     menuNumReceived
-} = homeSlice.actions
+} = panelHomeSlice.actions
 
-export default homeSlice;
+export default panelHomeSlice;

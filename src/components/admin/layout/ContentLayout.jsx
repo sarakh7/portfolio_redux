@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import ContentHeader from '../contents/content-header/ContentHeader';
 import ContentTable from '../contents/content-table/ContentTable';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../hooks/sliceHooks';
-import { getItems, removeItem } from '../../../store/entities/adminActions';
+import { getItems, removeItem } from '../../../store/entities/admin/adminActions';
 import FormLayout from './FormLayout';
 
 const ContentLayout = () => {

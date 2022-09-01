@@ -3,7 +3,7 @@ import { Form, Input, Button, Switch } from 'antd';
 import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { editItem } from '../../../../../store/entities/adminActions';
+import { editItem } from '../../../../../store/entities/admin/adminActions';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../../hooks/sliceHooks';
 
 const EditCat = () => {

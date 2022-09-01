@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { useAppContentTypes } from '../../../../hooks/useAppContentTypes';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
-import { addInnerItem, addItem, removeInnerItem } from '../../../../store/entities/adminActions';
+import { addInnerItem, addItem, removeInnerItem } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
 
 const { Option } = Select;

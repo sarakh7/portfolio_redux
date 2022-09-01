@@ -23,7 +23,7 @@ import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../
 import { createProgressBar, getAllProgressBars, updateProgressBar, deleteProgressBar, getAllProgressBarLists, createProgressBarList, updateProgressBarList, deleteProgressBarList } from '../services/progressBarService';
 import { createSocial, deleteSocial, getAllSocial, updateSocial } from "../services/socialService";
 import { createTab, createTabMenu, deleteTab, deleteTabMenu, getAllTabMenues, getAllTabs, updateTabMenu } from "../services/tabMenuService";
-import { createAbout, createClient, createClientsSection, createPricing, createResume, createTestimonial, deleteAbout, deleteClient, deleteClientsSection, deletePricing, deleteResume, deleteTestimonial, getAllAbouts, getAllClients, getAllClientsSection, getAllPricings, getAllResumes, getAllTestimonials, updateAbout, updateClient, updateClientsSection, updatePricing, updateResume, updateTestimonial } from "../services/themeServices";
+import { createAbout, createClient, createClientsSection, createFile, createPricing, createResume, createTestimonial, deleteAbout, deleteClient, deleteClientsSection, deleteFile, deletePricing, deleteResume, deleteTestimonial, getAllAbouts, getAllClients, getAllClientsSection, getAllFiles, getAllPricings, getAllResumes, getAllTestimonials, getFileById, updateAbout, updateClient, updateClientsSection, updatePricing, updateResume, updateTestimonial } from "../services/themeServices";
 import EditAbout from './../components/admin/contents/about/EditAbout';
 import CreateTestimonial from './../components/admin/contents/testimonial/CreateTestimonial';
 import EditSocial from './../components/admin/contents/social/EditSocial';
@@ -191,4 +191,11 @@ export const services = {
         createForm: <CreateTabMenu />,
         editForm: <EditTabMenu />
     },
+    files: {
+        name: "files",
+        getAllItems: getAllFiles,
+        getItemById: getFileById,
+        createItem: createFile,
+        deleteItem: deleteFile,
+    }
 }

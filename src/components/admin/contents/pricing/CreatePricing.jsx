@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useAppServices } from '../../../../hooks/useAppServices';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceService } from '../../../../hooks/sliceHooks';
-import { addItem } from '../../../../store/entities/adminActions';
+import { addItem } from '../../../../store/entities/admin/adminActions';
 
 const CreatePricing = () => {
 

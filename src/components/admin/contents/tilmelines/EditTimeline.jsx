@@ -7,7 +7,7 @@ import { Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
-import { editItem, getInnerItems } from '../../../../store/entities/adminActions';
+import { editItem, getInnerItems } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
 
 const EditTimeline = () => {

@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { useEffect } from 'react';
 import styles from './admin-home-content.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useAppServices } from './../../../../hooks/useAppServices';
-import { getItemNum } from "../../../../store/entities/panelHomeActions";
+import { useAppServices } from '../../../../hooks/useAppServices';
+import { getItemNum } from "../../../../store/entities/admin/panelHomeActions";
 import {
     eventNumReceived,
     menuNumReceived,
@@ -13,7 +13,7 @@ import {
     productNumReceived,
     progressNumReceived,
     timelineNumReceived
-} from "../../../../store/entities/panelHomeSlice";
+} from "../../../../store/entities/admin/panelHomeSlice";
 
 
 const Home = () => {
@@ -29,7 +29,7 @@ const Home = () => {
         timelineNum,
         progressNum,
         menuNum
-    } = useSelector(state => state.entities.panelHome);
+    } = useSelector(state => state.entities.admin.panelHome);
 
 
     useEffect(() => {

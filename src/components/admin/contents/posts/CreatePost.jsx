@@ -5,7 +5,7 @@ import UploadFile from '../../../../utils/upload/UploadFile';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
-import { addItem, getAllInnerItems } from '../../../../store/entities/adminActions';
+import { addItem, getAllInnerItems } from '../../../../store/entities/admin/adminActions';
 import { useAppServices } from '../../../../hooks/useAppServices';
 
 const { Option } = Select;

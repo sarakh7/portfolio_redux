@@ -10,8 +10,8 @@ import {
 } from '@ant-design/icons';
 import Home from '../contents/home/Home';
 import SliceProvider from '../../../context/SliceProvider';
-import { aboutsSlice, catsSlice, clientSectionsSlice, clientsSlice, eventsSlice, postsSlice, pricingsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/adminSlices';
-import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/adminSlices';
+import { aboutsSlice, catsSlice, clientSectionsSlice, clientsSlice, eventsSlice, postsSlice, pricingsSlice, productsSlice, resumesSlice, socialsSlice, tabMenuesSlice, usersSlice } from '../../../store/entities/admin/adminSlices';
+import { timelinesSlice, progressbarsSlice, progressbarListsSlice, testimonialsSlice } from './../../../store/entities/admin/adminSlices';
 import ContentLayout from './ContentLayout';
 import { services } from './../../../utils/services';
 

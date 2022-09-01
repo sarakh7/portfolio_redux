@@ -10,7 +10,7 @@ const useSliceActions = () => {
 
 const useSliceSelector = () => {
   const { slice } = useContext(SliceContext)
-  return useSelector(state => state.entities[slice.name])
+  return useSelector(state => state.entities.admin[slice.name])
 }
 
 const useSliceService = () => {

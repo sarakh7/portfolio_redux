@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useAppServices } from '../../../../hooks/useAppServices';
 import { useDispatch } from 'react-redux';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
-import { editItem } from '../../../../store/entities/adminActions';
+import { editItem } from '../../../../store/entities/admin/adminActions';
 
 const EditClientsSection = () => {
 

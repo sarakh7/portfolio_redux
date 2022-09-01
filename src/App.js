@@ -11,7 +11,7 @@ import UserDashboard from './components/user-dashboard/UserDashboaed';
 import { ROLES } from './components/Auth/roles'
 import Unauthorized from './components/Auth/Unauthorized';
 import { useEffect } from "react";
-import NotFound from './components/theme/not-found/NotFound';
+import NotFound from './components/theme/contents/not-found/NotFound';
 import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import { useDispatch } from 'react-redux';

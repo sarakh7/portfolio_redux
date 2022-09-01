@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { META } from '../../utils/meta';
 import styles from './user-dashboard.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import NotFound from '../theme/not-found/NotFound';
+import NotFound from '../theme/contents/not-found/NotFound';
 import { logOutUser } from './../../store/auth/authActions';
 
 const UserDashboard = () => {

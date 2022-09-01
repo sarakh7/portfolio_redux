@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useAppServices } from '../../../../hooks/useAppServices';
 import { useSliceActions, useSliceSelector, useSliceService } from '../../../../hooks/sliceHooks';
-import { editItem, getAllInnerItems } from '../../../../store/entities/adminActions';
+import { editItem, getAllInnerItems } from '../../../../store/entities/admin/adminActions';
 
 const { Option } = Select;
 

@@ -1,5 +1,5 @@
-import MainNav from "../contents/layout/header/MainNav";
-import Footer from '../contents/layout/footer/Footer';
+import MainNav from "./header/MainNav";
+import Footer from './footer/Footer';
 import styles from './main-layout.module.css';
 import { Container } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";

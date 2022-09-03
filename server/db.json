@@ -333,12 +333,12 @@
       "id": 5
     },
     {
+      "id": 6,
       "title": "Diploma in Computer Science",
       "subtitle": "Works at Plugin Development (2016 - 2020)",
       "score": "5.00/5",
       "description": "Maecenas finibus nec sem ut imperdiet. Ut tincidunt est ac dolor aliquam sodales. Phasellus sed mauris hendrerit, laoreet sem in, lobortis mauris hendrerit ante.",
-      "status": true,
-      "id": 6
+      "status": true
     }
   ],
   "timelines": [
